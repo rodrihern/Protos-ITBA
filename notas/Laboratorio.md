@@ -64,7 +64,8 @@ Los **root-servers** (13 en total) vienen hardcodeados en los sistemas operativo
 > En registros MX, el número antes del dominio indica la **prioridad** (menor número = mayor prioridad).
 > Ejemplo: `10 aspmx.l.google.com` se intentará antes que uno con prioridad 20.
 
-Vínculo relacionado: ![[Dominios.md]]
+
+![[Drawings/Dominios]]
 
 > [!QUESTION] Investigación
 > Investigar el ataque de **envenenamiento de DNS de Kaminsky**, que explota la predictibilidad de los IDs de consulta para inyectar entradas falsas en el caché.
@@ -286,6 +287,21 @@ QUIT
 
 netcat labura sobre tcp, cuando le pongo crtl+d hago un shutdown (es una syscall). La comunicacion es full duplex pero con un ctrl+d cierro una parte, es decir yo ya no voy a mandar nada mas, es un EOF.
 
+### header format
+
+![](attachments/Pasted%20image%2020260417103406.png)
+
+
+Se van intercambiando el tamaño de ventana de cada uno, para que el que manda sepa no mandar mas que lo que el otro puede recibir. 
+
+Si la ventana se queda en 0 no manda mas nada, salvo un paquetito para preguntarle "che seguis en 0?" cada cierto tiempo. 
+
+
+
+
+
+
+---
 
 ## Opciones de red vm
 
@@ -330,8 +346,4 @@ service telnet {
 	server = /usr/sbin/telnetd
 }
 ```
-
-
->[!note]
->En la clase me quede en la hora 1:08:27
 

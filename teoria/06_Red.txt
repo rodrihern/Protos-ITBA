@@ -1,0 +1,1844 @@
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Capa de red
+✦Direccionamiento
+✦Circuitos virtuales
+✦Conmutación de paquetes
+✦IPv4
+✦ Subredes 
+✦ DHCP
+✦ DNAT / SNAT
+✦ ICMP
+✦ IPv6
+
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Capa de red
+Nivel de enlace 2
+
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Capa de red: servicios básicos
+✦ Objetivo:
+              Trasladar paquetes de un host a otro, que pueden estar 
+en distintas redes.
+✦ Servicios:
+Encapsulamiento
+Protocolos de red 3
+Paquete
+ Segmento o 
+Datagrama
+ Dato
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Capa de red: servicios básicos
+✦ Servicios:
+Forwarding
+Protocolos de red 4
+Paquete para Google 0
+ Google    
+ Amazon    
+ Netflix    
+2
+Interfaz    Destino
+     0         Telefónica
+     1         Google
+     2         Amazon
+     3         Netflix
+1
+3
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Capa de red: servicios básicos
+✦ Servicios:
+Routing
+Protocolos de red 5
+ Google    
+ Amazon    
+ Netflix    
+Interfaz   Destino
+     0         Telefónica
+     1         ????????
+     2         Amazon
+     3         ????????
+0
+0
+0
+1
+1
+1
+2
+3
+Interfaz   Destino
+     0         ??????
+     1         Google
+Interfaz   Destino
+     0         ??????
+     1         Netflix
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Capa de red: servicios básicos
+Protocolos de red 6
+Acceso 
+Red
+Aplicación
+Transporte
+Acceso 
+Red
+Aplicación
+Transporte
+Acceso 
+Red
+Acceso 
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Capa de red: servicios adicionales
+¿Qué servicios adicionales puede ofrecer un protocolo de capa de red?
+• Entrega garantizada
+• Demora mínima garantizada
+• Orientado a Conexión
+• Entrega en orden
+• Ancho de banda mínimo
+• Integridad de datos
+• Encriptación
+Protocolos de red 7
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+8
+Virtual Circuits Networks
+PROTOCOLOS DE RED
+#VC   In  #VC  Out
+  4       0      7      1
+  23     1      23    2
+  ….
+1 2
+1
+2
+0
+2
+0
+2
+0
+0
+1
+3
+3
+ #VC   In  #VC  Out
+  7      3      7       2
+  78    0      23     3
+  45    0     35      2
+….
+#VC   In  #VC  Out
+ 23      0    23      2
+  53     1    35      2
+….
+#VC   In  #VC  Out
+  7       0     4      1
+  35     0     53    3 
+….
+ 4 
+ 7 
+ 7 
+ 4 
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Google
+Datagram Networks
+Protocolos de red 9
+9
+123
+1 1
+1
+1 3 2
+2
+3
+3
+3
+2 2
+Interfaz      Destino       Métrica
+     0         “Telefónica”        10
+     1         “Google”            10
+     2         “Amazon”          10
+     3         “Google             25
+
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Virtual Circuits vs Datagram Networks 
+Protocolos de red 10
+ Datagrama Circuito virtual
+Establecer conexión --- Requerido
+Direccionamiento Id. De host origen y destino Número de CV
+Info de estado No Tabla de subred con números 
+de CV en cada router
+Enrutamiento Cada paquete una ruta 
+independiente
+Todos los paquetes del CV 
+una misma ruta
+¿Si falla un nodo? Se pierden algunos 
+paquetes
+Todos los CV que pasan por 
+el nodo finalizan
+Control de congestión Complejo Simple
+Complejidad En la capa de transporte En la capa de red
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+              Rango de Direcciones                                         Interface
+11001000 00010111 00010000 00000000                                  0
+                          hasta                                                                 …
+11001000 00010111 00010111 11111111                                     0
+11001000 00010111 00011000 00000000                                  1
+                          hasta                                                                 …
+11001000 00010111 00011000 11111111                                    1
+11001000 00010111 00011001 00000000                                  2
+                          hasta                                                                 …
+11001000 00010111 00011111 11111111                                     2
+                            en otro caso                                                    3  
+              Rango de Direcciones                                         Interface
+11001000 00010111 00010000 00000000                                  0
+                          hasta                                                                 …
+11001000 00010111 00010111 11111111                                    0
+11001000 00010111 00011000 00000000                                  1
+                          hasta                                                                 …
+11001000 00010111 00011000 11111111                                    1
+11001000 00010111 00011001 00000000                                  2
+                          hasta                                                                 …
+11001000 00010111 00011111 11111111                                     2
+                            en otro caso                                                    3  
+              Rango de Direcciones                                         Interface
+11001000 00010111 00010                                                         0
+11001000 00010111 00011000                                                   1
+11001000 00010111 00011                                                         2
+                            en otro caso                                                    3  
+Capa de red: direcciones en tabla de ruteo
+Protocolos de red 11
+0
+1
+2
+3
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Capa de red: direcciones en tabla de ruteo
+Protocolos de red 12
+0
+1
+2
+3
+Rango de Direcciones Interface
+11001000 00010111 00010 0
+11001000 00010111 00011000 1
+11001000 00010111 00011 2
+en otro caso 3
+¿Por cual interface sale? 
+11001000 00010111 00010110 10100001
+11001000 00010111 00011000 10101010 ¿Sale por la interface  1  o  2 ? 
+Interface 0
+Usando regla de 
+coincidencia del prefijo 
+más largo
+Interface 1
+
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Capa de red: direccionamiento
+Protocolos de red 13
+A
+B
+https://www.iana.org/numbers
+o 1972 Jon Postel
+o 1976 ISI (Information 
+Sciences Institute) 
+Jon Postel
+o 1988 IANA (Internet 
+Assigned Numbers 
+Authority)
+o 1993 Regional 
+Internet Registries 
+(RIR)
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Direccionamiento IPv4
+Protocolos de red 14
+RFC 790 (1981)
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Direccionamiento IPv4
+Protocolos de red 15
+✦ Loopback: (RFC 990) en el año1989 :
+✦ las comenzadas con 127 (ej. 127.0.0.1)
+✦  Redes privadas (RFC 1918) en el año 1996 : 
+✦ 10.x.x.x
+✦ 172.16.0.0 a 172.31.255.255
+✦ 192.168.x.x
+✦  Link local (RFC 3927) en el año 2005 :
+✦ 169.254.0.0 a 169.254.255.255
+Direcciones IP reservadas
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Direccionamiento IP
+Protocolos de red 16
+IP: 20.1.24.12 / 8
+GW: 20.0.0.1
+eth0
+LAN A: 20.0.0.0 / 8
+eth0
+IP: 20.1.24.17 / 8
+GW: 20.0.0.1
+IP: 20.0.0.1
+eth0
+IP: 200.1.1.12 / 24
+GW: 200.1.1.1
+eth0
+LAN C: 200.1.1.0 / 24
+eth0
+IP: 200.1.1.21 / 24
+GW: 200.1.1.1
+ IP: 200.1.1.1 / 16
+eth2
+IP: 130.1.0.2 / 16
+GW: 130.1.0.1
+eth0
+IP: 130.1.0.3 / 16
+GW: 130.1.0.1
+eth0
+IP: 130.1.0.1
+eth1 LAN B: 130.1.0.0 Internet (entre 1981 y 1993)
+Router
+Destination Gateway Interface
+20.0.0.0 0.0.0.0 eth0
+130.1.0.0 0.0.0.0 eth1
+200.1.1.0 0.0.0.0 eth2
+Hosts @ LAN C
+Destination Gateway Interface
+0.0.0.0 200.1.1.1 eth0
+127.0.0.0 0.0.0.0 Lo
+200.1.1.0 0.0.0.0 eth0
+Hosts @ LAN B
+Destination Gateway Interface
+0.0.0.0 130.1.0.1 eth0
+127.0.0.0 0.0.0.0 Lo
+130.1.0.0 0.0.0.0 eth0
+Host @ LAN A
+Destination Gateway Interface
+0.0.0.0 20.0.0.1 eth0
+127.0.0.0 0.0.0.0 Lo
+20.0.0.0 0.0.0.0 eth0
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Direccionamiento IPv4
+Protocolos de red 17
+200.1.230.134
+215.12.30.19
+10.0.0.1
+204.212.130.9
+192.168.0.1
+192.168.0.10 192.168.0.13
+192.168.0.24
+10.0.0.3
+10.0.0.2
+10.0.0.4 203.56.37.53
+Internet
+A partir de 1994
+202.168.1.10
+192.168.0.10 192.168.0.13
+192.168.0.24
+192.168.0.1
+203.56.35.53
+172.16.0.4
+172.16.0.14
+172.16.0.1
+www.youtube.com/watch?v=GLrfqtf4txw
+
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Subredes (VLSM) y Superred (CIDR)
+Protocolos de red 18
+En 1993 se busca resolver dos grandes problemas
+Agotamiento de 
+direcciones IPv4
+Crecimiento de 
+las tablas de ruteo
+VLSM
+Máscara de Subred de Longitud Variable
+CIDR
+Enrutamiento entre Dominios sin Clases
+HostsRed
+HostsRed
+HostsRed
+HostsRed
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Subredes (VLSM)
+Protocolos de red 19
+Dada la red 192.168.80.0/24 se desea particionar en 4 subredes:
+• Guest        14 hosts
+• Robots      58 hosts
+• Servers     29 hosts
+• Workers  120 hosts
+2^4 =  16 
+2^6 =  64
+2^5 =  32
+2^7 = 128 
+Mascara de Red Workers:
+11111111 . 11111111 . 11111111 . 10000000
+      255   .     255     .      255    .      128
+/ 25
+Redes Disponibles
+Network Address Usable Host Range Broadcast Address:
+192.168.80.0 192.168.80.1 - 192.168.80.126 192.168.80.127
+192.168.80.128 192.168.80.129 - 192.168.80.254 192.168.80.255
+Con 1 bit hay 2 
+redes posibles
+Red Workers
+
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Subredes (VLSM)
+Protocolos de red 20
+Dada la red 192.168.80.0/24 se desea particionar en 4 subredes:
+• Guest        14 hosts
+• Robots      58 hosts
+• Servers     29 hosts
+• Workers  120 hosts
+2^4 =  16 
+2^6 =  64
+2^5 =  32
+2^7 = 128 
+Mascara de Red Robots:
+11111111 . 11111111 . 11111111 . 11000000
+      255   .     255     .      255    .      192
+/ 26
+Redes Disponibles
+Network Address Usable Host Range Broadcast Address:
+192.168.80.0 192.168.80.1 - 192.168.80.62 192.168.80.63
+192.168.80.64 192.168.80.65 - 192.168.80.126 192.168.80.127
+192.168.80.128 192.168.80.129 - 192.168.80.190 192.168.80.191
+192.168.80.192 192.168.80.193 - 192.168.80.254 192.168.80.255
+Con 2 bit hay 4 
+redes posibles
+Red Robots
+Red Workers
+
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Subredes (VLSM)
+Protocolos de red 21
+Dada la red 192.168.80.0/24 se desea particionar en 4 subredes:
+• Guest        14 hosts
+• Robots      58 hosts
+• Servers     29 hosts
+• Workers  120 hosts
+2^4 =  16 
+2^6 =  64
+2^5 =  32
+2^7 = 128 
+Mascara de Red Server:
+11111111 . 11111111 . 11111111 . 11100000
+      255   .     255     .      255    .      224
+/ 27
+Redes Disponibles
+Network Address Usable Host Range Broadcast Address:
+192.168.80.0 192.168.80.1 - 192.168.80.30 192.168.80.31
+192.168.80.32 192.168.80.33 - 192.168.80.62 192.168.80.63
+192.168.80.64 192.168.80.65 - 192.168.80.94 192.168.80.95
+192.168.80.96 192.168.80.97 - 192.168.80.126 192.168.80.127
+192.168.80.128 192.168.80.129 - 192.168.80.158 192.168.80.159
+192.168.80.160 192.168.80.161 - 192.168.80.190 192.168.80.191
+192.168.80.192 192.168.80.193 - 192.168.80.222 192.168.80.223
+192.168.80.224 192.168.80.225 - 192.168.80.254 192.168.80.255
+Con 3 bit hay 8 
+redes posibles
+Red Robots
+Red Workers
+Red Server
+
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Subredes (VLSM)
+Protocolos de red 22
+Dada la red 192.168.80.0/24 se desea particionar en 4 subredes:
+• Guest        14 hosts
+• Robots      58 hosts
+• Servers     29 hosts
+• Workers  120 hosts
+2^4 =  16 
+2^6 =  64
+2^5 =  32
+2^7 = 128 
+Mascara de Red Guest:
+11111111 . 11111111 . 11111111 . 11110000
+      255   .     255     .      255    .      240
+/ 28
+Con 4 bit hay 16 
+redes posibles
+Red Guest
+Redes Disponibles
+Network Address Usable Host Range Broadcast Address:
+… … …
+192.168.80.224 192.168.80.225 - 192.168.80.238 192.168.80.239
+192.168.80.240 192.168.80.241 - 192.168.80.254 192.168.80.255
+
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Subredes (VLSM)
+Protocolos de red 23
+Razones topológicas
+✦ Hosts muy distantes
+✦ Interconectar distintas capas físicas 
+✦ Filtrar tráfico entre redes
+Organización
+✦ Simplificar la administración de la red
+✦ Mapear la estructura de la organización
+✦ Aislar el tráfico
+Motivos para crear subredes
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Router
+Destination Gateway Mask Interface
+ 
+ 
+ 
+ 
+Superred (CIDR)
+Protocolos de red 24
+172.16.0.0 / 14
+172.20.0.0 / 14
+172.24.0.0 / 14
+172.28.0.0 / 14
+10.0.0.0 / 30
+eth1
+10.0.0.1
+eth0
+10.0.0.2
+Router
+Destination Gateway Mask Interface
+172.16.0.0 10.0.0.2 255.252.0.0 eth1
+172.20.0.0 10.0.0.2 255.252.0.0 eth1
+172.24.0.0 10.0.0.2 255.252.0.0 eth1
+172.28.0.0 10.0.0.2 255.252.0.0 eth1
+Router
+Destination Gateway Mask Interface
+172.16.0.0 10.0.0.2 255.240.0.0 eth1
+252 = 1111  1100
+  16 = 0001  0000
+  20 = 0001  0100
+  24 = 0001  1000
+  28 = 0001  1100
+252 = 1111 1100
+240 = 1111 0000
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Superred (CIDR)
+Protocolos de red 25
+✦ Optimización del Enrutamiento
+✦ Escalabilidad
+✦ Mejor uso del espacio de direcciones
+✦ Reducción de latencia
+Motivos para crear superredes
+Esto es implementable gracias a que la IANA a partir de 1993 empezó a segmentar en los RIR la 
+asignación de bloques de direcciones.
+Es decir las direcciones IP cobraron un orden jerárquico…
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Paquete IPv4 (datagrama)
+0 1 2 3 
+0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+Protocolos de red 26
+60 bytes
+20 bytes
+Relleno
+Hlen
+Desplazamiento de 
+fragmento
+ToS
+Protocolo Header checksum
+Flags
+Longitud total
+Datos ( 0 - 65515 bytes)
+Dirección destino
+Dirección origen
+TTL
+Identificación
+Vers
+Opciones
+2^16  = 65.536 bytes
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Paquete IPv4 (datagrama) - Protocolos
+Protocolos de red 27
+
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Fragmentación y ensamblado
+Protocolos de red 28
+IP: 20.1.24.12 / 8
+GW: 20.0.0.1
+eth0LAN A: 20.0.0.0
+MPU: 1700 bytes
+IP: 20.0.0.1
+eth0 LAN C: 200.1.1.0
+MPU: 1500
+eth0
+IP: 200.1.1.21 / 24
+GW: 200.1.1.1
+IP: 200.1.1.1
+eth2
+Header IP
+Length Id Flags Offset
+1700 100 DF: 0
+MF: 0 0
+Header IP
+Length Id Flags Offset
+1500 100 DF: 0
+MF: 1 0
+Header IP
+Length Id Flags Offset
+220 100 DF: 0
+MF: 0 185
+Header = 20 bytes
+Payload = 1680 bytes
+Header = 20 bytes
+Payload = 1480 bytes
+Header = 20 bytes
+Payload = 200 bytes
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Asignación de direcciones IP
+Protocolos de red 29
+Direccionamiento 
+estático
+Direccionamiento 
+dinámico
+Asignación Manual
+Local-Link
+RARP 
+BOOTP 
+DHCP
+¿Qué información 
+necesita una interfaz 
+de red?
+• Dirección IP
+• Dirección del 
+Gateway
+• Máscara de red
+• Direcciones de 
+servidores DNS
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Asignación de direcciones IP
+Protocolos de red 30
+1984
+RARP
+RFC 903
+1985
+BOOTP
+RFC 951
+1993
+BOOTP
+RFC 1532
+RFC 1542
+DHCP
+RFC 1531
+RFC 1541
+1997
+DHCP
+RFC 2131
+RFC 2132
+2013
+DHCP
+RFC 6842
+2002
+DHCP
+RFC 3396
+RFC 3442
+2004
+DHCP
+RFC 3942
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+DHCP (Dynamic Host Configuration Protocol)
+Protocolos de red 31
+
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Broadcast o Unicast:
+ 
+De nada. Ok, esa IP 
+es la que usarás 
+durante ese tiempo.
+Broadcast:
+ 
+Ok, gracias. Voy a usar 
+esa dirección durante 
+ese tiempo.
+src: 0.0.0.0 : 68
+dest: 255.255.255.255 : 67
+yiaddr: 200.1.2.5
+transaction ID: 456
+lifetime: 3600 secs
+Broadcast o Unicast:
+ 
+Yo soy el servidor 
+DHCP. Aquí tienes una 
+dirección IP que puede 
+usar durante este 
+tiempo.
+DHCP (Dynamic Host Configuration Protocol)
+Broadcast:
+ 
+¿Hay algún servidor 
+DHCP ahí?
+Protocolos de red 32
+DHCP DISCOVER src: 0.0.0.0 : 68
+dest: 255.255.255.255 : 67
+yiaddr: 0.0.0.0
+transaction ID: 456src: 200.1.2.3 : 67
+dest: 200.1.2.5 : 68
+yiaddr: 200.1.2.5
+transaction ID: 456
+lifetime: 3600 secs
+Servidor
+DHCP
+IP: 200.1.2.3
+Puerto: 67
+DHCP REQUEST
+D. O. R. A.
+src: 200.1.2.3 : 67
+dest: 200.1.2.5 : 68
+yiaddr: 200.1.2.5
+transaction ID: 456
+lifetime: 3600 secs
+DHCP OFFER
+DHCP ACK
+
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+DHCP
+Protocolos de red 33
+DHCP DISCOVER
+
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+DHCP
+Protocolos de red 34
+DHCP OFFER
+Servidor DHCP
+IP: 10.20.20.4
+Puerto: 67
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+DHCP
+Protocolos de red 35
+DHCP REQUEST
+Servidor DHCP
+IP: 10.20.20.4
+Puerto: 67
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+DHCP
+Protocolos de red 36
+DHCP ACK
+Servidor DHCP
+IP: 10.20.20.4
+Puerto: 67
+IP: 10.20.20.20
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+DHCP: Relay Agent
+Protocolos de red 37
+DHCP server
+IP: 10.1.4.2
+Router & DHCP Relay
+10.1.4.1
+10.1.2.110.1.1.1
+10.1.1.4
+10.1.1.3
+10.1.1.2
+10.1.2.1
+10.1.2.2
+Paso 2
+DHCP Relay
+Dest:10.1.4.2
+DHCP Discover
+ Paso 1
+Broadcast
+DHCP Discover
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+DHCP: Relay Agent
+Protocolos de red 38
+DHCP server
+IP: 10.1.4.2
+Router & DHCP Relay
+10.1.4.1
+10.1.2.110.1.1.1
+10.1.1.4
+10.1.1.3
+10.1.1.2
+10.1.2.1
+10.1.2.2
+Paso 5
+Cliente acepta 10.1.2.3
+Paso 3
+DHCP Offer
+Unicast (4.2 a 4.1)
+yiaddr: 10.1.2.3
+Paso 4
+DHCP Offer
+Broascast 10.1.2.255
+
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+DHCP: Relay Agent
+Protocolos de red 39
+DHCP server
+IP: 10.1.4.2
+Router & DHCP Relay
+10.1.4.1
+10.1.2.110.1.1.1
+10.1.1.4
+10.1.1.3
+10.1.1.2
+10.1.2.1
+10.1.2.2
+Paso 9
+DHCP ACK
+Broadcast
+Cliente comienza a 
+usar 10.1.2.3
+Paso 7
+DHCP Request
+Unicast
+Paso 8
+DHCP ACK
+Unicast
+Paso 6
+Broadcast
+DHCP Request
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+DHCP: renew request
+Protocolos de red 40
+
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+DHCP: renew ACK
+Protocolos de red 41
+
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+DNS dinámico, integrado con DHCP
+Protocolos de red 42
+Cliente
+DHCP
+Servidor
+DHCP
+Servidor
+DNS
+DHCP DISCOVER
+DHCP OFFER
+DHCP REQUEST
+CODE 81: FQDN cliente 
+DHCP ACK DNS 
+UPDATE
+ddns-updates on; 
+ddns-update-style interim; 
+ddns-domainname "midominio.com"; 
+ddns-rev-domainname "in-addr.arpa"; 
+option domain-name "midominio.com"; 
+dhcp.conf
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Network Address Translation (NAT)
+Protocolos de red 43
+200.1.230.134192.168.0.1
+192.168.0.10
+192.168.0.13
+192.168.0.24
+Internet
+A partir de 1994
+200.23.54.11
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Source NAT (SNAT)
+Protocolos de red 44
+200.1.25.134
+192.168.0.1
+192.168.0.10
+192.168.0.13
+192.168.0.24
+Internet
+A partir de 1994
+200.23.54.11
+O: 64132
+D: 443
+O: 192.168.0.10
+D: 200.23.54.11
+⍰⍱~&%^ () 
+~⍲^
+O: 64132
+D: 443
+O: 200.1.25.134
+D: 200.23.54.11
+⍰⍱~&%^ () 
+~⍲^
+O: 443
+D: 64132
+O: 200.23.54.11
+D: 200.1.25.134
+**@#$ 
+~⍲^
+O: 443
+D: 64132
+O: 200.23.54.11
+D: 192.168.0.10
+**@#$ 
+~⍲^
+IP Privada Puerto 
+Privado IP Pública Puerto 
+Público
+192.168.0.10 64132 200.1.25.134 64132
+192.168.0.13 12537 200.1.25.134 12537
+192.168.0.24 64132 200.1.25.134 64133
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Source NAT (SNAT)
+Protocolos de red 45
+RellenoOpciones
+Hlen
+Desplazam. 
+de fragmento
+ToS
+Protocolo Header checksum
+Flags
+Longitud total
+Datos
+Dirección destino
+Dirección origen
+TTL
+Identificación
+Vers
+¿Qué campos se modifican al aplicar SNAT a un paquete IP?
+Dirección origen
+Header checksum
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Destination NAT (port forwading)
+Protocolos de red 46
+192.168.0.10
+192.168.0.13
+192.168.0.24
+Internet
+A partir de 1994
+200.23.54.11
+200.1.230.134192.168.0.1
+Quiero conectarme al servidor en 
+192.168.0.24 que está detrás de la 
+IP 200.1.230.134, al puerto 8080…. 
+ 192.168.0.10
+ SNAT
+¿?
+192.168.0.1
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Destination NAT (port forwading)
+Protocolos de red 47
+192.168.0.10
+192.168.0.13
+192.168.0.24 : 443
+Internet
+A partir de 1994
+200.23.54.11
+200.1.230.29192.168.0.1
+Solución 1:
+ Configurar manualmente DNAT 
+192.168.0.10
+IP Privada Puerto 
+Privado
+Puerto 
+Público
+… … …
+192.168.0.24 443 8080
+… … …
+DNAT
+O: 64132
+D: 8080
+O: 200.23.54.11
+D: 200.1.230.29
+⍰⍱~&%^ () 
+~⍲^O: 64132
+D: 443
+O: 200.23.54.11
+D: 192.168.0.24
+⍰⍱~&%^ () 
+~⍲^
+192.168.0.1
+SNAT
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Destination NAT (port forwading)
+Protocolos de red 48
+192.168.0.10
+192.168.0.13
+192.168.0.24 : 443
+Internet
+A partir de 1994
+200.23.54.11
+200.1.230.134192.168.0.1
+192.168.0.10
+IP Privada Puerto 
+Privado
+Puerto 
+Público
+… … …
+192.168.0.24 443 8080
+… … …
+Solución 2:
+ Configurar automática de DNAT mediante uso de protocolos
+• UPnP Universal Plug and Play
+• IGD   Internet Gateway Device
+UPnP o IGD
+192.168.0.1
+DNAT
+SNAT
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+NAT
+Protocolos de red 49
+192.168.0.10
+Bob’s Phone
+Internet
+A partir de 1994
+200.23.54.11
+200.1.230.134
+192.168.0.1
+192.168.0.10
+Alice’s Phone
+200.45.23.14
+192.168.0.1
+Solución 3:
+  Se logra la comunicación entre dos 
+dispositivos mediante el uso de un “Relay”
+SNAT
+SNATIP Privada Puerto 
+Privado IP Pública Puerto 
+Público
+… … … …
+192.168.0.10 64132 200.23.54.11 64132
+… … … …
+IP Privada Puerto 
+Privado IP Pública Puerto 
+Público
+… … … …
+192.168.0.10 1045 200.1.25.134 1045
+… … … …
+Cliente IP Pública Puerto 
+Público
+… … …
+Bob 200.1.25.134 1045
+Alice 200.23.54.11 64132
+… … …
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+NAT
+Protocolos de red 50
+
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+ICMP
+Protocolos de red 51
+0 1 2 3 
+0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+Type Code Checksum
+Data (Depende de Código y Dato)
+Los valores para los campos Tipo y Código se definen en RFC1700
+Enlace IP
+Protocol: 1 ICMP
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+ICMP : Timestamp request / reply
+Protocolos de red 52
+
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+ICMP : Destination Unreachable Message
+Protocolos de red 53
+
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+ICMP : Redirect Message
+Protocolos de red 54
+
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+ICMP : Redirect Message
+Protocolos de red 55
+192.168.10.6 192.168.10.1
+Internet192.168.10.2
+192.168.30.0/24
+192.168.20.0/24
+O: 63123
+D: 22
+O: 192.168.10.6
+D: 192.168.20.5
+⍰⍱~&%^ () 
+~⍲^
+Tabla de Ruteo
+Destination Mask Gateway Interface
+0.0.0.0 0.0.0.0 192.168.10.2 eth0
+192.168.10.0 255.255.255.0 0.0.0.0 eth0
+127.0.0.0 255.0.0.0 0.0.0.0 lo
+169.254.0.0 255.255.0.0 0.0.0.0 eth0
+eth0
+
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+ICMP : Redirect Message
+Protocolos de red 56
+192.168.10.6 192.168.10.1
+Internet192.168.10.2
+192.168.30.0/24
+192.168.20.0/24
+Tabla de Ruteo
+Destination Mask Gateway Interface
+0.0.0.0 0.0.0.0 192.168.10.2 eth0
+192.168.10.0 255.255.255.0 0.0.0.0 eth0
+192.168.20.0 255.255.255.0 192.168.10.1 eth0
+127.0.0.0 255.0.0.0 0.0.0.0 lo
+169.254.0.0 255.255.0.0 0.0.0.0 eth0
+eth0
+O: 192.168.10.2
+D: 192.168.10.6
+ICMP -  type: 5 code: 0
+gateway: 192.168.10.1  
+original IP datagram …..
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+ICMP : Echo Request / Reply Message
+Protocolos de red 57
+
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+ICMP : Echo Request / Reply Message
+Protocolos de red 58
+user@server:~$ ping 200.49.213.50 
+PING 200.49.213.50 (200.49.213.50) 56(84) bytes of data.
+64 bytes from 200.49.213.50: icmp_seq=1 ttl=55 time=21.4 ms
+64 bytes from 200.49.213.50: icmp_seq=2 ttl=55 time=37.2 ms
+64 bytes from 200.49.213.50: icmp_seq=3 ttl=55 time=35.7 ms
+64 bytes from 200.49.213.50: icmp_seq=4 ttl=55 time=25.2 ms
+64 bytes from 200.49.213.50: icmp_seq=5 ttl=55 time=23.2 ms
+--- 200.49.213.50 ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 4036ms
+rtt min/avg/max/mdev = 21.424/28.601/37.273/6.594 ms
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+ICMP : Echo Request / Reply Message
+Protocolos de red 59
+user@server:~$ ping –c1 200.49.213.50 -r
+PING 200.49.213.50 (200.49.213.50) 56(124) bytes of data.
+64 bytes from 200.49.213.50: icmp_seq=1 ttl=56 time=2286 ms
+RR: 192.168.2.10 
+200.26.75.69 
+200.51.241.170 200.51.241.57
+172.30.248.46
+209.13.133.250
+209.13.133.57
+200.51.240.82
+200.51.241.161
+--- 200.49.213.50 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 2286.637/2286.637/2286.637/0.000 ms
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Utilidades básicas de networking
+Protocolos de red 60
+Comando ¿Qué verifica?
+ping 127.0.0.1 que la pila de networking esté funcionando y que los servicios de red 
+estén habilitados
+ping dirección_IP_local que la placa de red esté configurada.
+ping host_en_mi_segmento que tanto la placa como el cable estén funcionando correctamente. Así 
+también como el switch que los vincula y que el host remoto responde.
+ping host_en_otro_segmento que el router o la tabla de ruteo (dependiendo de la complejidad de la 
+red) esté configurado correctamente
+ping host_fuera_de_la_red que los routers con salida hacia Internet o redes externas funcionen en 
+conjunto con los routers de la organización si los hubiera
+En caso de tener problemas de conectividad, el comando ping nos puede ayudar a localizar dónde se 
+encuentra el problema.
+Tener en cuenta que muchos routers o hosts no responden solicitudes de eco
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Traceroute
+Protocolos de red 61
+user@server:~$ traceroute campus.itba.edu.ar
+Tracing route to campus.itba.edu.ar [192.230.225.58]
+  1    <1 ms    <1 ms    <1 ms  192.168.1.1 
+  2     *        *        *     Request timed out. 
+  ...
+  6    15 ms    15 ms    15 ms  129-161-89-200.fibertel.com.ar [200.89.161.129] 
+  7    13 ms    15 ms    16 ms  130-165-89-200.fibertel.com.ar [200.89.165.130] 
+  8    13 ms    14 ms    11 ms  222-165-89-200.fibertel.com.ar [200.89.165.222] 
+  9     *        *        *     Request timed out. 
+ 10   139 ms   140 ms   138 ms  ae1-300G.ar5.MIA1.gblx.net [67.17.94.249] 
+ 11     *        *        *     Request timed out. 
+ 12     *        *        *     Request timed out. 
+ 13   160 ms   163 ms   159 ms  BLACKBOARD.ear2.Washington1.Level3.net 
+[4.59.144.218] 
+ 14   165 ms   159 ms   164 ms  eth4-1-bb1-dc2.blackboard.com [69.196.255.133] 
+ 15   159 ms   169 ms   160 ms  eth4-3-bb1-va2.mhint [69.196.255.145] 
+ 16   166 ms   174 ms   175 ms  eth3-3-gw1-va2.mhint [69.196.255.158] 
+ 17   158 ms   159 ms   159 ms  itba.blackboard.com [192.230.225.58] 
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+IPv6
+Protocolos de red 62
+IP v4
+Direcciones de 32 bits
+4.294.967.296
+Formato de dirección
+192.168.1.1 / 24
+Encabezado variable
+Permite fragmentación
+Estructura jerárquica (1994)
+Configuración por DHCP o manual
+Las direcciones se deben reutilizar y 
+enmascarar
+IPSec opcional
+RFC 791 (septiembre 1981)
+IP v6
+Direcciones de 128 bits
+340.282.366.920.938.463.463.374.607.431.768.211.456
+Formato de dirección
+fe80:0000:0000:94db:946e:8d4e:129e / 64
+Encabezado fijo
+No permite fragmentación
+Estructura jerárquica de direcciones 
+Permite la configuración automática
+Todos los dispositivos pueden tener una dirección 
+exclusiva
+IPSec incorporado en el diseño
+RFC 2460 (diciembre 1998)
+
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Notación Abreviada de direcciones IPv6
+Protocolos de red 63
+2001:0db8:0000:0000:0000:ff00:0042:8329
+2001:db8:0:0:0:ff00:42:8329
+2001:db8::ff00:42:8329
+2001:0000:0000:0db8:0000:0000:0042:8329
+2001::db8:0:0:42:8329 2001:0:0:db8::42:8329
+2001::db8::42:8329
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Tipos de direcciones IPv6
+Protocolos de red 64
+GLOBAL
+ADDRESS
+Internet
+UNIQUE LOCAL
+ADDRESS
+LOCAL LINK
+ADDRESS
+LOCAL LINK
+ADDRESS
+RFC 4291
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Tipos de direcciones IPv6
+Protocolos de red 65
+
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Tipos de direcciones IPv6
+Protocolos de red 66
+
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Formato de IPv6 Global Unicast Address
+Protocolos de red 67
+Prefijo 2000::/3 
+RFC 2374 (1998)
+• Divide los 45 bits disponibles del prefijo de 
+ruteo en dos bloques.
+• TLA ID (13 bits)
+• NLA ID (32 bits)
+RFC 3587 (2003)
+• Permite que los RIR gestionen el espacio de 
+direcciones (45 bits de prefijo de ruteo) 
+asignados por la IANA a su discreción.
+Network prefix
+RFC 4291 (2006)
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Formato de IPv6 Unique Local Address
+Protocolos de red 68
+Prefijo FC00::/7 
+1111 110 
+Network prefix
+UNIQUE LOCAL
+ADDRESS
+UNIQUE LOCAL
+ADDRESS
+FC1A:2B3C:4D5E:6F00:0001:ABCD:EF01:2345
+FC1A:2B3C:4D5E:6F00:0001:ABCD:EF01:0001
+FC1A:2B3C:4D5E:6F11:0001:ABCD:0FE0:0001
+FC1A:2B3C:4D5E:6F11:0001:ABCD:0FE0:2345
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Formato de IPv6 Local Link Address
+Protocolos de red 69
+Prefijo FE80::/10 
+LOCAL LINK
+ADDRESS
+fe80::bebe:beef:cafe:1234
+fe80::1234:cafe:0abc:4321
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Asignación del Interface ID
+Protocolos de red 70
+EUI – 64
+• Se basa en la dirección MAC. Ej 02:1A:2B:3C:4D:5E
+• FE80:0000:0000:021a:2bFF:FE3c:4d5e
+• En desuso por razones de privacidad y seguridad.
+RFC 7217
+• Genera direcciones de forma aleatoria, pero 
+estables.
+• En red A:
+• FE80:0000:0000:a1b2:c3d4:e5f6:7890
+• El mismo host en red B:
+• FE80:0000:0000:bebe:beef:cafe:1234
+Network prefix
+64 bits
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Encabezado IPv6
+Protocolos de red 71
+RFC 8200 (2017)
+He
+ad
+er 
+IP
+v6
+He
+ad
+er 
+IP
+v4
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+IPv4-Mapped IPv6
+Protocolos de red 72
+RFC 4291 
+192.168.160.1
+192.168.160.2
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+NAT64: conectando IPv6 con IPv4
+Protocolos de red 73
+NAT64
+DNS64 DNS
+Web
+Server
+192.168.2.80
+192.168.8.8
+fd12:56:9a::1
+192.168.2.1
+fd12:56:9a::10 fdab:ef:14::8
+IPv4IPv6
+O: 63123
+D: 443
+SYN
+O: fd12:56:9a::10
+D: 64:ff9b::C0A8:0250
+O: 63123
+D: 443
+SYN
+O: 192.168.2.1
+D: 192.168.2.80
+¿ www.example.com ? ¿ www.example.com ?
+A    192.168.2.80AAAA  64:ff9b::C0A8:0250  
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Tunneling
+Protocolos de red 74
+IPv6 IPv6IPv4 IPv4A B C
+Tunneling: consiste en encapsular datos de un protocolo en 
+los datos de otro protocolo de igual o mayor nivel.
+Transport 
+Header 
+IPv6
+Header Payload Transport 
+Header 
+IPv6
+Header PayloadTransport 
+Header 
+IPv6
+Header PayloadIPv4
+Header
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Tipos de Túneles
+Protocolos de red 75
+Valor Prot.
+1 ICMP
+2 IGMP
+4 IP
+6 TCP
+17 UDP
+41 IPv6
+89 OSPF https://www.iana.org/assignments/protocol-
+numbers/protocol-numbers.xhtml
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Túneles de Protocolos Desconocidos
+Protocolos de red 76
+Red
+Novell
+Red
+Novell
+Internet
+UDP IPx
+Header PayloadIPv4
+Header
+IPx
+Header Payload IPx
+Header Payload
+Tunneling: consiste en encapsular datos de un protocolo 
+en los datos de otro protocolo de igual o mayor nivel.
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Túneles IP-en-IP
+Protocolos de red 77
+10.0.1.0/25
+.2
+.1
+.3
+10.0.1.128/25
+.130
+.254
+.129
+$ ifconfig tunl0 10.0.1.1 pointopoint 24.13.14.15 
+$ route add -net 10.0.1.128 netmask 255.255.255.128 dev tunl0
+24.10.11.12
+24.13.14.15
+$ ifconfig tunl0 10.0.1.254 pointopoint 24.10.11.12 
+$ route add -net 10.0.1.0 netmask 255.255.255.128 dev tunl0
+R2
+R1
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Túneles IP-en-IP
+Protocolos de red 78
+10.0.1.0/25
+.2
+.1
+10.0.1.128/25
+.130
+.254
+24.10.11.12
+24.13.14.15
+R2
+R1
+ICMP
+echo request
+O: 10.0.1.2
+D: 10.0.1.130
+Proto: 1
+ICMP
+echo request
+O: 10.0.1.2
+D: 10.0.1.130
+Proto: 1
+ICMP
+echo request
+O: 10.0.1.2
+D: 10.0.1.130
+Proto: 1
+O: 24.10.11.12
+D: 24.13.14.15
+Proto: 4
+¿ Confidencialidad y Integridad ?
+
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+79
+Material de lectura
+Capítulos 4.1 a 4.4 inclusive de la bibliografía
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+80
+Seguridad
+C
+I
+A
+IT
+A
+I
+C
+Safety
+OT
+C – Confidencialidad
+Garantiza que la información solo sea accesible a personas 
+autorizadas. Se enfoca en proteger los datos contra accesos 
+no autorizados. Ejemplos:
+• Cifrado de datos
+• Control de acceso / Autenticación
+I – Integridad
+Asegura que la información no sea alterada de manera no 
+autorizada. Se trata de mantener los datos precisos y 
+completos. Ejemplos:
+• Hashing
+• Firmas digitales
+A – Disponibilidad
+Garantiza que la información y los sistemas estén accesibles 
+cuando se necesiten. Se enfoca en evitar interrupciones del 
+servicio. Ejemplos:
+• Redundancia de sistemas
+• Copias de seguridad
+• Protección contra ataques DDoS
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+IPSec
+Protocolos de red 81
+✦ Objetivo:
+              Proveer servicios de seguridad para los paquetes IP en el 
+nivel de capa de red.
+✦ Servicios:
+Control de Acceso
+Confidencialidad
+Autenticación
+Integridad
+✦ Modos: 
+Transporte 
+Túnel
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Internet
+IPSec – Modo Transporte
+Protocolos de red 82
+TCP IP
+proto : 6 Payload
+✅
+ Protege contra ataques de modificación de paquetes. Integridad y Autenticidad.
+❌
+ No protege la confidencialidad, los datos viajan en texto claro.
+TCP IP
+proto : 51 PayloadAH Authentication Header
+Encapsulating Security Payload TCP IP
+proto : 50 PayloadESP 
+Header ⍰⍱~&%^ () ~⍲^ ESP 
+Trailer 
+ESP 
+Auth 
+Confidencialidad, Integridad y Autenticación
+TCP IP
+proto : 6 Payload
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+IPSec – Modo Túnel
+Protocolos de red 83
+Internet
+Internet
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+IPSec – Modo Túnel – AH y ESP
+Protocolos de red 84
+Authentication Header
+Encapsulating Security Payload
+TCP IP
+proto : 6 Payload
+IP
+proto : 51 AH TCP IP
+proto : 6 Payload
+IP
+proto : 50
+ESP 
+Header 
+ESP 
+Trailer 
+ESP 
+Auth TCP IP
+proto : 6 Payload⍰⍱~⍰& ~ ⍲%^ (⍰) ~⍲~⍰^
+✅
+ Protege integridad y autenticidad, incluyendo la cabecera IP original.
+❌
+ No cifra los datos, solo los autentica.
+✅
+ Cifra toda la comunicación (cabecera IP original y datos).
+✅
+ Protege confidencialidad, integridad y autenticidad.
+
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Firewalls
+Evolución de la arquitectura de firewalls
+ 
+1980                                                 1990            2000
+Packet filter Circuit level
+Application
+layer
+Dynamic 
+packet filter
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+IPTables
+Protocolos de red 86
+PREROUTING
+mangle
+nat
+raw
+INPUT
+mangle
+filter
+OUTPUT
+mangle
+nat
+filter
+raw
+FORWARD
+mangle
+filter
+ROUTING
+ROUTING
+POSTROUTING
+mangle
+nat
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+IPTables
+Protocolos de red 87
+PREROUTING
+mangle
+nat
+raw
+INPUT
+mangle
+filter
+OUTPUT
+mangle
+nat
+filter
+raw
+FORWARD
+mangle
+filter
+ROUTING
+ROUTING
+POSTROUTING
+mangle
+nat
+Cadenas ¿Dónde actúa?
+PREROUTING Antes del enrutamiento, modifica 
+paquetes antes de rutear.
+INPUT Controla paquetes que entran al 
+sistema y están dirigidos a él.
+FOWARD Maneja tráfico que atraviesa el 
+sistema
+OUTPUT Controla los paquetes generados 
+por el sistema antes de salir.
+POSTROUTING Modifica paquetes después de 
+que se ha ruteado.
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+IPTables
+Protocolos de red 88
+PREROUTING
+mangle
+nat
+raw
+INPUT
+mangle
+filter
+OUTPUT
+mangle
+nat
+filter
+raw
+FORWARD
+mangle
+filter
+ROUTING
+ROUTING
+POSTROUTING
+mangle
+nat
+Tablas ¿Dónde actúa?
+filter Filtrado de paquetes (permitir, denegar, 
+registrar).
+nat Traducción de direcciones (DNAT, SNAT 
+Masquerade).
+mangle Modificación avanzada de paquetes (ToS, 
+TTL, marcado).
+raw Manipulación de paquetes antes del 
+seguimiento de conexiones.
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+IPTables – Comandos Básicos
+Protocolos de red 89
+Listar reglas de la tabla NAT en IPTables
+~$ iptables -t nat –L
+Chain PREROUTING (policy ACCEPT)
+target     prot opt source       destination
+Chain POSTROUTING (policy ACCEPT)
+target     prot opt source       destination
+MASQUERADE all  --  192.168.1.0/24  anywhere
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source       destination
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+IPTables – Comandos Básicos
+Protocolos de red 90
+Listar conexiones NAT activas
+~$ netstat-nat –n
+Proto NATed Address          Foreign Address     State
+tcp   192.168.1.100:443  ->  20.28.101.14:443  ESTABLISHED
+tcp   192.168.1.50:22    ->  20.28.101.14:22   TIME_WAIT
+udp   192.168.1.200:53   ->  20.28.101.14:53   ASSURED
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+IPTables – Comandos Básicos
+Protocolos de red 91
+Tres formas de aplicar SNAT, dado que la interfaz eth1 es la WAN
+~$ iptables -t nat -A POSTROUTING -o eth1 -j MASQUERADE
+~$ iptables -t nat -A POSTROUTING -s 192.168.1.0/24 -o eth1 -j SNAT --to 20.28.101.14
+~$ iptables -t nat -A POSTROUTING -p tcp -o eth1 -j SNAT --to 20.28.101.14:1-1023
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+IPTables – Ejemplo Práctico
+Protocolos de red 92
+192.168.2.3
+192.168.2.2
+Host con 
+IpTables
+eth0 eth1
+24.232.138.143 192.168.2.1
+~$ cat config.sh
+#!/bin/bash
+# Reenviar todos los paquetes de eth1 (red interna) a eth0 (Internet).
+iptables -A FORWARD -i eth1 -o eth0 -j ACCEPT 
+# Habilitar SNAT  para IP pública fija:
+iptables –t nat -A POSTROUTING -o eth0 –j SNAT –to-source 24.232.138.143
+
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+IPTables – Ejemplo Práctico
+Protocolos de red 93
+192.168.2.3
+192.168.2.2
+Host con 
+IpTables
+eth0 eth1
+24.232.138.143 192.168.2.1
+# No aceptar IP Spoofing
+iptables -A INPUT -i eth0 -s 24.232.138.143/32 -j DROP
+iptables -A INPUT -i eth0 -s 192.168.0.0/24 -j DROP 
+iptables -A INPUT -i eth0 -s loopback/8 -j DROP 
+# Aceptamos lo que venga de localhost
+iptables -A INPUT -i lo -j ACCEPT 
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+IPTables – Ejemplo Práctico
+Protocolos de red 94
+192.168.2.3
+192.168.2.2
+Host con 
+IpTables
+eth0 eth1
+24.232.138.143 192.168.2.1
+# Implementamos DNAT para un Web Server en un host local
+iptables –t nat –A PREROUTING –d 24.232.138.143 -p tcp –dport 80 –j DNAT /
+ --to-destination 192.168.2.3
+

@@ -1,0 +1,571 @@
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Protocolos de routing
+✦ Routing estático
+✦ Routing dinámico
+✦ RIP
+✦ OSPF
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Protocolos de Routing
+Protocolos de routing 2
+Routing permite que el tráfico de una red pueda ser enviado hacia 
+otra red en cualquier parte del mundo. Hay que diferenciar entre:
+•  Routing o forwarding: es el acto de reenviar paquetes a un host 
+basado en la información almacenada en las tablas de ruteo.
+•  Protocolos de routing: son programas que intercambian 
+información entre routers para construir las tablas de ruteo.
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Protocolos de Routing
+Protocolos de routing 3
+Las configuraciones de routing más comunes son:
+✦ Routing mínimo: una red aislada de otras redes TCP/IP
+✦ Routing estático: la tabla de ruteo es construída por un 
+administrador en forma estática.
+✦ Routing dinámico: la tabla de ruteo es construída en base a 
+información intercambiada por protocolos de routing.
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Protocolos de Routing
+Protocolos de routing 4
+Las tablas de ruteo también se pueden actualizar en base a paquetes ICMP Redirect.
+192.168.10.6
+192.168.10.1
+Internet
+192.168.10.2
+Gateway:
+192.168.10.2
+192.168.30.0/24
+192.168.20.0/24
+D: 192.168.20.2
+G: 192.168.10.2
+
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Protocolos de Routing
+Protocolos de routing 5
+192.168.10.6
+192.168.10.1
+Internet
+192.168.10.2
+Gateway:
+192.168.10.2
+192.168.30.0/24
+192.168.20.0/24
+ICMP Redirect
+Para 192.168.20.0
+usar G 192.168.10.1
+Las tablas de ruteo también se pueden actualizar en base a paquetes ICMP Redirect.
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+ICMP redirect
+Protocolos de routing 6
+Type=5 Code Checksum
+Gateway Internet address (192.168.10.1)
+Internet header + 64 bits Data
+Formato de un paquete ICMP Redirect
+ 0 = Redirect datagrams for the Network.
+ 1 = Redirect datagrams for the Host.
+ 2 = Redirect datagrams for the ToS and Network.
+ 3 = Redirect datagrams for the ToS and Host.
+C
+O
+D
+E
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Routing dinámico
+Protocolos de routing 7
+Se dividen en dos categorías:
+•  Routing interno (IGP) : diseñados para una red controlada 
+por una sola organización. Los más usados son RIP y OSPF.
+•  Routing externo (EGP) : diseñados para intercambiar 
+información entre redes controladas por distintas 
+organizaciones (sistemas autónomos). Se usa BGP.
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Routing dinámico
+Protocolos de routing 8
+Telecom 
+Argentina
+Universidad 
+de Bs As
+Iplan
+OSPF, RIP, IS-IS
+BGP
+
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Routing dinámico
+Protocolos de routing 9
+Protocolos de nivel de enlace
+IP
+SCTP TCP UDP
+BGP
+RIP
+OSPF
+IS-IS
+PIM
+ARP
+EIGRP
+IGMP
+FTP
+HTTP
+TELNET
+TFTP
+DNS
+Protocolos de transporte
+Protocolos de routing
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Routing dinámico
+• Vector de distancia (Distance vector)
+• Estado de enlace (Link state)
+Protocolos de routing 10
+Utiliza algoritmos adaptativos
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Distance vector
+Protocolos de routing 11
+Cada router recibe de sus vecinos una tabla de enrutamiento. 
+En base a ella actualiza su tabla y la envía a sus vecinos.
+2
+2 4
+4
+1
+1
+1
+2
+R D Sale
+A 0 -
+B 2 B
+C 2 C
+Tabla de A
+R D
+A 2
+B 0
+D 4
+R D
+A 2
+C 0
+D 4
+F 1
+Informa B Informa C
+A
+ B
+C
+D
+E
+F
+ G
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Protocolos de routing 12
+Cada router recibe de sus vecinos una tabla de enrutamiento. 
+En base a ella actualiza su tabla y la envía a sus vecinos.
+2
+2 4
+4
+1
+1
+1
+2
+Tabla de A Informa B Informa C
+A
+ B
+C
+D
+E
+F
+ G
+R D Sale
+A 0 -
+B 2 B
+C 2 C
+D 6 B
+F 3 C
+R D
+A 2
+B 0
+C 4
+D 4
+E 5
+R D
+A 2
+B 4
+C 0
+D 4
+E 2
+F 1
+G 3
+Distance vector
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Distance vector
+Protocolos de routing 13
+Cada router recibe de sus vecinos una tabla de enrutamiento. 
+En base a ella actualiza su tabla y la envía a sus vecinos.
+2
+2 4
+4
+1
+1
+1
+2
+Tabla de A Informa B Informa C
+A
+ B
+C
+D
+E
+F
+ G
+R D Sale
+A 0 -
+B 2 B
+C 2 C
+D 6 B
+E 4 C
+F 3 C
+G 5 C
+R D
+A 2
+B 0
+C 4
+D 4
+E 5
+F 5
+R D
+A 2
+B 4
+C 0
+D 3
+E 2
+F 1
+G 3
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Distance vector
+Protocolos de routing 14
+Cada router recibe de sus vecinos una tabla de enrutamiento. 
+En base a ella actualiza su tabla y la envía a sus vecinos.
+2
+2 4
+4
+1
+1
+1
+2
+Tabla de A Informa B Informa C
+A
+ B
+C
+D
+E
+F
+ G
+R D Sale
+A 0 -
+B 2 B
+C 2 C
+D 5 C
+E 4 C
+F 3 C
+G 5 C
+R D
+A 2
+B 0
+C 4
+D 4
+E 5
+F 5
+G 7
+R D
+A 2
+B 4
+C 0
+D 3
+E 2
+F 1
+G 3
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Distance vector
+Protocolos de routing 15
+Problemas: Contar hasta infinito
+Supongamos que A estaba inactivo y vuelve a la actividad
+Intercambios Dist(B-A) Dist(C-A) Dist(D-A) Dist(E-A)
+0 
+1 1 
+2 1 2 
+3 1 2 3 
+4 1 2 3 4
+Las buenas noticias 
+viajan rápido.
+A
+ B
+ C
+ D
+ E
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Distance vector
+Protocolos de routing 16
+Problemas: Contar hasta infinito
+Supongamos que A estaba activo y pierde conectividad con B
+Intercambios 
+ 1 2 3 4
+1 3 2 3 4
+2 3 4 3 4
+3 5 4 5 4
+4 5 6 5 6
+5 7 6 7 6
+... ... ... ... ...
+¡ Incrementa hasta 
+infinito !
+Dist(C-A) + 
+Dist(B-C)
+A
+ B
+ C
+ D
+ E
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Distance vector
+Protocolos de routing 17
+Problemas: Contar hasta infinito
+Posibles soluciones:
+✦  Split horizon: no enviarle a mi vecino lo que mi vecino me está 
+enviando.
+✦  Ruta envenenada: lo que mi vecino me envía se lo envío con salto ∞, 
+para que no actualice.
+✦ Enviar rápido las malas noticias: si un router detecta un problema en el 
+vínculo, enviar en forma inmediata esa entrada “envenenada”.
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+RIP
+Protocolos de routing 18
+RIP (Routing Information Protocol)
+✦  Pertenece a los algoritmos distance vector 
+✦  Selecciona una ruta en base a la cantidad de saltos a usar para llegar a 
+destino.
+✦  Simple de configurar.
+✦  Adecuado para redes pequeñas 
+✦  El demonio en Linux es routed. 
+✦  Cuando se inicia envía un pedido de actualizaciones de ruteo. 
+✦  Cada router envía en forma periódica paquetes con información 
+basada en su table de ruteo.
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+RIP v1
+Protocolos de routing 19
+✦  Intercambia información con sus vecinos cada 30 segundos
+✦  Limitado a un diámetro de red de 15 saltos
+✦  Los paquetes son broadcast
+✦ Usa notación classfull
+Características de RIP v1
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+RIP v1
+Protocolos de routing 20
+ Direcciones IP de red con máscara natural (classful)
+10.1.0.0/16 10.4.1.32/27
+A y C informan a B la red 10.0.0.0
+A
+ B
+ C
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+RIP v1
+Protocolos de routing 21
+ Los paquetes no tienen autenticación
+R1
+R2
+R3
+R1 0
+R2 1
+R3 2
+R1 1
+R2 0
+R3 1
+R1 2
+R2 1
+R3 0
+R1 0
+R2 0
+R3 0
+A
+ B
+ C
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+RIP v2 (RFC 2453)
+Protocolos de routing 22
+   Informa direcciones CIDR.
+   Updates en forma multicast
+   Updates con autenticación (opcional)
+   Compatible con RIP v1
+10.1.0.0/16 10.4.1.32/27
+A informa la red 10.1.0.0/16 y C 10.4.1.32/27
+A
+ B
+ C
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+RIP v2: sin autenticación
+0 1 2 3 
+0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+Command Version=2 Reserved
+Address Family = 2 (IPv4) Route tag
+IP address
+Subnet mask
+Next hop
+Metric
+23Protocolos de routing
+1: Request
+2: Response
+1 a 25 entradas
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+RIP v2: con autenticación
+0 1 2 3 
+0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+Command Version=2 Reserved
+Address Family = 0xFFFF (Auth) Authentication type
+Authentication information ( 16 bytes)
+Address Family = 2 (IPv4) Route tag
+IP address
+Subnet mask
+Next hop
+Metric
+Address Family = 0xFFFF (Auth) Authentication type
+Authentication information (16 bytes)
+24Protocolos de routing
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+RIP
+Protocolos de routing 25
+Configuración de RIP
+✦  Implementado con el demonio routed. 
+✦  No necesita parámetros ni archivos de configuración.
+✦  Puede crearse en forma opcional el archivo /etc/gateways 
+que provee seteos iniciales. 
+net 192.160.14.0 gateway 172.14.88.12 metric 1 passive
+Cada línea de /etc/gateways contiene una entrada similar a la 
+tabla de ruteo, por ejemplo
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Link state
+Protocolos de routing 26
+Cada router recibe del resto de los routers información sobre sus 
+vecinos. En base a ella arma un grafo de la red y calcula el o los 
+caminos más cortos.
+Cada router debe hacer lo siguiente:
+1. Descubrir sus vecinos
+2. Medir la distancia (demora o costo) a cada vecino
+3. Construir un paquete con lo que aprendió
+4. Enviar el paquete a todos los routers de la red
+5. Calcular el camino más corto a cada router
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+OSPF
+Protocolos de routing 27
+OSPF (open shortest path first) RFC 2328
+✦  Modelo jerárquico 
+✦  Intercambia información sobre sus vecinos con toda la red
+✦  Se envía información cuando se detecta un cambio en la topología.
+✦  Permite asignar peso a los enlaces que unen áreas o routers
+✦  Cada router construye un grafo de la red y utiliza Dijkstra para construir 
+el camino más corto.
+✦  Permite definir áreas. Un área es una colección interconectada de redes. 
+Cada área intercambia información con otras áreas a través de un router 
+de borde.
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+OSPF: definición de áreas
+Protocolos de routing 28
+Area 0
+(backbone
+)
+Area 1 Area 2
+(stub)
+Area 3
+
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+OSPF: definición de áreas
+Protocolos de routing 29
+✦  Cada área está conectada con el área cero (área backbone) 
+a través de los routers de borde (ABR)
+✦  Los routers de borde sumarizan las redes de un área 
+✦  Reduce las entradas en las tablas de ruteo
+✦  El impacto por los cambios de topología está localizado
+ Las áreas “stub” no requieren un router de borde con gran 
+capacidad, generalmente su tabla de ruteo se configuran en 
+forma estática y con información sobre una subred local y 
+una ruta por defecto.
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+OSPF
+Protocolos de routing 30
+Configuración de OSPF
+OSPF es implementado con el demonio gated, que soporta 
+múltiples protocolos (RIP v1, RIP v2, OSPF, BGP). Para 
+configurar gated se debe usar el archivo /etc/gated.conf.
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+Routing dinámico
+Protocolos de routing 31
+Distance vector Link state
+Visualiza la topología de red en base a la 
+visión de sus vecinos
+Visualiza la topología completa de la red
+Suma distancias de router a router Calcula la ruta más corta hacia otros routers
+Actualizaciones frecuentes y en forma 
+periódica
+Actualizaciones activadas por cambios
+Envía copia de la tabla de enrutamiento a 
+los vecinos
+Envía estado de enlace a todos los routers
+Limita el diámetro de la red (15 “saltos” en 
+RIP).
+No tiene límite para el diámetro de la red.
+
+This presentation uses a free template provided by FPPT.com
+www.free-power-point-templates.com
+32
+Material de lectura
+Capítulos 4.5 y 4.6 de la bibliografía
+
