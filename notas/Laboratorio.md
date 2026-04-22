@@ -10,12 +10,14 @@ tags:
 
 # Práctica de Laboratorio: Protocolos y Servicios
 
-## 1. Serialización y Protocolos de Aplicación
+---
 
-### 1.1. Conceptos Fundamentales de Serialización
+## Serialización y Protocolos de Aplicación
+
+### Conceptos Fundamentales de Serialización
 La **serialización** consiste en poner los datos de las estructuras en serie para su transmisión o almacenamiento. Este proceso es fundamental en el [[../notas/1_Introduccion#Encapsulamiento|encapsulamiento]] de capas en la red, donde cada capa añade su propia información de control.
 
-#### 1.1.1. Codificación Unicode (UTF-8)
+#### Codificación Unicode (UTF-8)
 Unicode tiene la propiedad de que los bits de inicio de cada octeto indican su posición y función en la secuencia, lo que permite detectar el inicio de un carácter y recuperarse ante pérdidas de sincronía.
 
 - **Un byte (`0xxxxxxx`):** Caracteres ASCII estándar (0-127). Ejemplo: `0x65` (0110 0101) es la 'e'.
@@ -28,7 +30,7 @@ Unicode tiene la propiedad de que los bits de inicio de cada octeto indican su p
 
 ---
 
-### 1.2. Idempotencia en HTTP
+### Idempotencia en HTTP
 Un método es **idempotente** cuando realizar la operación una vez o $n$ veces tiene el mismo efecto en el estado del servidor.
 
 Ejemplos de [[2_HTTP#Métodos Principales|métodos HTTP]] idempotentes:
@@ -38,7 +40,7 @@ Ejemplos de [[2_HTTP#Métodos Principales|métodos HTTP]] idempotentes:
 
 ---
 
-## 2. Administración de Servidores Web (Nginx)
+## Administración de Servidores Web (Nginx)
 
 Para gestionar configuraciones sin afectar la disponibilidad:
 
@@ -55,9 +57,9 @@ curl -v http://localhost -H "host:foo"
 
 ---
 
-## 3. Sistema de Nombres de Dominio (DNS)
+## Sistema de Nombres de Dominio (DNS)
 
-### 3.1. Arquitectura y Funcionamiento
+### Arquitectura y Funcionamiento
 Los **root-servers** (13 en total) vienen hardcodeados en los sistemas operativos y resolutores.
 
 > [!NOTE]
@@ -65,22 +67,22 @@ Los **root-servers** (13 en total) vienen hardcodeados en los sistemas operativo
 > Ejemplo: `10 aspmx.l.google.com` se intentará antes que uno con prioridad 20.
 
 
-![[Drawings/Dominios]]
+![[attachments/Drawings/Dominios]]
 
 > [!QUESTION] Investigación
 > Investigar el ataque de **envenenamiento de DNS de Kaminsky**, que explota la predictibilidad de los IDs de consulta para inyectar entradas falsas en el caché.
 
 ---
 
-### 3.2. Configuración Práctica (BIND9)
+### Configuración Práctica (BIND9)
 
-#### 3.2.1. Instalación y Acceso
+#### Instalación y Acceso
 ```sh
 sudo apt install bind9
 sudo -i # Acceso como root para configuración
 ```
 
-#### 3.2.2. Definición de Zona (`/etc/bind/named.conf.local`)
+#### Definición de Zona (`/etc/bind/named.conf.local`)
 ```bind
 zone "foo.pdc.lab" {
 	type master;
@@ -88,7 +90,7 @@ zone "foo.pdc.lab" {
 };
 ```
 
-#### 3.2.3. Archivo de Zona (`/etc/bind/foo.pdc.lab.local`)
+#### Archivo de Zona (`/etc/bind/foo.pdc.lab.local`)
 ```bind
 $ORIGIN foo.pdc.lab.
 $TTL 1m
@@ -123,10 +125,11 @@ w3       CNAME www
 @        TXT "hola manola"
 ```
 
-> [!IMPORTANT] Regla de Tiempos
+> [!IMPORTANT]
+> **Regla de Tiempos**
 > Se debe cumplir siempre que $Expire > Refresh + Retry$ para asegurar la consistencia antes de dar por muerta la zona en un secundario.
 
-#### 3.2.4. Mantenimiento y Debugging
+#### Mantenimiento y Debugging
 ```sh
 # Reiniciar el servicio
 systemctl restart bind9
@@ -141,30 +144,32 @@ dig A ns1.foo.pdc.lab @localhost
 
 ---
 
-## 4. Protocolo SMTP y Formatos de Correo
+## Protocolo SMTP y Formatos de Correo
 
-### 4.1. Estructura MIME
+### Estructura MIME
 **MIME** (Multipurpose Internet Mail Extensions) permite identificar el tipo de contenido en el cuerpo del mensaje.
 
 - **Headers:** Se pueden ver descargando el "original" en clientes como Gmail.
 - **Content-Type:** Define la naturaleza del dato (ej: `text/plain`, `image/jpeg`).
 - **Boundary:** Cadena de texto utilizada para separar las distintas partes en mensajes multipart.
 
-#### 4.1.2. Tipos de Multipart
+#### Tipos de Multipart
 - `multipart/mixed`: Utilizado cuando el mensaje contiene partes de distinta naturaleza (ej: texto y archivos adjuntos).
 - `multipart/related`: Utilizado para partes que dependen entre sí (ej: un HTML que referencia una imagen adjunta mediante un `Content-ID`).
 - `multipart/alternative`: Utilizado para dar alternativas de lo mismo (ej: una en texto plano y otra en html).
 
-#### 4.1.3. Codificación Quoted-Printable
+#### Codificación Quoted-Printable
 Utiliza la sintaxis `=<HEX_ASCII>` para representar caracteres no ASCII o caracteres especiales.
 Ejemplo: `=3D` representa el signo `=`.
 
-![](attachments/Pasted%20image%2020260407164322.png)
+![[attachments/Pasted image 20260407164322.png]]
 
-> [!TIP] Pruebas con Netcat
+> [!TIP]
+> **Pruebas con Netcat**
 > Al usar `netcat` para probar protocolos de texto, el flag `-C` es fundamental para enviar fines de línea tipo **CRLF** (\r\n), que es el estándar requerido por protocolos como SMTP y HTTP.
 > Para pruebas reales, se puede utilizar el servidor **pampero**.
 
+---
 
 ### Servidor smtp
 
@@ -182,11 +187,11 @@ luego con nos conectamos con
 nc -C localhost 25
 ```
 
-![](attachments/Pasted%20image%2020260409193740.png)
+![[attachments/Pasted image 20260409193740.png]]
 
 Luego podemos ver ese mail en el directorio `/var/spool/mail`
 
-![](attachments/Pasted%20image%2020260409194029.png)
+![[attachments/Pasted image 20260409194029.png]]
 
 despues podemos tambien hacer uno tipo `email.txt`
 
@@ -207,7 +212,9 @@ home_mailbox=Maildir/
 
 ahora los mails llegan al directorio `~/Maildir`
 
-![](attachments/Pasted%20image%2020260409202428.png)
+![[attachments/Pasted image 20260409202428.png]]
+
+---
 
 ### Servidor para leer mails pop3
 
@@ -246,6 +253,8 @@ tipo si haces un dele y despues ctrl+c, no se borra
 
 En update ahi si se ven los cambios, como borrar el mensaje
 
+---
+
 ### Ej tipo parcial
 
 Si quiero mandar un mail con ñ agarramos y lo hacemos con gmail y luego nos descargamos el original y le agregamos las cosas que le tenemos que agregar
@@ -279,27 +288,20 @@ QUIT
 
 ```
 
-
-
-
 ---
-## 5. Capa de transporte
+
+## Capa de transporte
 
 netcat labura sobre tcp, cuando le pongo crtl+d hago un shutdown (es una syscall). La comunicacion es full duplex pero con un ctrl+d cierro una parte, es decir yo ya no voy a mandar nada mas, es un EOF.
 
 ### header format
 
-![](attachments/Pasted%20image%2020260417103406.png)
+![[attachments/Pasted image 20260417103406.png]]
 
 
 Se van intercambiando el tamaño de ventana de cada uno, para que el que manda sepa no mandar mas que lo que el otro puede recibir. 
 
 Si la ventana se queda en 0 no manda mas nada, salvo un paquetito para preguntarle "che seguis en 0?" cada cierto tiempo. 
-
-
-
-
-
 
 ---
 
@@ -314,6 +316,8 @@ Si la ventana se queda en 0 no manda mas nada, salvo un paquetito para preguntar
 - **Red en la nube [EXPERIMENTAL]**: Permite conectar la VM a una red virtual alojada en servicios en la nube.
 - **No conectado**: La tarjeta de red está configurada en la VM, pero simula que el cable de red está desconectado.
 
+---
+
 ## Xinetd
 
 ```sh
@@ -327,6 +331,7 @@ los servicios los podemos ver haciendo `ls` en `/etc/xinetd.d`
 Sirven para boludear o debuggear
 
 Para crear un sevicio nosotros podemos hacer uno de telnet con 
+
 ```sh
 sudo apt install telnetd
 ```
@@ -346,4 +351,3 @@ service telnet {
 	server = /usr/sbin/telnetd
 }
 ```
-

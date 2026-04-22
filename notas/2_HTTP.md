@@ -5,13 +5,19 @@ tipo: apuntes
 
 # Protocolo HTTP (HyperText Transfer Protocol)
 
+---
+
 HTTP es de transmisión de texto (ascii) y se basa en el modelo **request-response**.
 - **Marca de fin:** Casi todos los protocolos usan `\r\n`.
 - **Endianness:** [[0_Network#TCP|TCP]] y la mayoría de las transmisiones binarias son **Big Endian**.
 
+---
+
 ## Previo a HTTP
 
 Antes de HTTP, se usaba **FTP** para obtener documentos. En base a las referencias dentro de un texto, se debía acceder manualmente a otro sitio FTP y descargar los textos deseados. Esto motivó la necesidad de aplicaciones basadas en **hipertextos** que permitieran navegar entre documentos enlazados.
+
+---
 
 ## Evolución de las Versiones
 
@@ -20,7 +26,7 @@ Antes de HTTP, se usaba **FTP** para obtener documentos. En base a las referenci
 - No mantiene estado (stateless).
 - Orientado a línea de comando.
 
-![](attachments/Pasted%20image%2020260305200002.png)
+![[attachments/Pasted image 20260305200002.png]]
 
 ### HTTP 1.0 (1996)
 - "Browser friendly".
@@ -28,7 +34,7 @@ Antes de HTTP, se usaba **FTP** para obtener documentos. En base a las referenci
 - Introduce códigos de estado.
 - Un request por recurso.
 
-![](attachments/Pasted%20image%2020260305200151.png)
+![[attachments/Pasted image 20260305200151.png]]
 
 ### HTTP 1.1 (1999)
 - Cabeceras y métodos adicionales (`PUT`, `DELETE`, `TRACE`, `OPTIONS`).
@@ -36,7 +42,7 @@ Antes de HTTP, se usaba **FTP** para obtener documentos. En base a las referenci
 - Soporte de **caché**.
 - **Conexiones persistentes** (Keep-Alive). Ver [[1_Introduccion#Características de Protocolos|características de protocolos]] para orientado a conexión.
 
-![](attachments/Pasted%20image%2020260305200305.png)
+![[attachments/Pasted image 20260305200305.png]]
 
 ### HTTP/2 (2015)
 - Protocolo **binario**.
@@ -47,6 +53,8 @@ Antes de HTTP, se usaba **FTP** para obtener documentos. En base a las referenci
 ### HTTP/3
 Basado en **QUIC** (corre sobre [[0_Network#UDP|UDP]]).
 - Menor latencia y multiplexación mejorada. Ver evolución del protocolo en [[1_Introduccion#Historia de Internet|Historia de Internet]].
+
+---
 
 ## Mensajes y Métodos
 
@@ -70,7 +78,7 @@ Un mensaje HTTP tiene tres partes:
 
 ### GET vs POST
 | Característica | GET | POST |
-| -------------- | --- | ---- |
+| :--- | :--- | :--- |
 | Propósito      | Pedir datos | Enviar datos para procesar |
 | Parámetros     | En la URL (Query string) | En el cuerpo (Body) |
 | Caché          | Sí | No |
@@ -85,16 +93,20 @@ Un mensaje HTTP tiene tres partes:
 - **4XX:** Error en cliente (ej. **404 Not Found**).
 - **5XX:** Error en servidor (ej. **500 Internal Server Error**).
 
+---
+
 ## Recursos e Identificadores (URI)
 
-![](attachments/Pasted%20image%2020260305202301.png)
+![[attachments/Pasted image 20260305202301.png]]
 
->[!note]
+> [!NOTE]
 > URI es el concepto genérico, mientras que URL (ubicación) y URN (nombre) son las implementaciones concretas.
 
 - **Sintaxis URL:** `<scheme>://[<user>:<password>@]<host>[:<port>]/<path>?<query>[#fragment]`
 - **Sintaxis URI:** `<scheme>://<authority><path>?<query>` — el path termina con el primer `?` o `#` o si no hay más caracteres. Puede ser relativo o absoluto.
 - **URN:** Identifica un recurso por su **nombre**, no implica que exista ni cómo acceder a él. Ej: `urn:isbn:0132856204`
+
+---
 
 ## Headers HTTP
 
@@ -141,18 +153,24 @@ HTTP usa **MIME** para describir contenido multimedia. Cada recurso es etiquetad
 
 ### Ejemplo
 
-![](attachments/Pasted%20image%2020260310171718.png)
+![[attachments/Pasted image 20260310171718.png]]
+
+---
 
 ## Conexiones HTTP
 
 - **No persistente:** Se abre y cierra una conexión TCP por cada recurso solicitado.
 - **Persistente (Keep-Alive):** Se reutiliza la misma conexión TCP para múltiples recursos, evitando el overhead de establecer nuevas conexiones.
 
+---
+
 ## Negociación de Contenido
 
 El cliente indica sus preferencias mediante headers `Accept`, `Accept-Language`, etc. El servidor puede:
 - Responder con `200 OK` y los headers `Content-Type`, `Content-Language`, `Content-Location` adecuados.
 - Responder con `302 Found` y un `Location` hacia la versión apropiada del recurso.
+
+---
 
 ## Caché (detalle)
 
@@ -168,6 +186,8 @@ El servidor indica `Cache-Control: max-age=600`. Dentro de ese tiempo, el proxy 
 El servidor envía `Last-Modified` y/o `ETag`. Cuando el proxy necesita revalidar, envía `If-Modified-Since` y/o `If-None-Match`. Si el recurso no cambió, el servidor responde **304 Not Modified** (sin body, ahorrando ancho de banda).
 
 Se pueden combinar ambos mecanismos: `max-age` para evitar consultas innecesarias, y `Last-Modified`/`ETag` para revalidar cuando el `max-age` expira.
+
+---
 
 ## Cookies (detalle)
 
@@ -185,6 +205,8 @@ Pequeño texto de información enviado por el servidor y almacenado por el brows
 - **Third-party cookie:** Pertenece a un dominio distinto al visitado.
 - **Secure cookie:** Solo se envía por HTTPS.
 
+---
+
 ## Proxies (detalle)
 
 Un proxy actúa como intermediario entre cliente y servidor.
@@ -193,41 +215,44 @@ Un proxy actúa como intermediario entre cliente y servidor.
 - **Proxy transparente:** El cliente no sabe que está pasando por un proxy.
 - **Proxy reverso (Reverse proxy):** Está del lado del servidor. Recibe requests del exterior y los reenvía internamente a distintos servidores según el recurso solicitado. Útil para balanceo de carga, SSL termination, etc.
 
+---
+
 ## Herramientas de Consola
 - **cURL:** Transferencia de recursos con soporte HTTP(s), FTP, etc.
 - **wget:** Descarga archivos (permite recursividad).
 - **netcat (nc):** Para armar datos manualmente y conectar a puertos.
 
+---
+
 ## Preguntas
 
 ### Pregunta 1
 
-
-![](attachments/Pasted%20image%2020260307170329.png)
+![[attachments/Pasted image 20260307170329.png]]
 
 Para ello utiliza dos cosas. Por un lado el max age, que le indica por cuanto tiempo el recurso es valido, y por otro, puede utilizar el last modified junto con el etag para preguntarle al servidor si el recurso aun es valido.
 
 ### Pregunta 2
 
-![](attachments/Pasted%20image%2020260307165017.png)
+![[attachments/Pasted image 20260307165017.png]]
 
 Lo hace mediante el uso de *cookies*, osea ids de sesion. Uno cuando hace una request incluye la *cookie* y luego el servidor sabe a que sesion se refiere (dando una ilusion de stateful cuando es stateless)
 
 ### Pregunta 3
 
-![](attachments/Pasted%20image%2020260307165724.png)
+![[attachments/Pasted image 20260307165724.png]]
 
 No. Pues el browser mismo puede tener una copia del mismo, usando el mismo mecanismo de maxage que usa el proxy
 
 ### Pregunta 4
 
-![](attachments/Pasted%20image%2020260307170318.png)
+![[attachments/Pasted image 20260307170318.png]]
 
 TRACE lo que hace es que le devuelve al cliente como llego la petision, de esta manera si alguien usa TRACE estaria exponiendo el header y podria otra persona, que no sea el proxy, añadir eso al header y conectarse, sin pasar por el proxy.
 
 ### Pregunta 5
 
-![](attachments/Pasted%20image%2020260307170420.png)
+![[attachments/Pasted image 20260307170420.png]]
 
 a.  Depende la version, la version 2 es binaria, las demas son de texto
 b. Es correcto
@@ -235,13 +260,13 @@ c. No es valida. Las cookies de un recurso si o si estan relacionadas con el ser
 
 ### Pregunta 6
 
-![](attachments/Pasted%20image%2020260307170811.png)
+![[attachments/Pasted image 20260307170811.png]]
 
 La razon es que las que fueron solicitadas con GET se cachean pero los recursos que fueron solicitados con POST no
 
 ### Pregunta 7
 
-![](attachments/Pasted%20image%2020260307171600.png)
+![[attachments/Pasted image 20260307171600.png]]
 
 [el coso de stackoverflow](https://stackoverflow.com/questions/3492319/private-vs-public-in-cache-control)
 

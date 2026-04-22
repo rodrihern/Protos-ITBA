@@ -14,7 +14,8 @@ La capa de red tiene el objetivo principal de **trasladar paquetes de un host a 
 - **Forwarding (Reenvío):** Pasar los paquetes de una interfaz de entrada a una de salida usando reglas locales.
 - **Routing (Enrutamiento):** Decidir la ruta que debe tomar el paquete a través de la red (a esto se dedican los protocolos de ruteo como OSPF y BGP).
 
-> [!NOTE] Redes de Datagramas vs Circuitos Virtuales
+> [!NOTE]
+> **Redes de Datagramas vs Circuitos Virtuales**
 > Existen dos formas históricas de manejar la capa de red:
 > - **Datagramas (Internet/IP):** Cada paquete encuentra su ruta independientemente. No hay información de estado en la red y es tolerante a fallas. La complejidad se maneja en las capas superiores.
 > - **Circuitos Virtuales:** Se establece un camino (conexión) antes de transmitir. Todos los paquetes siguen esa ruta. Los routers mantienen el estado de los circuitos. Si un nodo falla, el circuito se corta.
@@ -25,13 +26,14 @@ La capa de red tiene el objetivo principal de **trasladar paquetes de un host a 
 
 IPv4 utiliza direcciones de 32 bits ($2^{32} \approx 4.294$ millones de direcciones).
 
-> [!TIP] Direcciones IPv4 Reservadas (RFCs)
+> [!TIP]
+> **Direcciones IPv4 Reservadas (RFCs)**
 > - **Loopback (127.x.x.x):** Usada para probar la propia pila TCP/IP del host local.
 > - **Privadas (RFC 1918):** `10.x.x.x`, `172.16.x.x` - `172.31.x.x`, `192.168.x.x`. No son enrutables en internet.
 > - **Link Local:** `169.254.x.x` (asignación automática sin DHCP).
 
+![[attachments/Pasted image 20260416200416.png]]
 
-![](attachments/Pasted%20image%2020260416200416.png)
 ### VLSM (Máscara de Subred de Longitud Variable)
 Permite dividir una red en múltiples subredes de distinto tamaño. En lugar de una máscara fija (clase A, B o C), la máscara indica qué porción es red y qué porción es host de forma arbitraria (ej: `/26`, `/27`).
 - Permite mapear la estructura de la organización, optimizar hosts y aislar el tráfico.
@@ -40,10 +42,9 @@ Permite dividir una red en múltiples subredes de distinto tamaño. En lugar de 
 Permite agregar varias subredes continuas bajo una única máscara más corta (superred), achicando la tabla de ruteo de los routers de la internet pública (optimiza y hace escalable el enrutamiento).
 - El router decide por dónde enviar el paquete basándose en la regla de **coincidencia del prefijo más largo** (Longest Prefix Match).
 
+![[attachments/Pasted image 20260416210610.png]]
 
-![](attachments/Pasted%20image%2020260416210610.png)
-
-![](attachments/Pasted%20image%2020260416210549.png)
+![[attachments/Pasted image 20260416210549.png]]
 
 ---
 
@@ -60,7 +61,8 @@ Diseñado como sucesor de IPv4 debido al agotamiento de direcciones.
 - **Unique Local Address (ULA):** Análogo a las IPs privadas de IPv4 (prefijo `fc00::/7`).
 - **Link Local Address:** Configuración automática obligatoria de una interfaz en un enlace (prefijo `fe80::/10`).
 
-> [!NOTE] Formatos e Interoperabilidad
+> [!NOTE]
+> **Formatos e Interoperabilidad**
 > - El identificador de interfaz de IPv6 puede usar **EUI-64** (basado en la MAC) o el RFC 7217 (números aleatorios estables para privacidad).
 > - Para convivir con IPv4 se usa **NAT64/DNS64** o túneles (encapsular paquete IPv6 dentro de IPv4).
 
@@ -117,10 +119,9 @@ Variaciones:
 Asigna direcciones IP de forma dinámica y permite reservar IPs para direcciones MAC específicas. Reemplazó a BOOTP.
 A través del proceso en 4 pasos (DORA: **D**iscover, **O**ffer, **R**equest, **A**CK), provee al host con la IP, máscara de red, gateways (ruteadores por defecto) y servidores DNS.
 
->[!note]
->Es el unico protocolo que tiene puerto de origen fijo (el 68)
->el destino es 67
-
+> [!NOTE]
+> Es el unico protocolo que tiene puerto de origen fijo (el 68)
+> el destino es 67
 
 ### ICMP (Internet Control Message Protocol)
 Utilizado para notificar errores y realizar diagnósticos, ya que el protocolo IP no maneja retransmisiones.
@@ -130,7 +131,8 @@ Utilizado para notificar errores y realizar diagnósticos, ya que el protocolo I
 
 ## Conceptos de Routing
 
-> [!NOTE] Routing vs Protocolos de Routing
+> [!NOTE]
+> **Routing vs Protocolos de Routing**
 > - **Routing o Forwarding:** Es la acción de reenviar paquetes IP hacia el siguiente host basándose en la información de las tablas de ruteo.
 > - **Protocolos de Routing:** Son programas e implementaciones algorítmicas que intercambian información entre ruteadores para **construir y mantener** las tablas de ruteo.
 
@@ -147,7 +149,8 @@ Las configuraciones de ruteo más comunes son **Routing mínimo** (redes aislada
 ### Vector de Distancia (Distance Vector)
 Cada router recibe la tabla de enrutamiento completa de sus vecinos directos y suma la distancia hacia ellos.
 
-> [!IMPORTANT] Problema: Cuenta a Infinito
+> [!IMPORTANT]
+> **Problema: Cuenta a Infinito**
 > Las "buenas noticias viajan rápido", pero si un enlace cae, los vecinos pueden retroalimentarse asumiendo que el otro aún tiene un camino válido, sumando costos lentamente hacia $\infty$. Soluciones:
 > - **Split Horizon:** No devolver una ruta hacia el vecino por el cual se aprendió.
 > - **Ruta Envenenada (Poison Reverse):** Anunciar rutas caídas con costo infinito.
@@ -174,7 +177,8 @@ Protocolo IGP basado en **Estado de Enlace** (Link State).
 - Permite asignar un "peso" o costo a los enlaces.
 - Demonio en Linux: `gated`.
 
-> [!NOTE] Modelo Jerárquico en OSPF
+> [!NOTE]
+> **Modelo Jerárquico en OSPF**
 > Para evitar inundar demasiada información, OSPF separa la red en **Áreas**.
 > - Todas las áreas secundarias se conectan al **Area 0** (Backbone).
 > - Los **ABR (Area Border Routers)** sumarizan las rutas internas de un área para publicarlas afuera.

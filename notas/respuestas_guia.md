@@ -790,3 +790,121 @@ para saber que servidor DNS se esta usando y modificarlo, esto se hace en el arc
 
 Un **fowarder** es un servidor dns al que le hacemos las consultas (como 8.8.8.8 de google o 1.1.1.1 de cloudflare), sin un *fowarder*, tendriamos que hacer consultas recursivas preguntandole a los root servers y toda la bola 
 
+
+## SMTP
+
+### E55
+
+![](attachments/Pasted%20image%2020260421160300.png)
+
+
+hacemos `dig MX itba.edu.ar` y vemos
+![](attachments/Pasted%20image%2020260421161007.png)
+
+### E56
+
+![](attachments/Pasted%20image%2020260421161029.png)
+
+Desde mi casa puedo, desde el itba no pues no es la idea que dispositivos de la institucion puedan mandar mail a cualquiera sin pasar por un servidor smtp autorizado.
+
+### E57 - 60
+Hecho en el laboratorio
+
+### E61
+
+![](attachments/Pasted%20image%2020260421172656.png)
+#### SPF (Sender Policy Framework)
+- **Funcionamiento:** El dueño de un dominio publica un registro TXT en el DNS indicando qué IPs están autorizadas para enviar correos en su nombre. El servidor receptor verifica la IP del emisor contra esta lista.
+- **Ventajas:** Muy fácil de implementar y verificar; reduce significativamente el *spoofing* de dominios conocidos.
+- **Desventajas:** Se rompe con el reenvío de correos (*forwarding*); no protege el campo "From" que ve el usuario (solo el *Return-Path*).
+
+#### Domain Keys (DKIM)
+- **Funcionamiento:** Agrega una firma criptográfica al encabezado del mensaje. El servidor emisor firma el mail con una clave privada y el receptor verifica la firma usando la clave pública publicada en el DNS del dominio.
+- **Ventajas:** Garantiza la integridad del mensaje (que no fue alterado) y la autenticidad del emisor; sobrevive al reenvío de correos.
+- **Desventajas:** Requiere más poder de cómputo para firmar/verificar; configuración inicial más compleja.
+
+#### Grey Listing
+- **Funcionamiento:** El servidor receptor rechaza temporalmente cualquier correo de un emisor desconocido con un código de error 4xx. Los servidores legítimos reintentarán el envío minutos después, mientras que los bots de spam suelen desistir.
+- **Ventajas:** Extremadamente efectivo contra bots de spam simples; no requiere analizar el contenido del mensaje.
+- **Desventajas:** Introduce un retraso en la entrega del primer correo de un emisor; puede causar problemas con servidores que no siguen el estándar de reintentos.
+
+#### Filtros Bayesianos
+- **Funcionamiento:** Basado en estadística, el filtro se "entrena" con ejemplos de spam y ham (correo legítimo). Calcula la probabilidad de que un mensaje sea spam basándose en la frecuencia de aparición de ciertas palabras o patrones.
+- **Ventajas:** Se adapta al tipo de correo que recibe cada usuario; muy eficaz para detectar contenido publicitario.
+- **Desventajas:** Requiere entrenamiento constante y una base de datos de palabras; riesgo de falsos positivos si el vocabulario del spam se parece al legítimo.
+
+### E62
+
+![](attachments/Pasted%20image%2020260421164003.png)
+
+haciendo 
+```sh
+dig TXT itba.edu.ar
+```
+
+podemos ver que las ips que pueden son
+
+![](attachments/Pasted%20image%2020260421164045.png)
+
+si tambien le hacemos un `dig` a los incluidos como en este caso a `_spf.google.com` y nos fijamos el TXT vamos a encontrar mas ips permitidas
+
+## Codificacion BASE
+
+### E63
+
+![](attachments/Pasted%20image%2020260421165422.png)
+
+
+![](attachments/Pasted%20image%2020260421165408.png)
+
+### E64
+
+![](attachments/Pasted%20image%2020260421170144.png)
+
+
+![](attachments/Pasted%20image%2020260421170244.png)
+
+### E65
+
+![](attachments/Pasted%20image%2020260421171048.png)
+
+cuando codificamos a base64, lo que eran 3 bytes ahora son 4. luego 
+$$
+Codificado = \frac{4}{3} \cdot Original
+$$
+como
+$$
+9 MB \cdot \frac{4}{3} = 12 MB > 10MB
+$$
+no va a llegar
+
+### E66
+
+![](attachments/Pasted%20image%2020260421171525.png)
+
+Puede usarse tambien base32 o base16, aunque estos ocuparian mas espacio
+
+### E67
+
+![](attachments/Pasted%20image%2020260421171714.png)
+
+Hay que tomar el recaudo de que el + y la / significan cosas en la url
+
+usando esta codificacion, como es de ancho fijo (dice el enunciado) podemos ahorrarnos el = del padding final
+
+
+## MIME
+
+### E68
+
+![](attachments/Pasted%20image%2020260421172138.png)
+
+Para poder enviar cosas que no sean ascii de 7 bits (malditos yankees)
+
+
+## Telnet
+
+Hecho en el laboratorio (desinstalar telnet pues no es bueno)
+
+## Protocolos de Transporte
+

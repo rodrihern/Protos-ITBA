@@ -5,9 +5,13 @@ tipo: apuntes
 
 # Introducción a los Protocolos de Comunicación
 
+---
+
 ## Material
 - [Presentación Teórica](https://docs.google.com/presentation/d/1MLU3mTeN4sOjkH6RTErD5sKrVMkdShyTzxBRitnvpXw/edit?slide=id.p5#slide=id.p5)
 - **Lectura:** Capítulos 1.1 a 1.5 de Kurose & Ross.
+
+---
 
 ## Red de Computadoras
 Un conjunto interconectado de **hosts** autónomos.
@@ -17,15 +21,17 @@ Un conjunto interconectado de **hosts** autónomos.
     - **Store and Forward:** El paquete debe llegar completo antes de ser retransmitido.
     - **Pérdida:** Si la tasa de entrada > salida, los paquetes se encolan o se pierden si el buffer está lleno.
 
+---
+
 ## Modelo OSI y TCP/IP
 
-![](attachments/Pasted%20image%2020260303161540.png)
+![[attachments/Pasted image 20260303161540.png]]
 
-![](attachments/Pasted%20image%2020260303163510.png)
+![[attachments/Pasted image 20260303163510.png]]
 
 ### Comparativa de Modelos
 | Modelo OSI (1984) | Modelo TCP/IP (1981) | Unidad de Datos | Espacio |
-| ----------------- | -------------------- | --------------- | ------- |
+| :--- | :--- | :--- | :--- |
 | Aplicación        | Aplicación           | Datos           | Usuario |
 | Presentación      | Aplicación           | Datos           | Usuario |
 | Sesión            | Aplicación           | Datos           | Usuario |
@@ -36,6 +42,8 @@ Un conjunto interconectado de **hosts** autónomos.
 
 Ver mas detalle del modelo OSI en [[0_Network#OSI MODEL]] y la comparativa con [[0_Network#Protocolos|protocolos TCP/UDP]].
 
+---
+
 ## Características de Protocolos
 
 Los protocolos pueden ser:
@@ -45,17 +53,20 @@ Los protocolos pueden ser:
   - Informa al nivel superior si no se pudo enviar.
 - **No orientado a conexión:** Se envía la información directamente al destinatario sin establecer conexión previa (ej. [[0_Network#UDP|UDP]]).
 - **No confiable:** No puede asegurar si el destinatario recibió o no la información.
----
-**Herramientas:** Se recomienda el uso de **Wireshark** para el análisis de tráfico.
 
+---
+
+> [!TIP]
+> **Herramientas:** Se recomienda el uso de **Wireshark** para el análisis de tráfico.
 
 | Orientado a conexión | Confiable | Ejemplos |
-| -------------------- | --------- | -------- |
+| :--- | :--- | :--- |
 | SI                   | SI        | TCP      |
 | SI                   | NO        |          |
 | NO                   | SI        |          |
 | NO                   | NO        | UDP, IP  |
 
+---
 
 ## Sistemas Propietarios y Estándares
 
@@ -65,15 +76,19 @@ A principios de los '80, para conectar dos computadoras debían ser del mismo fa
 - El intercambio de información es entre las dos puntas de una misma capa.
 - Cada capa le brinda un servicio a la capa superior.
 
+---
+
 ## Encapsulamiento
 
 Cada capa agrega su propio encabezado (y a veces trailer) al mensaje:
 
 1. **Aplicación** $\rightarrow$ Datos
-2. **Transporte** $\rightarrow$ Segmento (header de transporte + datos)
-3. **Red** $\rightarrow$ Paquete (header de red + segmento)
-4. **Enlace** $\rightarrow$ Trama (header de trama + paquete + info final de trama)
+2. **Transporte** $\rightarrow$ **Segmento** (header de transporte + datos)
+3. **Red** $\rightarrow$ **Paquete** (header de red + segmento)
+4. **Enlace** $\rightarrow$ **Trama** (header de trama + paquete + info final de trama)
 5. **Física** $\rightarrow$ Bits (stream de datos en el medio físico)
+
+---
 
 ## Capa de Enlace
 
@@ -88,21 +103,26 @@ Cada capa agrega su propio encabezado (y a veces trailer) al mensaje:
 - **Topología Bus:** Todos los hosts comparten el mismo medio. Red broadcast.
 - **Topología Estrella:** Los hosts se conectan a un dispositivo central (hub o switch).
 
-**Hub vs Switch:**
-- **Hub:** Recibe señal por una interfaz y la reenvía por todas las demás (inunda). Opera en capa 1. Red broadcast.
-- **Switch:** Aprende en qué interfaz está cada MAC y reenvía solo al destino correspondiente. Opera en capa 2. Reduce colisiones y permite comunicación simultánea entre pares de hosts.
+> [!IMPORTANT]
+> **Hub vs Switch:**
+> - **Hub:** Recibe señal por una interfaz y la reenvía por todas las demás (inunda). Opera en capa 1. Red broadcast.
+> - **Switch:** Aprende en qué interfaz está cada MAC y reenvía solo al destino correspondiente. Opera en capa 2. Reduce colisiones y permite comunicación simultánea entre pares de hosts.
+
+---
 
 ## Capa de Red: Tablas de Ruteo
 
 Los routers usan **tablas de ruteo** para decidir por qué interfaz reenviar un paquete. Cada entrada tiene:
 - **Destination:** Red destino
 - **Mask:** Máscara de la red
-- **Gateway:** Siguiente salto (0.0.0.0 si está directamente conectada)
+- **Gateway:** Siguiente salto ($0.0.0.0$ si está directamente conectada)
 - **Interface:** Interfaz de salida
 
 Cuando un router recibe un paquete, hace AND entre la IP destino y la máscara de cada entrada. Si coincide con el Destination, reenvía por esa interfaz al gateway indicado.
 
 Los **registros regionales de Internet** (ARIN, RIPE NCC, LACNIC, AFRINIC, APNIC) asignan bloques de IPs bajo coordinación de la **IANA** (https://www.iana.org/numbers).
+
+---
 
 ## Capa de Transporte: Puertos Comunes
 
@@ -115,6 +135,8 @@ Los **registros regionales de Internet** (ARIN, RIPE NCC, LACNIC, AFRINIC, APNIC
 - **SSH:** TCP 22 (ver [[0_Network#SSH|0_Network - SSH]])
 - **TELNET:** TCP 23
 - **SNMP:** TCP/UDP 161, 162
+
+---
 
 ## Historia de Internet
 
@@ -129,18 +151,19 @@ Los **registros regionales de Internet** (ARIN, RIPE NCC, LACNIC, AFRINIC, APNIC
 - **1972:** ARPANET se presenta en público. Primer correo electrónico sobre NCP. ALOHAnet se conecta a ARPANET vía enlace satelital.
 - **1973:** Se estandariza NCP (RFC 542). Cerf y Kahn comienzan el diseño de **TCP** (Transmission Control Program).
 
+---
+
 ## Preguntas
 
 ### Pregunta 1
 
-![](attachments/Pasted%20image%2020260307171940.png)
+![[attachments/Pasted image 20260307171940.png]]
 
 No podría calcular la velocidad exacta ya que tendría que conocer además la latencia, y habría que sumarle también el tiempo de procesamiento del router, y el tiempo que los mensajes estarán encolados.
 
 ### Pregunta 2
 
-![](attachments/Pasted%20image%2020260307172012.png)
-
+![[attachments/Pasted image 20260307172012.png]]
 
 a. **Falso**. Que un protocolo sea orientado a conexión implica que antes de enviar información se debe establecer una conexión o sesión.
 
@@ -160,14 +183,13 @@ g. **Falso**. Cada interfaz del router sirve para conectarse a una red. Si en la
 
 ### Pregunta 3
 
-![](attachments/Pasted%20image%2020260307172134.png)
+![[attachments/Pasted image 20260307172134.png]]
 
 No. En el medio de comunicación broadcast, toda la información que se coloca en el medio puede ser recibida por todos los conectados a ese medio, pero tal vez estar dirigida a un único destinatario, por ejemplo en un supermercado se escucha por los parlantes “El dueño de automóvil con patente ….” será oído por todas las personas pero será ignorado por todos excepto por quien tenga ese auto. Una comunicación broadcast está dirigida a todos los posibles destinatarios, pero puede ser hecha por un medio unicast, por ejemplo volantes dejados en casa, llamadas automáticas por teléfono de algún político que dice querer conocernos, etc.
 
-
 ### Pregunta 4
 
-![](attachments/Pasted%20image%2020260307172203.png)
+![[attachments/Pasted image 20260307172203.png]]
 
 a. **Verdadero**
 El hub recibe señal de una interface y la envía por el resto de las unidades (inunda), por lo tanto es Verdadero

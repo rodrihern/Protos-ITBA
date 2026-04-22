@@ -5,15 +5,21 @@ tipo: apuntes
 
 # Resolución de Nombres (DNS)
 
+---
+
 ## ¿Qué es la Resolución de Nombres?
 Es el proceso de traducir un **nombre de dominio** (ej. `www.ejemplo.com`) a una **[[0_Network#IP ADDRESSES|dirección IP]]** (ej. `192.0.2.1`).
 - **Importancia:** Facilita el acceso a los hosts mediante nombres fáciles de recordar y es esencial para la comunicación en red.
+
+---
 
 ## Estructura de Nombres
 - **Dominio:** Colección de computadoras accedidas bajo un nombre común (ej. `itba.edu.ar`).
 - **Hostname:** Nombre propio de cada host dentro de un dominio (ej. `www`, `smtp`).
 - **FQDN (Fully Qualified Domain Name):** La unión del hostname y el dominio (ej. `smtp.it.itba.edu.ar`).
 - **Jerarquía:** Los dominios tienen niveles. El nivel superior es el **TLD** (Top-Level Domain) como `.com`, `.edu`, `.ar`.
+
+---
 
 ## Métodos de Resolución en el Host
 Existen dos vías principales para que una aplicación obtenga la IP:
@@ -32,6 +38,8 @@ Utiliza el archivo de configuración `/etc/resolv.conf`:
 
 Una vez me manda la ip me lo guardo en una cache, cuanto tiempo me lo guardo funciona parecido al [[2_HTTP#Con `max-age`|max-age de http]] (*ttl*). Ver también el modelo de capas en [[1_Introduccion#Modelo OSI y TCP/IP|Introducción - OSI]].
 
+---
+
 ## El Sistema DNS
 Es un sistema **jerárquico y distribuido**. No existe una única base de datos centralizada.
 
@@ -44,6 +52,8 @@ Es un sistema **jerárquico y distribuido**. No existe una única base de datos 
 
 ### DNS Reverse (Inverso)
 Mapea una dirección IP a un nombre de dominio utilizando el árbol especial bajo el dominio `in-addr.arpa`.
+
+---
 
 ## Registros DNS (Resource Records - RR)
 Formato: `(name, value, type, ttl)`
@@ -60,6 +70,7 @@ Formato: `(name, value, type, ttl)`
 | **SOA** | Dominio | Inicio de autoridad (info técnica de la zona) |
 | **SRV** | Servicio | Ubicación de servicios específicos (puerto/host) |
 
+---
 
 ## Consultas y Funcionamiento
 Las consultas suelen utilizar el protocolo **[[0_Network#UDP|UDP]]** (o [[0_Network#TCP|TCP]] para transferencias de zona) en el puerto **53**. Ver tabla de puertos en [[1_Introduccion#Capa de Transporte: Puertos Comunes|Introducción - Puertos Comunes]].
@@ -69,16 +80,23 @@ Las consultas suelen utilizar el protocolo **[[0_Network#UDP|UDP]]** (o [[0_Netw
 4. El TLD deriva al servidor **Autorizado** del dominio.
 5. El servidor autorizado devuelve la IP final.
 
-![](attachments/Pasted%20image%2020260312201555.png)
+![[attachments/Pasted image 20260312201555.png]]
+
+---
+
 ## Configuraciones Especiales
 - **Split-Horizon:** Un nombre resuelve a distintas IPs según el origen de la consulta (ej. IP interna para la LAN, IP pública para Internet).
 - **DNS Dinámico (DDNS):** Permite actualizar registros en tiempo real (RFC 2136), ideal para hosts con IP dinámica.
+
+---
 
 ## Utilidades de Consola
 - `host`: Resolución rápida (directa e inversa).
 - `nslookup`: Modo interactivo para consultar servidores y tipos de registros específicos.
 - `dig`: Herramienta detallada para ver registros completos y trazas.
 - `whois`: Información sobre el registrante/responsable de un dominio.
+
+---
 
 ## Seguridad: DNS Spoofing
 Técnica para lograr que un registro DNS apunte a una IP falsa.
@@ -87,12 +105,13 @@ Técnica para lograr que un registro DNS apunte a una IP falsa.
     - **DNS Sniffer:** Capturar el ID real mediante sniffing para enviar la respuesta falsa con el ID correcto.
     - **Cache Poisoning:** Inyectar registros falsos en la caché de un servidor DNS víctima para que este distribuya la información falsa.
 
+---
 
 ## Preguntas
 
 ### Pregunta 1
 
-![](attachments/Pasted%20image%2020260314121321.png)
+![[attachments/Pasted image 20260314121321.png]]
 
 #### yo
 
@@ -102,10 +121,9 @@ Falla porque desde fuera del itba recibe la conexion desde fuera y esta todo ok.
 
 falla porque el servidor DNS, para Pampero, usa “Split horizon”. Si la consulta para resolver el nombre proviene dentro del ITBA, responde un IP privado (10….), y si la consulta proviene de un cliente DNS externo responde con el IP público. Como mi servidor DNS es 4.4.4.4, para el servidor DNS del ITBA la consulta “vino desde afuera”. A esto se le suma que no se permiten conexiones a Pampero a la IP pública si el IP origen es interno del ITBA (se verá más adelante cuando veamos firewalls).
 
-
 ### Pregunta 2
 
-![](attachments/Pasted%20image%2020260314121732.png)
+![[attachments/Pasted image 20260314121732.png]]
 
 #### yo
 
@@ -117,6 +135,6 @@ conviene UDP si la rta es corta y entra en un datagrama (el encabezado TCP ocupa
 
 ### Pregunta 3
 
-![](attachments/Pasted%20image%2020260314122004.png)
+![[attachments/Pasted image 20260314122004.png]]
 
 Es responsabilidad de la aplicación. La aplicación le debe indicar a UDP la información a enviar en un datagrama, si le pide que envíe más bytes de la capacidad de un datagrama entonces será rechazado por UDP. En líneas generales, si una aplicación tiene que enviar más información, la aplicación debe “partir” la información y enviar tantos datagramas como sea necesario. El cliente debe recibir los datagramas y procesarlos en orden, hasta que haya llegado el último. Si un datagrama no llega, tendrá que realizar nuevamente la consulta.
