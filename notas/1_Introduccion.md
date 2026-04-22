@@ -25,9 +25,9 @@ Un conjunto interconectado de **hosts** autónomos.
 
 ## Modelo OSI y TCP/IP
 
-![[attachments/Pasted image 20260303161540.png]]
+![Pasted image 20260303161540.png](attachments/Pasted%20image%2020260303161540.png)
 
-![[attachments/Pasted image 20260303163510.png]]
+![Pasted image 20260303163510.png](attachments/Pasted%20image%2020260303163510.png)
 
 ### Comparativa de Modelos
 | Modelo OSI (1984) | Modelo TCP/IP (1981) | Unidad de Datos | Espacio |
@@ -40,18 +40,18 @@ Un conjunto interconectado de **hosts** autónomos.
 | Enlace            | Acceso               | Tramas          | Hardware/Kernel |
 | Física            | Acceso               | Bits            | Hardware |
 
-Ver mas detalle del modelo OSI en [[0_Network#OSI MODEL]] y la comparativa con [[0_Network#Protocolos|protocolos TCP/UDP]].
+Ver mas detalle del modelo OSI en [0_Network#OSI MODEL](0_Network.md#osi-model) y la comparativa con [protocolos TCP/UDP](0_Network.md#protocolos).
 
 ---
 
 ## Características de Protocolos
 
 Los protocolos pueden ser:
-- **Orientado a conexión:** Se debe establecer primero una conexión (ej. [[0_Network#TCP|TCP]]).
+- **Orientado a conexión:** Se debe establecer primero una conexión (ej. [TCP](0_Network.md#tcp)).
 - **Confiable:** El emisor sabe si la información llegó correctamente (acuse de recibo).
   - Reenvía información de ser necesario.
   - Informa al nivel superior si no se pudo enviar.
-- **No orientado a conexión:** Se envía la información directamente al destinatario sin establecer conexión previa (ej. [[0_Network#UDP|UDP]]).
+- **No orientado a conexión:** Se envía la información directamente al destinatario sin establecer conexión previa (ej. [UDP](0_Network.md#udp)).
 - **No confiable:** No puede asegurar si el destinatario recibió o no la información.
 
 ---
@@ -126,13 +126,13 @@ Los **registros regionales de Internet** (ARIN, RIPE NCC, LACNIC, AFRINIC, APNIC
 
 ## Capa de Transporte: Puertos Comunes
 
-- **DNS:** UDP/TCP 53 (ver [[3_dns]])
-- **HTTP:** TCP 80 (ver [[2_HTTP]])
+- **DNS:** UDP/TCP 53 (ver [3_dns](3_dns.md))
+- **HTTP:** TCP 80 (ver [2_HTTP](2_HTTP.md))
 - **HTTPS:** TCP 443
 - **SMTP:** TCP 25
 - **POP:** TCP 109, 110
 - **FTP:** TCP 20, 21
-- **SSH:** TCP 22 (ver [[0_Network#SSH|0_Network - SSH]])
+- **SSH:** TCP 22 (ver [0_Network - SSH](0_Network.md#ssh))
 - **TELNET:** TCP 23
 - **SNMP:** TCP/UDP 161, 162
 
@@ -157,13 +157,13 @@ Los **registros regionales de Internet** (ARIN, RIPE NCC, LACNIC, AFRINIC, APNIC
 
 ### Pregunta 1
 
-![[attachments/Pasted image 20260307171940.png]]
+![Pasted image 20260307171940.png](attachments/Pasted%20image%2020260307171940.png)
 
 No podría calcular la velocidad exacta ya que tendría que conocer además la latencia, y habría que sumarle también el tiempo de procesamiento del router, y el tiempo que los mensajes estarán encolados.
 
 ### Pregunta 2
 
-![[attachments/Pasted image 20260307172012.png]]
+![Pasted image 20260307172012.png](attachments/Pasted%20image%2020260307172012.png)
 
 a. **Falso**. Que un protocolo sea orientado a conexión implica que antes de enviar información se debe establecer una conexión o sesión.
 
@@ -183,13 +183,13 @@ g. **Falso**. Cada interfaz del router sirve para conectarse a una red. Si en la
 
 ### Pregunta 3
 
-![[attachments/Pasted image 20260307172134.png]]
+![Pasted image 20260307172134.png](attachments/Pasted%20image%2020260307172134.png)
 
 No. En el medio de comunicación broadcast, toda la información que se coloca en el medio puede ser recibida por todos los conectados a ese medio, pero tal vez estar dirigida a un único destinatario, por ejemplo en un supermercado se escucha por los parlantes “El dueño de automóvil con patente ….” será oído por todas las personas pero será ignorado por todos excepto por quien tenga ese auto. Una comunicación broadcast está dirigida a todos los posibles destinatarios, pero puede ser hecha por un medio unicast, por ejemplo volantes dejados en casa, llamadas automáticas por teléfono de algún político que dice querer conocernos, etc.
 
 ### Pregunta 4
 
-![[attachments/Pasted image 20260307172203.png]]
+![Pasted image 20260307172203.png](attachments/Pasted%20image%2020260307172203.png)
 
 a. **Verdadero**
 El hub recibe señal de una interface y la envía por el resto de las unidades (inunda), por lo tanto es Verdadero

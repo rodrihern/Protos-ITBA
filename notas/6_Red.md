@@ -32,7 +32,7 @@ IPv4 utiliza direcciones de 32 bits ($2^{32} \approx 4.294$ millones de direccio
 > - **Privadas (RFC 1918):** `10.x.x.x`, `172.16.x.x` - `172.31.x.x`, `192.168.x.x`. No son enrutables en internet.
 > - **Link Local:** `169.254.x.x` (asignación automática sin DHCP).
 
-![[attachments/Pasted image 20260416200416.png]]
+![Pasted image 20260416200416.png](attachments/Pasted%20image%2020260416200416.png)
 
 ### VLSM (Máscara de Subred de Longitud Variable)
 Permite dividir una red en múltiples subredes de distinto tamaño. En lugar de una máscara fija (clase A, B o C), la máscara indica qué porción es red y qué porción es host de forma arbitraria (ej: `/26`, `/27`).
@@ -42,9 +42,9 @@ Permite dividir una red en múltiples subredes de distinto tamaño. En lugar de 
 Permite agregar varias subredes continuas bajo una única máscara más corta (superred), achicando la tabla de ruteo de los routers de la internet pública (optimiza y hace escalable el enrutamiento).
 - El router decide por dónde enviar el paquete basándose en la regla de **coincidencia del prefijo más largo** (Longest Prefix Match).
 
-![[attachments/Pasted image 20260416210610.png]]
+![Pasted image 20260416210610.png](attachments/Pasted%20image%2020260416210610.png)
 
-![[attachments/Pasted image 20260416210549.png]]
+![Pasted image 20260416210549.png](attachments/Pasted%20image%2020260416210549.png)
 
 ---
 

@@ -23,7 +23,7 @@ La arquitectura de correo se divide en tres agentes principales:
 | **MTA** | Mail Transfer Agent | Transfiere el mensaje entre hosts utilizando SMTP (ej. Postfix, Sendmail). |
 | **MDA** | Mail Delivery Agent | Coloca el mensaje en la casilla de correo del usuario final (ej. Dovecot). |
 
-![[attachments/Pasted image 20260319192143.png]]
+![Pasted image 20260319192143.png](attachments/Pasted%20image%2020260319192143.png)
 
 ---
 
@@ -131,9 +131,9 @@ Para combatir el *phishing* y la suplantación, se utilizan:
     - Un mensaje cifrado con la **clave pública** de X solo puede desencriptarse con la **clave privada** de X.
     - Un mensaje cifrado con la **clave privada** de X solo puede desencriptarse con la **clave pública** de X (usado para firmas digitales/autenticidad).
 
-![[attachments/Pasted image 20260319205128.png]]
+![Pasted image 20260319205128.png](attachments/Pasted%20image%2020260319205128.png)
 
-![[attachments/Pasted image 20260319205142.png]]
+![Pasted image 20260319205142.png](attachments/Pasted%20image%2020260319205142.png)
 
 ### Certificados Digitales
 Para asegurar que una clave pública pertenece a quien dice ser, se utilizan **Certificados X.509**.
@@ -166,7 +166,7 @@ Los proxies pueden inspeccionar tráfico HTTPS mediante técnicas de **Man-in-th
 > **SNI (Server Name Indication):** Permite a un proxy o firewall bloquear o filtrar sitios web analizando el nombre del servidor en el handshake de TLS, sin necesidad de romper el cifrado.
 
 ---
-Ver también: [[2_HTTP#Webmail|Webmail]] (MUA con interfaz web).
+Ver también: [Webmail](2_HTTP.md#webmail) (MUA con interfaz web).
 
 ---
 
@@ -174,7 +174,7 @@ Ver también: [[2_HTTP#Webmail|Webmail]] (MUA con interfaz web).
 
 ### Pregunta 4
 
-![[attachments/Pasted image 20260322134848.png]]
+![Pasted image 20260322134848.png](attachments/Pasted%20image%2020260322134848.png)
 
 al servidor que tiene que conectarse es el servidor que viene despues del @ en el mail de destino, cuando hace la consulta al dns la respuesta esta en el registro MX
 
@@ -182,7 +182,7 @@ dns solo responde la ip, una posible causa para que falle la conexion es que no 
 
 ### Pregunta 5
 
-![[attachments/Pasted image 20260322135427.png]]
+![Pasted image 20260322135427.png](attachments/Pasted%20image%2020260322135427.png)
 
 Puede pasar poque este fijada en `/etc/hosts` y se corrige editando el archivo
 
@@ -190,7 +190,7 @@ O tambien puede ser en la cache DNS de mi computadora y hayan manejado mal el te
 
 ### Pregunta 6
 
-![[attachments/Pasted image 20260322140044.png]]
+![Pasted image 20260322140044.png](attachments/Pasted%20image%2020260322140044.png)
 
 a. A veces porque la ip va a ir como host en el header
 b. agregandolo en `/etc/hosts`
@@ -198,7 +198,7 @@ c. consultar otro dns, como por ejemplo el autorizado para el dominio del servid
 
 ### Pregunta 7
 
-![[attachments/Pasted image 20260322140350.png]]
+![Pasted image 20260322140350.png](attachments/Pasted%20image%2020260322140350.png)
 a. dig .  : intentamos obtener direcciones IP de hosts conocidas por los root name servers. Sólo nos mostrará el nombre de uno de los root name servers
   
 b. dig . NS : todos los servidores DNS de los root name servers, con sus nombres e IPs    
@@ -211,7 +211,7 @@ e. dig ar MX: una respuesta vacía, o lo mismo que en el punto c
 
 ### Pregunta 8
 
-![[attachments/Pasted image 20260322140952.png]]
+![Pasted image 20260322140952.png](attachments/Pasted%20image%2020260322140952.png)
 
 
 | Protocolo | Orientado a conexion | Confiable |
@@ -222,7 +222,7 @@ e. dig ar MX: una respuesta vacía, o lo mismo que en el punto c
 
 ### Pregunta 9
 
-![[attachments/Pasted image 20260322141300.png]]
+![Pasted image 20260322141300.png](attachments/Pasted%20image%2020260322141300.png)
 
 a. **FALSO** que sea orientado a conexion no asegura que llega, lo que dice es que si no llega, vamos a saber que no llego
 
@@ -232,6 +232,6 @@ c. **VERDADERO**
 
 ### Pregunta 10
 
-![[attachments/Pasted image 20260322141506.png]]
+![Pasted image 20260322141506.png](attachments/Pasted%20image%2020260322141506.png)
 
 Una ventaja es que el host que esté dentro de la red local podrá enviar paquetes IP directamente al host destino, sin necesidad de la intervención de un router/firewall. Además, si se usa el mismo dominio en forma privada que en forma pública, permite establecer que algunos nombres de hosts (y su IP privada)

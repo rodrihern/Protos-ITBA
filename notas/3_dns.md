@@ -8,7 +8,7 @@ tipo: apuntes
 ---
 
 ## ¿Qué es la Resolución de Nombres?
-Es el proceso de traducir un **nombre de dominio** (ej. `www.ejemplo.com`) a una **[[0_Network#IP ADDRESSES|dirección IP]]** (ej. `192.0.2.1`).
+Es el proceso de traducir un **nombre de dominio** (ej. `www.ejemplo.com`) a una **[dirección IP](0_Network.md#ip-addresses)** (ej. `192.0.2.1`).
 - **Importancia:** Facilita el acceso a los hosts mediante nombres fáciles de recordar y es esencial para la comunicación en red.
 
 ---
@@ -36,7 +36,7 @@ Utiliza el archivo de configuración `/etc/resolv.conf`:
 - `search`: Lista de dominios para búsqueda de nombres cortos.
 - `options`: Parámetros como `debug`, `timeout`, `attempts`, `rotate`, etc.
 
-Una vez me manda la ip me lo guardo en una cache, cuanto tiempo me lo guardo funciona parecido al [[2_HTTP#Con `max-age`|max-age de http]] (*ttl*). Ver también el modelo de capas en [[1_Introduccion#Modelo OSI y TCP/IP|Introducción - OSI]].
+Una vez me manda la ip me lo guardo en una cache, cuanto tiempo me lo guardo funciona parecido al [max-age de http](2_HTTP.md#con-`max-age`) (*ttl*). Ver también el modelo de capas en [Introducción - OSI](1_Introduccion.md#modelo-osi-y-tcp/ip).
 
 ---
 
@@ -73,14 +73,14 @@ Formato: `(name, value, type, ttl)`
 ---
 
 ## Consultas y Funcionamiento
-Las consultas suelen utilizar el protocolo **[[0_Network#UDP|UDP]]** (o [[0_Network#TCP|TCP]] para transferencias de zona) en el puerto **53**. Ver tabla de puertos en [[1_Introduccion#Capa de Transporte: Puertos Comunes|Introducción - Puertos Comunes]].
+Las consultas suelen utilizar el protocolo **[UDP](0_Network.md#udp)** (o [TCP](0_Network.md#tcp) para transferencias de zona) en el puerto **53**. Ver tabla de puertos en [Introducción - Puertos Comunes](1_Introduccion.md#capa-de-transporte:-puertos-comunes).
 1. El cliente pregunta al **DNS Local**.
 2. Si no está en caché, el DNS local pregunta a un **Root Server**.
 3. El Root deriva al servidor de **TLD** correspondiente.
 4. El TLD deriva al servidor **Autorizado** del dominio.
 5. El servidor autorizado devuelve la IP final.
 
-![[attachments/Pasted image 20260312201555.png]]
+![Pasted image 20260312201555.png](attachments/Pasted%20image%2020260312201555.png)
 
 ---
 
@@ -111,7 +111,7 @@ Técnica para lograr que un registro DNS apunte a una IP falsa.
 
 ### Pregunta 1
 
-![[attachments/Pasted image 20260314121321.png]]
+![Pasted image 20260314121321.png](attachments/Pasted%20image%2020260314121321.png)
 
 #### yo
 
@@ -123,7 +123,7 @@ falla porque el servidor DNS, para Pampero, usa “Split horizon”. Si la consu
 
 ### Pregunta 2
 
-![[attachments/Pasted image 20260314121732.png]]
+![Pasted image 20260314121732.png](attachments/Pasted%20image%2020260314121732.png)
 
 #### yo
 
@@ -135,6 +135,6 @@ conviene UDP si la rta es corta y entra en un datagrama (el encabezado TCP ocupa
 
 ### Pregunta 3
 
-![[attachments/Pasted image 20260314122004.png]]
+![Pasted image 20260314122004.png](attachments/Pasted%20image%2020260314122004.png)
 
 Es responsabilidad de la aplicación. La aplicación le debe indicar a UDP la información a enviar en un datagrama, si le pide que envíe más bytes de la capacidad de un datagrama entonces será rechazado por UDP. En líneas generales, si una aplicación tiene que enviar más información, la aplicación debe “partir” la información y enviar tantos datagramas como sea necesario. El cliente debe recibir los datagramas y procesarlos en orden, hasta que haya llegado el último. Si un datagrama no llega, tendrá que realizar nuevamente la consulta.

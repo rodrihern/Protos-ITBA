@@ -46,7 +46,7 @@ Es un protocolo "mínimo" que ofrece un servicio de **mejor esfuerzo** (best eff
 
 ### Formato de un mensaje
 
-![[attachments/Pasted image 20260330172918.png]]
+![Pasted image 20260330172918.png](attachments/Pasted%20image%2020260330172918.png)
 
 ---
 
@@ -84,7 +84,7 @@ Evita saturar la red (routers intermedios). TCP utiliza dos mecanismos principal
 
 ### Formato de un mensaje tcp
 
-![[attachments/Pasted image 20260330174841.png]]
+![Pasted image 20260330174841.png](attachments/Pasted%20image%2020260330174841.png)
 
 **Flags:**
 - `URG` de si es urgente, permitiendole a la app si quiere leer estos primero
@@ -115,8 +115,8 @@ Utiliza un **4-way handshake** con intercambio de **cookies** para protegerse co
 
 ---
 **Ver también:**
-- [[1_Introduccion#Capas de Red|Modelo OSI]]
-- [[2_HTTP#TCP en la Web|Interacción con HTTP]]
+- [Modelo OSI](1_Introduccion.md#capas-de-red)
+- [Interacción con HTTP](2_HTTP.md#tcp-en-la-web)
 
 ---
 
@@ -124,19 +124,19 @@ Utiliza un **4-way handshake** con intercambio de **cookies** para protegerse co
 
 ### Pregunta 1
 
-![[attachments/Pasted image 20260403183146.png]]
+![Pasted image 20260403183146.png](attachments/Pasted%20image%2020260403183146.png)
 
 Es analogo a UDP
 
 ### Pregunta 2
 
-![[attachments/Pasted image 20260403183215.png]]
+![Pasted image 20260403183215.png](attachments/Pasted%20image%2020260403183215.png)
 
 UDP
 
 ### Pregunta 3
 
-![[attachments/Pasted image 20260403183237.png]]
+![Pasted image 20260403183237.png](attachments/Pasted%20image%2020260403183237.png)
 
 UDP: (ip destino, puerto destino)
 
@@ -144,47 +144,47 @@ TCP: (ip origen, puesto origen, ip destino, puerto destino)
 
 ### Pregunta 4
 
-![[attachments/Pasted image 20260403183921.png]]
+![Pasted image 20260403183921.png](attachments/Pasted%20image%2020260403183921.png)
 
 c. se tretransmite el paquete 
 
 ### Pregunta 5
 
-![[attachments/Pasted image 20260403183949.png]]
+![Pasted image 20260403183949.png](attachments/Pasted%20image%2020260403183949.png)
 
 c. Un protocolo que intercambia datagramas sin acuse de recibo ni garantia de entrega
 
 ### Pregunta 6
 
-![[attachments/Pasted image 20260403184238.png]]
+![Pasted image 20260403184238.png](attachments/Pasted%20image%2020260403184238.png)
 
 ### Pregunta 7
 
-![[attachments/Pasted image 20260403185023.png]]
+![Pasted image 20260403185023.png](attachments/Pasted%20image%2020260403185023.png)
 
 Van a ser enviados al mismo socket y se va a dar cuenta de cual es por el par ip y puerto de origen
 
 ### Pregunta 8
 
-![[attachments/Pasted image 20260403185147.png]]
+![Pasted image 20260403185147.png](attachments/Pasted%20image%2020260403185147.png)
 
 Son enviados originalmente al mismo socket (pasivo) y este despues hace un fork() creando un socket activo una vez establecida la conexion (*3 way handshake*). El primer paquete es al mismo socket pero despues a distintos, ambos al puerto 80 y se diferencian por la ip de origen
 
 ### Pregunta 9
 
-![[attachments/Pasted image 20260403185354.png]]
+![Pasted image 20260403185354.png](attachments/Pasted%20image%2020260403185354.png)
 
 Se utilizan para saber que paquete estoy recibiendo, si se perdio alguno en el medio y poder mandarselos a la capa de aplicacion en orden. 
 
 ### Pregunta 10
 
-![[attachments/Pasted image 20260403185459.png]]
+![Pasted image 20260403185459.png](attachments/Pasted%20image%2020260403185459.png)
 
 Se utilizan para decir: bueno si en este tiempo no recibi el ack, probablemente es que el paquete no llego y debo volverlo a mandar
 
 ### Pregunta 11
 
-![[attachments/Pasted image 20260403185541.png]]
+![Pasted image 20260403185541.png](attachments/Pasted%20image%2020260403185541.png)
 
 a. 20 (del 90 al 109)
 b. Sera 90 (es el que esta esperando leer)
@@ -192,37 +192,37 @@ c. Imposible de saber
 
 ### Pregunta 12
 
-![[attachments/Pasted image 20260403185754.png]]
+![Pasted image 20260403185754.png](attachments/Pasted%20image%2020260403185754.png)
 
 Usar sctp, o una conexion tcp por cada recurso
 
 ### Pregunta 13
 
-![[attachments/Pasted image 20260403190039.png]]
+![Pasted image 20260403190039.png](attachments/Pasted%20image%2020260403190039.png)
 
 La dividimos en varios datagramas bro
 
 ### Pregunta 14
 
-![[attachments/Pasted image 20260403190122.png]]
+![Pasted image 20260403190122.png](attachments/Pasted%20image%2020260403190122.png)
 
 Un socket pasivo solo establece una nueva conexion, un socket activo se encarga de la intercambiar datos
 
 ### Pregunta 15
 
-![[attachments/Pasted image 20260403191249.png]]
+![Pasted image 20260403191249.png](attachments/Pasted%20image%2020260403191249.png)
 
 Un campo de 16 bits llamado window, que indica cuantos octetos (bytes) tiene libre el host en el buffer de recepcion para la sesion. Onda para que no me mande mas de esos bytes porque no los voy a poder leer
 
 ### Pregunta 16
 
-![[attachments/Pasted image 20260403191641.png]]
+![Pasted image 20260403191641.png](attachments/Pasted%20image%2020260403191641.png)
 
 No hay un campo para eso, solamente se dan cuenta de que hay congestion si no reciben los ack o si tardan mucho. Lo que si se puede hacer es llenar el coampo options para ir ajustando de forma dinamica el RTT como se detalla en https://datatracker.ietf.org/doc/html/rfc1323#page-11
 
 ### Pregunta 17
 
-![[attachments/Pasted image 20260403192047.png]]
+![Pasted image 20260403192047.png](attachments/Pasted%20image%2020260403192047.png)
 
 a. Lo que puede pasar es que sea tipo un bottle neck y no podamos aprovechar todo el ancho de banda
 b. La forma es que se agrega en las options un window scale (ws) que indica cuantos bits hay que shiftear el campo window. onda seria equivalente a multiplicar el window por $2^{ws}$ 

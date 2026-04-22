@@ -9,7 +9,7 @@ tipo: apuntes
 
 ## IP ADDRESSES
 
-![[attachments/Pasted image 20260119110058.png]]
+![Pasted image 20260119110058.png](attachments/Pasted%20image%2020260119110058.png)
 
 ### IPV4
 
@@ -25,7 +25,7 @@ se hizo para resolver el problema de address space limitado pero no se usa muhco
 
 **Network Address Translation** permite a varios dispositivos de una red privada que le damos la misma ip publica. Hay algunas ip reservadas para ser privadas
 
-![[attachments/Pasted image 20260119111341.png]]
+![Pasted image 20260119111341.png](attachments/Pasted%20image%2020260119111341.png)
 
 entonces ahi resolvemos el problema de las colisiones
 
@@ -44,17 +44,17 @@ los primeros 3 bytes son para el device name
 
 ## Protocolos
 
-![[attachments/Pasted image 20260119112409.png]]
+![Pasted image 20260119112409.png](attachments/Pasted%20image%2020260119112409.png)
 
 ### TCP
 
-**Transmission Control Protocol** $\rightarrow$ connection oriented protocol (ver [[1_Introduccion#Características de Protocolos|características]])
+**Transmission Control Protocol** $\rightarrow$ connection oriented protocol (ver [características](1_Introduccion.md#características-de-protocolos))
 
 es mas confiable, no se pierde info, tiene el **3 way handshake** 
 
 ### UDP
 
-**User Datagram Protocol** (ver [[1_Introduccion#Características de Protocolos|características]])
+**User Datagram Protocol** (ver [características](1_Introduccion.md#características-de-protocolos))
 
 mas orientado tipo streaming, no me importa si se pierden paquetes/info quiero mandarte todo en tiempo real
 
@@ -62,11 +62,11 @@ mas orientado tipo streaming, no me importa si se pierden paquetes/info quiero m
 
 ## Common ports and protocols
 
-![[attachments/Pasted image 20260119112631.png]]
+![Pasted image 20260119112631.png](attachments/Pasted%20image%2020260119112631.png)
 
 ### DNS
 
-**Domain name server** $\rightarrow$ traduce de nombres tipo "google.com" a su ip. Ver mas en [[3_dns]].
+**Domain name server** $\rightarrow$ traduce de nombres tipo "google.com" a su ip. Ver mas en [3_dns](3_dns.md).
 
 ### SSH
 
@@ -76,9 +76,9 @@ mas orientado tipo streaming, no me importa si se pierden paquetes/info quiero m
 
 ## OSI MODEL
 
-Ver comparativa con TCP/IP en [[1_Introduccion#Modelo OSI y TCP/IP]].
+Ver comparativa con TCP/IP en [1_Introduccion#Modelo OSI y TCP/IP](1_Introduccion.md#modelo-osi-y-tcp/ip).
 
-![[attachments/Pasted image 20260119113320.png]]
+![Pasted image 20260119113320.png](attachments/Pasted%20image%2020260119113320.png)
 
 1. Physical $\rightarrow$ data cables
 2. Data $\rightarrow$ Switching, Mac addresses
@@ -86,7 +86,7 @@ Ver comparativa con TCP/IP en [[1_Introduccion#Modelo OSI y TCP/IP]].
 4. Transport $\rightarrow$ TPC/UDP
 5. Session $\rightarrow$ session management
 6. Presentation $\rightarrow$ WMV, JPEG, MOV
-7. Application $\rightarrow$ [[2_HTTP|http]], https, smtp
+7. Application $\rightarrow$ [http](2_HTTP.md), https, smtp
 
 ---
 
@@ -117,6 +117,6 @@ por ejemplo en una red $192.168.1.0/24$
 
 $192.168.0.0/22$
 
-![[attachments/Imagen JPEG-4E4C-8E5B-F2-0.jpeg]]
+![Imagen JPEG-4E4C-8E5B-F2-0.jpeg](attachments/Imagen%20JPEG-4E4C-8E5B-F2-0.jpeg)
 
-![[attachments/Pasted image 20260120095756.png]]
+![Pasted image 20260120095756.png](attachments/Pasted%20image%2020260120095756.png)

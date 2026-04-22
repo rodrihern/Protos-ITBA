@@ -15,7 +15,7 @@ tags:
 ## Serialización y Protocolos de Aplicación
 
 ### Conceptos Fundamentales de Serialización
-La **serialización** consiste en poner los datos de las estructuras en serie para su transmisión o almacenamiento. Este proceso es fundamental en el [[../notas/1_Introduccion#Encapsulamiento|encapsulamiento]] de capas en la red, donde cada capa añade su propia información de control.
+La **serialización** consiste en poner los datos de las estructuras en serie para su transmisión o almacenamiento. Este proceso es fundamental en el [encapsulamiento](../notas/1_Introduccion.md#encapsulamiento) de capas en la red, donde cada capa añade su propia información de control.
 
 #### Codificación Unicode (UTF-8)
 Unicode tiene la propiedad de que los bits de inicio de cada octeto indican su posición y función en la secuencia, lo que permite detectar el inicio de un carácter y recuperarse ante pérdidas de sincronía.
@@ -33,7 +33,7 @@ Unicode tiene la propiedad de que los bits de inicio de cada octeto indican su p
 ### Idempotencia en HTTP
 Un método es **idempotente** cuando realizar la operación una vez o $n$ veces tiene el mismo efecto en el estado del servidor.
 
-Ejemplos de [[2_HTTP#Métodos Principales|métodos HTTP]] idempotentes:
+Ejemplos de [métodos HTTP](2_HTTP.md#métodos-principales) idempotentes:
 - **GET:** Solo recupera información, no cambia el estado.
 - **PUT:** Reemplaza un recurso; si se envía lo mismo varias veces, el resultado final es el mismo.
 - **DELETE:** Elimina un recurso; una vez eliminado, sucesivas llamadas no cambian que el recurso ya no esté.
@@ -67,7 +67,7 @@ Los **root-servers** (13 en total) vienen hardcodeados en los sistemas operativo
 > Ejemplo: `10 aspmx.l.google.com` se intentará antes que uno con prioridad 20.
 
 
-![[attachments/Drawings/Dominios]]
+![Drawings/Dominios](attachments/Drawings/Dominios)
 
 > [!QUESTION] Investigación
 > Investigar el ataque de **envenenamiento de DNS de Kaminsky**, que explota la predictibilidad de los IDs de consulta para inyectar entradas falsas en el caché.
@@ -162,7 +162,7 @@ dig A ns1.foo.pdc.lab @localhost
 Utiliza la sintaxis `=<HEX_ASCII>` para representar caracteres no ASCII o caracteres especiales.
 Ejemplo: `=3D` representa el signo `=`.
 
-![[attachments/Pasted image 20260407164322.png]]
+![Pasted image 20260407164322.png](attachments/Pasted%20image%2020260407164322.png)
 
 > [!TIP]
 > **Pruebas con Netcat**
@@ -187,11 +187,11 @@ luego con nos conectamos con
 nc -C localhost 25
 ```
 
-![[attachments/Pasted image 20260409193740.png]]
+![Pasted image 20260409193740.png](attachments/Pasted%20image%2020260409193740.png)
 
 Luego podemos ver ese mail en el directorio `/var/spool/mail`
 
-![[attachments/Pasted image 20260409194029.png]]
+![Pasted image 20260409194029.png](attachments/Pasted%20image%2020260409194029.png)
 
 despues podemos tambien hacer uno tipo `email.txt`
 
@@ -212,7 +212,7 @@ home_mailbox=Maildir/
 
 ahora los mails llegan al directorio `~/Maildir`
 
-![[attachments/Pasted image 20260409202428.png]]
+![Pasted image 20260409202428.png](attachments/Pasted%20image%2020260409202428.png)
 
 ---
 
@@ -296,7 +296,7 @@ netcat labura sobre tcp, cuando le pongo crtl+d hago un shutdown (es una syscall
 
 ### header format
 
-![[attachments/Pasted image 20260417103406.png]]
+![Pasted image 20260417103406.png](attachments/Pasted%20image%2020260417103406.png)
 
 
 Se van intercambiando el tamaño de ventana de cada uno, para que el que manda sepa no mandar mas que lo que el otro puede recibir. 
