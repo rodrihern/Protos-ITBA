@@ -67,7 +67,7 @@ Los **root-servers** (13 en total) vienen hardcodeados en los sistemas operativo
 > Ejemplo: `10 aspmx.l.google.com` se intentará antes que uno con prioridad 20.
 
 
-![Drawings/Dominios](attachments/Drawings/Dominios)
+![Dominios](./drawings/Dominios.md)
 
 > [!QUESTION] Investigación
 > Investigar el ataque de **envenenamiento de DNS de Kaminsky**, que explota la predictibilidad de los IDs de consulta para inyectar entradas falsas en el caché.
@@ -351,3 +351,70 @@ service telnet {
 	server = /usr/sbin/telnetd
 }
 ```
+
+
+## Capa de transporte
+
+Lo bueno de ip es que podemos switchear paquetes, entonces no necesitamos 1 cable por cada conexion. Esto se llama *packet switching*.
+
+En *circuit switching* necesito un cable por cada conexion. Aparte si se corta un cable, cago ese circuito
+
+### ICMP
+
+es otro protocolo de transporte que no transmite payload. Hay algunos que dicen que es de red
+
+Es para dar info, como che *Time exceeded*, se termino el ttl o un *Destination unreachable*
+
+ICMP tambien te pasa bytes del paquete o el paquete entero para que yo identifique que paquete es el que me 
+
+el programa traceroute usa ICMP mandando paquetes con distintos TTL (de 1 hasta que llegue a destino) y printeando que ips le contestan, asi sabemos que routeres atraviesa
+
+## IP
+
+Ahora vamos a ver como configurar 2 maquinas virtuales como si estuviesen conectadas por un cable. Una que funcione como *host* y otra que funcione como *router*.
+
+>[!note]
+>Igual esta la [Cheatsheet_lab_ip](Cheatsheet_lab_ip.pdf) de la catedra para esta configuracion
+
+
+para que la vm tenga una ip propia en la red debemos configurarla en modo: **Bridge**
+
+luego vamos a hacer una conexion asi, para que ambas esten a la misma red interna hay que ponerle el mismo nombre
+
+![Conexion_2_VM](drawings/Conexion_2_VM.md)
+
+Si tuviesemos 2 compus conectadas por una interfaz fisica real y una vm en cada una, en lugar de configurar el adaptador como internal network, lo configuramos como bridge a la interfaz fisica real
+
+
+En ambas maquinas tenemos que matar al Network manager porque nos va a cagar toda la config que hagamos
+
+```sh
+sudo systemctl stop NetworkManager.service
+```
+
+Igual toda la config de red que hagamos, cuando apagamos la maquina se va
+
+En el R para saber que interfaz es cual -> la que tiene ip es la que va al mundo exterior (osea que tiene inet)
+
+luego para darle una ip hacemos
+
+```sh
+ip addr add <ip>/24 dev <interfaz>
+```
+
+>[!tip]
+>para el parcial cuando querramos ver la tabla de routeo usemos el comando `route -n` o `ip route`
+
+para que R funcione como router, osea que haga forwarding hay que tirar el comando
+
+```sh
+systemctl net.ipv4.ip_forward=1
+```
+
+para agregar cosas a la tabla de routeo
+
+```sh
+route add -net <ip>/<x> gw <gw> dev <dev>
+```
+
+gw y dev podemos no ponerlos, x es tipo la mascara onda /24, /8, etc
