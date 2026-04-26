@@ -7,6 +7,8 @@ tipo: apuntes
 
 ---
 
+[https://www.facebook.com/](https://www.chau.com/)
+
 ## Introducción a la Capa de Transporte
 La capa de transporte provee **comunicación lógica** entre procesos que corren en distintos hosts. A diferencia de la capa de red (host-to-host), esta actúa en las "puntas finales" (end-to-end).
 
