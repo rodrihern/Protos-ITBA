@@ -7,8 +7,6 @@ tipo: apuntes
 
 ---
 
-[https://www.facebook.com/](https://www.chau.com/)
-
 ## Introducción a la Capa de Transporte
 La capa de transporte provee **comunicación lógica** entre procesos que corren en distintos hosts. A diferencia de la capa de red (host-to-host), esta actúa en las "puntas finales" (end-to-end).
 
@@ -36,6 +34,8 @@ Los sockets se identifican mediante números de puerto:
 > **Demultiplexación**
 > - **Sin conexión (UDP):** utiliza el par `(IP destino, Puerto destino)`.
 > - **Orientada a conexión (TCP):** utiliza la quíntupla `(IP origen, Puerto origen, IP destino, Puerto destino, Protocolo)`.
+
+
 
 ---
 
