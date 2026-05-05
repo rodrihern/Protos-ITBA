@@ -385,6 +385,10 @@ luego vamos a hacer una conexion asi, para que ambas esten a la misma red intern
 
 Si tuviesemos 2 compus conectadas por una interfaz fisica real y una vm en cada una, en lugar de configurar el adaptador como internal network, lo configuramos como bridge a la interfaz fisica real
 
+Tambien vamos a habilitar el **modo promiscuo**
+
+![](attachments/Pasted%20image%2020260505154705.png)
+
 
 En ambas maquinas tenemos que matar al Network manager porque nos va a cagar toda la config que hagamos
 
@@ -396,14 +400,30 @@ Igual toda la config de red que hagamos, cuando apagamos la maquina se va
 
 En el R para saber que interfaz es cual -> la que tiene ip es la que va al mundo exterior (osea que tiene inet)
 
-luego para darle una ip hacemos
+luego para darle una ip a ambas hacemos hacemos:
+
 
 ```sh
-ip addr add <ip>/24 dev <interfaz>
+# con ifconfig
+
+ifconfig <interfaz> <ip>/<bits_mascara>
+
+# con ip addr
+
+ip addr add <ip>/<bits_mascara> dev <interfaz>
+
 ```
+
+
+>[!note]
+>Tienen que ser ips que esten en la misma red
+
+
 
 >[!tip]
 >para el parcial cuando querramos ver la tabla de routeo usemos el comando `route -n` o `ip route`
+
+
 
 para que R funcione como router, osea que haga forwarding hay que tirar el comando
 
@@ -414,7 +434,111 @@ systemctl net.ipv4.ip_forward=1
 para agregar cosas a la tabla de routeo
 
 ```sh
-route add -net <ip>/<x> gw <gw> dev <dev>
+route add -net <ip>/<bits_mascara> [gw <gw>] [dev <dev>]
 ```
 
 gw y dev podemos no ponerlos, x es tipo la mascara onda /24, /8, etc
+
+![](attachments/Pasted%20image%2020260505164113.png)
+
+Ahora mismo el router 
+
+
+## DHCP
+
+### En la maquina R
+
+Antes de hacer nada de esto hay que apagar el network manager, luego
+
+```sh
+sudo apt install isc-dhcp-server
+```
+
+luego en `/etc/dhcp/dhcp.conf`
+
+```sh
+subnet <ip> netmask 255.255.255.0 {
+	range <ip> <ip>;
+	option domain-name-servers 1.1.1.1;
+	subnet-mask 255.255.255.0
+	option routers <ip>
+	option broadcast-address <ip>
+	default-lease-time 20;
+	max-lease-time 600;
+	
+	host xx_impresora_xx {
+		hardware ethernet <mac>;
+		fixed-address <ip>;
+		option host-name "pablo";
+	}
+}
+```
+
+ahi configuramos un dipositivo con una ip fija, donde el nombre pablo es para que lo resuelva un mdns que busca dispositivos en la red local
+
+y en `/etc/defaults/isc-dchp-server` configurar las interfaces de la que mira al H, ej: enp0s8
+
+ahora 
+
+```sh
+systemctl restart isc-dhcp-server
+```
+
+para ver si esta andando
+
+```sh
+systemctl status isc-dhcp-server
+```
+
+para ver logs en caso de error
+
+```sh
+journalctl -xeu isc-dhcp-server
+```
+
+
+#### Salir a internet
+
+Para que pueda salir a internet y pegarle al router del lab y devolver los paquetes no alcanza con forwarding. Pues luego cuando vuelve el paquete con ip destino maquina H, el router del lab no la conoce, el que le dio la ip fuimos nosotros
+
+Asi que hay que agregar NAT
+
+hay un programa muy bueno que es `iptables`, para ver la tabla de NAT
+
+```sh
+iptables -t nat -L
+```
+
+para borrar una entrada primero vemos que numero de entrada es la que queremos borrar con 
+
+```sh
+iptables -t nat -L --line-numbers
+```
+
+y luego
+
+```sh
+iptables -t nat -D <nro>
+```
+
+Para hacer que haga SNAT
+
+
+```sh
+iptables -t nat -A POSTROUTING -o <interfaz_salida> -j MASQUERADE
+```
+
+con eso ya esta andando como router y puedo hacer curl a google si quiero desde la maquina H
+
+Para configurar DNAT
+
+```sh
+iptabls -t nat -A PREROUTING -p tcp --dport <portR> -i <interfaz_interna> -j DNAT --to <ipH>:<portH>
+```
+### En la maquina H
+
+La tenemos conectada internamente a la R
+
+Le desconectamos el "cable virtual" hasta que terminemos de configurar el servidor dhcp en la maquina R, luego volvemos a conectar y si todo va bien, el R me dio una ip
+
+Para verlo piola, abrir primero wireshark y luego darle a connect
