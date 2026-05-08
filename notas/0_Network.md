@@ -120,3 +120,7 @@ $192.168.0.0/22$
 ![Imagen JPEG-4E4C-8E5B-F2-0.jpeg](attachments/Imagen%20JPEG-4E4C-8E5B-F2-0.jpeg)
 
 ![Pasted image 20260120095756.png](attachments/Pasted%20image%2020260120095756.png)
+
+## Tunel
+
+Un tunel se da cuando el payload de un protocolo, en lugar de ser del protocolo de arriba, es de una capa igual o inferior. Es lo que usan las vpn

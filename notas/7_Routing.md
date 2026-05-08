@@ -127,6 +127,52 @@ Protocolo basado en **Estado de Enlace** (RFC 2328 - 1998). Es un estándar abie
 | **Convergencia** | Lenta (riesgo de bucles) | Rápida |
 | **Límite de red** | 15 saltos (en RIP) | Sin límite teórico |
 
+
+## Preguntas
+
+### Pregunta 1
+
+![](attachments/Pasted%20image%2020260506185930.png)
+
+2. Estatico
+
+![](attachments/Pasted%20image%2020260506191422.png)
+
+2. Determinar la ruta optima
+
+![](attachments/Pasted%20image%2020260506191430.png)
+
+3. Enrutamiento que se adapta en forma automatica al trafico de red o a los cambios de topologia
+
+![](attachments/Pasted%20image%2020260506191439.png)
+
+2. Numero de saltos
+
+### Pregunta 2
+
+![](attachments/Pasted%20image%2020260506192202.png)
+
+En total tenemos $4 \cdot 5 = 20$ subredes cada una con 20 computadoras.
+
+RIPv1 es un protocolo que **no** envia la mascara de subred en sus actualizaciones, no podria entender esta division y fallaria. En cambio RIPv2 soporta VLSM y permite que las 20 subredes se comuniquen correctamente
+
+**Catedra**: Como la cantidad de saltos y subredes no es muy grande se podria usar RIPv2
+
+osea RIPv1 se queda corto y OSPF es un *overkil*
+
+### Pregunta 3
+
+![](attachments/Pasted%20image%2020260506193206.png)
+
+Si.
+
+Si esta creciendo constantemente y hay cada vez as subredes, podria ser conveniente usar OSPF creando 4 zonas para las subredes principales dentro de cada red RIPv2
+
+
+
+
+
+
 ---
 
 ## Referencias

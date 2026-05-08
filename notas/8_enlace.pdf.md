@@ -102,5 +102,75 @@ Consiste en enviar respuestas ARP falsas para asociar la MAC del atacante con la
 - **Ataques posibles**: Man-in-the-Middle (MITM), Denial of Service (DoS), Session Hijacking.
 - **Defensas**: Entradas ARP estáticas, DHCP Snooping, herramientas de monitoreo como `arpwatch`.
 
+
+
+### Pregunta 1
+
+![](attachments/Pasted%20image%2020260506193538.png)
+
+Hay un host que estaba abusando de la red tirando muchos mensajes de broadcast. Al separarlo en 2 redes, solo molestaria a una de estas 2.
+
+### Pregunta 2
+
+![](attachments/Pasted%20image%2020260506193827.png)
+
+a. Opera en la capa 2 (la de enlace, como esta guia)
+
+### Pregunta 3
+
+![](attachments/Pasted%20image%2020260506193951.png)
+
+c. Router
+
+### Pregunta 4
+
+![](attachments/Pasted%20image%2020260506194057.png)
+
+a. Los mensajes de broadcast no pasan de un segmento a otro
+
+
+La opcion c tambien podra ser ya que si dentro de la LAN se producian muchas colisiones, bajaran las colisiones
+
+### Pregunta 5
+
+![](attachments/Pasted%20image%2020260506194850.png)
+
+A nivel enlace, ambos van a recibirlo (desp puede ser que ip lo descarte porque tiene otra ip que la que se le asigno)
+
+### Pregunta 6
+
+![](attachments/Pasted%20image%2020260506194957.png)
+
+c. un host desea conocer la direccion MAC de otro host
+
+### Pregunta 7
+
+![](attachments/Pasted%20image%2020260506195040.png)
+
+c. a todos los nodos de la red
+
+### Pregunta 8
+
+![](attachments/Pasted%20image%2020260506195124.png)
+
+d. Se manda a la mac del que hizo la request
+
+### Pregunta 9
+
+![](attachments/Pasted%20image%2020260506195239.png)
+
+b. La direccion ip de un destino esta en otra red
+
+### Pregunta 10
+
+DESPUES SIGO, TLT
+
+
+
+
+
+
+
+
 ---
 Ver [[1_Introduccion#Capas de Red|Capas de Red]] | Ver [[6_Red#Direccionamiento IP|Direccionamiento IP]]

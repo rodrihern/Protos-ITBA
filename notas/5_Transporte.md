@@ -106,6 +106,10 @@ Protocolo moderno diseñado originalmente para telefonía sobre IP (SIGTRAN).
 - **Multihoming:** Permite que una asociación utilice múltiples direcciones IP por host, mejorando la tolerancia a fallos.
 - **Multistreaming:** Permite múltiples flujos independientes dentro de una asociación. Esto soluciona el problema de **Head-of-Line (HOL) Blocking** de TCP.
 
+>[!tip]
+>En sctp: cada write de una punta, es un read en la otra.
+>Mucho mas sencillo para programar la capa de aplicacion
+
 ### Seguridad y Conexión
 Utiliza un **4-way handshake** con intercambio de **cookies** para protegerse contra ataques de denegación de servicio (SYN Flood).
 
@@ -114,6 +118,18 @@ Utiliza un **4-way handshake** con intercambio de **cookies** para protegerse co
 > - **TCP:** Confiable, Stream de bytes, 1 flujo.
 > - **UDP:** No confiable, Mensajes, Sin flujos.
 > - **SCTP:** Confiable, Mensajes, Multi-flujo + Multi-homing.
+
+
+## Comparacion
+
+![](attachments/Pasted%20image%2020260507193511.png)
+
+
+Pero SCTP tiene algunos problemas
+
+![](attachments/Pasted%20image%2020260507193550.png)
+
+QUIC medio que lo mato
 
 ---
 **Ver también:**
