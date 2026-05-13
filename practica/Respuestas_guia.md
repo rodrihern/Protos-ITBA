@@ -908,3 +908,150 @@ Hecho en el laboratorio (desinstalar telnet pues no es bueno)
 
 ## Protocolos de Transporte
 
+### E72
+
+![](attachments/Pasted%20image%2020260512153544.png)
+
+Hay muchas herramientas que se pueden usar, como por ejemplo nmap, netcat, curl, dependiendo del servicio
+
+Estos servicios corren en los siguientes puertos:
+
+| Servicio | Puerto | Protocolo |
+| -------- | ------ | --------- |
+| daytime  | 13     | TCP/UDP   |
+| time     | 37     | TCP/UDP   |
+| smtp     | 25     | TPC       |
+| telnet   | 23     | TCP       |
+
+Para enumerar puertos abiertos con nmap podemos hacer lo siguiente:
+
+```sh
+nmap -p 13,37,25,23 -sV <ip>
+```
+
+- `-p`: define los puertos que queremos auditar
+- `-sV` para detectar que servicio esta corriendo
+
+si lo corro en la vm en modo bridge ahora mismo
+
+![](attachments/Pasted%20image%2020260512155728.png)
+
+### E73
+
+![](attachments/Pasted%20image%2020260512155640.png)
+
+entonces ahora hacemos `nc <ip> 23` y a ver que nos tira el wireshark:
+
+![](attachments/Pasted%20image%2020260512155914.png)
+
+se intercambiaron esos paquetes, basicamente quiso abrir la conexion y el otro le dijo \[RST, ACK] osea lo mando a freir churros
+
+Despues vuelve a intentar y le vuelve a decir \[RST, ACK] 
+
+### E74
+
+![](attachments/Pasted%20image%2020260512160254.png)
+
+#### TCP
+
+En el que lo va a recibir podemos hacer
+
+```sh
+nc -l 1234 > received.txt
+```
+
+En el que envia hacemos 
+
+```sh
+echo "hola manola" > saludo.txt
+cat saludo.txt | nc <ip> 1234
+```
+
+#### UDP
+
+Hay que agregar el flag -u
+
+```sh
+nc -u -l 1234 > received.txt
+```
+
+En el que envia hacemos 
+
+```sh
+cat saludo.txt | nc -u <ip> 1234
+```
+
+Esto vemos en el wireshark
+
+![](attachments/Pasted%20image%2020260512162350.png)
+
+los de broadcast no se que son pero los otros 2 tienen el payload de lo que tenia en el archivo saludo.txt
+
+### E75
+
+![](attachments/Pasted%20image%2020260512162644.png)
+
+3 way handshake al empezar y al terminar, despues los paquetes tenian el payload que uno esperaria
+
+### E76
+
+![](attachments/Pasted%20image%2020260512164233.png)
+
+Lo mismo pero con udp no hay tanta magia
+
+### E77
+
+![](attachments/Pasted%20image%2020260512164542.png)
+
+![](attachments/Pasted%20image%2020260512164556.png)
+
+se usa `-sU` para udp,  `-sS` para el scaneo con syn pero no establece la conexion (es el default) o `-sT` para que establezca la conexion (3 way handshake) y despues la mata
+
+El escaneo UDP es un tema porque el otro puede no contestar, se pueden dar una de estas 3 situaciones:
+- ICMP ureachable -> cerrado
+- respuesta -> abierto
+- no hay respuesta -> que quilombo no aca que se yo si esta abierto o no
+### E78
+
+![](attachments/Pasted%20image%2020260512165631.png)
+
+se hace con 
+
+```sh
+sudo nmap -O <ip>
+```
+
+## Maquina de estados tcp
+
+![](attachments/Pasted%20image%2020260512171014.png)
+
+### E79
+
+![](attachments/Pasted%20image%2020260512171552.png)
+
+va tirando pings con ttl cada vez mas grande a ver hasta que host llega
+![](attachments/Pasted%20image%2020260512171716.png)
+### E80
+
+![](attachments/Pasted%20image%2020260512171637.png)
+
+las opciones son para que use icmp o tcp en lugar de udp 
+
+### E81
+
+![](attachments/Pasted%20image%2020260512172129.png)
+
+se fragmentaron, te diria que en 2 porque fijate el off y el id
+![](attachments/Pasted%20image%2020260512172351.png)
+
+pero a la vez pareceria que el tamanio seria de 1480 < 4000/2 asi que no se
+
+### E82 - E86
+
+Hecho en [Laboratorio](Laboratorio.md) y tambien [Cheatsheet_lab_ip](Cheatsheet_lab_ip.pdf)
+
+### E87
+
+![](attachments/Pasted%20image%2020260512172908.png)
+
+Debe ser un problema de las tablas de routeo
