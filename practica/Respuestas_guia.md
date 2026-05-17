@@ -1055,3 +1055,230 @@ Hecho en [Laboratorio](Laboratorio.md) y tambien [Cheatsheet_lab_ip](Cheatsheet_
 ![](attachments/Pasted%20image%2020260512172908.png)
 
 Debe ser un problema de las tablas de routeo
+
+## DHCP
+
+### E88 - E90
+
+hecho en [Laboratorio](Laboratorio.md)
+
+### E91 
+![](attachments/Pasted%20image%2020260516182234.png)
+
+para cortarlo hay que hacer 
+
+```sh
+sudo systemctl stop isc-dhcp-server
+```
+
+Despues en el wireshark de H vamos a ver que pregunta si puede seguir usando la ip y nadie le contesta, entonces empieza de vuelta con el discover del DORA
+
+### E92
+
+![](attachments/Pasted%20image%2020260516181906.png)
+
+
+Para denegarle la configuracion tenemos que poner en `/etc/dhcp/dhcpd.conf`
+
+```sh
+host maquina_h {
+    hardware ethernet <mac de H>;
+    deny booting;
+}
+```
+
+luego
+
+```sh
+sudo systemctl restart isc-dhcp-server
+```
+
+y vamos a ver esto en wireshark
+
+```
+DHCP Discover  → H busca servidor
+DHCP NAK       → R responde con un rechazo explícito
+```
+
+luego para reestablece sacamos el `deny booting` y volvemos a tirar `sudo systemctl restart isc-dhcp-server`
+
+## Routing Information Protol
+
+### E93
+
+![](attachments/Pasted%20image%2020260516182219.png)
+
+Primero hay que instalar `frr`
+
+```sh
+sudo apt install frr
+```
+
+luego hay que abilitar RIP en frr, para ello en `/etc/frr/daemons` cambiamos
+
+```
+ripd=no  →  ripd=yes
+```
+
+luego lo reiniciamos
+
+```sh
+sudo systemctl restart frr
+sudo systemctl status frr
+```
+
+>[!note]
+luego ya no se que hacer, no puedo instalar routed, pincho TLT
+
+
+## Enlace
+
+Los comandos estan en [Laboratorio](Laboratorio.md)
+
+### E96
+
+![](attachments/Pasted%20image%2020260516191735.png)
+![](attachments/Pasted%20image%2020260516192346.png)
+
+#### b.
+
+```sh
+arp -s <ip_mala> <mac>
+```
+
+#### c.
+No se genera trafico porque, por que se generaria si ya tiene la entrada en la tabla bro?
+
+#### d. 
+Se genero trafico pero no responde el ping porque no se autopercibe esa ip
+
+#### e.
+Tipo no afecta porque sigue estando la ip_buena y resuelve bien, que haya una entrada mas con otra ip no cambia nada. Por ejemplo le tiro un ping a la ip_buena y contesta
+
+#### f. 
+```sh
+sudo arp -d <ip_mala>
+```
+
+#### g. 
+
+```sh
+arp -s <ip_buena> <mac_mala>
+```
+
+los envia pero no hay respuesta, pues piso la entrada vieja
+
+#### h.
+
+tamopco hay respuesta bro, onda le llega a R, R responde pero no le llega la respuesta a H porque R tiene la tabla mal configurada
+
+#### j.
+
+Hay una sola entrada, la logica es que como va a tener mas de una mac address la misma ip bro makes no sense
+
+### E97
+
+![](attachments/Pasted%20image%2020260516193131.png)
+
+Claude bajo y dijo:
+
+#### Cómo funciona el forwarding de paquetes IP
+
+Cuando R recibe un paquete que no es para él, lo reenvía. El proceso es:
+
+1. R recibe el paquete en una interfaz
+2. Mira la **IP destino** del header IP
+3. Consulta su tabla de ruteo para saber por qué interfaz mandarlo
+4. Hace ARP para saber la MAC del próximo salto
+5. Reenvía el paquete cambiando los headers Ethernet, **pero sin tocar los headers IP**
+
+---
+
+#### Qué campos cambian y cuáles no
+
+|Campo|Cambia en forwarding?|
+|---|---|
+|**Ethernet src MAC**|✅ sí — pasa a ser la MAC de R|
+|**Ethernet dst MAC**|✅ sí — pasa a ser la MAC del próximo salto|
+|**IP src**|❌ no — sigue siendo la IP de H|
+|**IP dst**|❌ no — sigue siendo la IP del destino final|
+|**IP TTL**|✅ sí — se decrementa en 1|
+
+---
+
+#### Los 5 casos del ping
+
+##### i. Ping a la IP de H en su propia interfaz
+
+```
+H se pingea a sí mismo — el paquete no sale de H
+No hay forwarding, no pasa por R
+```
+
+##### ii. Ping a la IP de R en la interfaz que conecta con H (ej: 192.168.100.1)
+
+```
+H ──── paquete ────▶ R
+```
+
+El paquete llega a R y R responde — **tampoco hay forwarding**, R es el destino final. En Wireshark en H ves el ICMP Request y Reply con las MACs de H y R.
+
+##### iii. Ping a la IP de R en su otra interfaz (la que conecta con otros R)
+
+```
+H ──── paquete ────▶ R (forwarding interno) ────▶ responde R mismo
+```
+
+El paquete entra por `enp0s8` y R responde desde `enp0s3`. **No hay forwarding real** — R sigue siendo el destino. Pero en Wireshark vas a ver que el paquete entra por una interfaz y la respuesta sale por otra.
+
+##### iv. Ping a otro R (en la red que conecta los routers)
+
+```
+H ──── paquete ────▶ R ──── forwarding ────▶ otro R
+```
+
+Acá **sí hay forwarding**. Lo que cambia entre el segmento H-R y el segmento R-otroR:
+
+```
+Segmento H → R:
+  Ethernet src: MAC de H
+  Ethernet dst: MAC de R (enp0s8)
+  IP src: IP de H
+  IP dst: IP de otro R
+
+Segmento R → otro R:
+  Ethernet src: MAC de R (enp0s3)   ← cambió
+  Ethernet dst: MAC de otro R        ← cambió
+  IP src: IP de H                    ← igual
+  IP dst: IP de otro R               ← igual
+  TTL: original - 1                  ← decrementó
+```
+
+##### v. Ping a un H de otro R
+
+```
+H ──── paquete ────▶ R ──── forwarding ────▶ otro R ──── forwarding ────▶ otro H
+```
+
+Dos saltos de forwarding. En cada salto las MACs cambian, las IPs no. En Wireshark capturando en distintos segmentos vas a ver el mismo paquete IP pero con MACs distintas en cada tramo.
+
+---
+
+#### Conclusión clave
+
+**Ethernet es local** — las MACs cambian en cada salto porque solo tienen sentido en ese segmento de red. **IP es end-to-end** — las IPs no cambian porque identifican origen y destino finales, no los intermediarios.
+
+### E98
+
+![](attachments/Pasted%20image%2020260516194452.png)
+
+em para ello habria que hacer spoofing y hacer un ataque man in the middle.
+
+para ver mas sobre esto hay data en [Laboratorio](Laboratorio.md) y en [Cheatsheet_lab_ip](Cheatsheet_lab_ip.pdf)
+
+basicamente la idea es mandar paquetes arp con `arping` diciendo que vos sos el router, onda poniendo tu mac y la ip del router. Luego todo el trafico en lugar de ir al router pasaria por vos, luego habilitas forwarding, NAT y listo. Ahora todo el trafico pasa por vos y lo podes ver
+
+## SSH
+
+
+

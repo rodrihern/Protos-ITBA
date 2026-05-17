@@ -10,17 +10,18 @@ El **SSH** (**Secure Shell**) es un protocolo de red, una aplicación cliente/se
 ---
 
 ## Servicios y Funcionalidades
+
 SSH ofrece tres pilares fundamentales de seguridad:
 1. **Autenticación**: Verifica la identidad del cliente y del servidor.
 2. **Encriptación**: Protege la confidencialidad de los datos.
 3. **Integridad**: Asegura que los datos no hayan sido alterados durante el tránsito.
 
-| Herramienta Segura | Herramienta que Reemplaza |
-| :--- | :--- |
-| **SSH** | Telnet, rlogin, rsh |
-| **SCP** | rcp |
-| **SFTP** | ftp |
-| **SSHD** | Demonios de telnet, rlogin, rsh, ftp |
+| Herramienta Segura | Herramienta que Reemplaza            |
+| :----------------- | :----------------------------------- |
+| **SSH**            | Telnet, rlogin, rsh                  |
+| **SCP**            | rcp                                  |
+| **SFTP**           | ftp                                  |
+| **SSHD**           | Demonios de telnet, rlogin, rsh, ftp |
 
 ---
 
@@ -44,22 +45,49 @@ En entornos Linux, la implementación estándar es **OpenSSH**.
 Permite proteger conexiones TCP redirigiéndolas a través de un túnel SSH cifrado. No funciona con UDP.
 
 ### Local Port Forwarding (`-L`)
+
 Redirige un puerto local hacia un destino accesible desde el servidor SSH.
+
 > [!IMPORTANT]
 > **Sintaxis**: `ssh -L [puerto_local]:[host_destino]:[puerto_destino] [usuario]@[servidor_ssh]`
 > - **Caso de uso**: Acceder a un servidor web (puerto 80) en una red interna privada a través de un servidor SSH que sí tiene IP pública.
 
+
+
+![](attachments/Pasted%20image%2020260512185530.png)
+
+Entonces ahora puedo acceder al servidor web haciendo:
+
+```sh
+curl localhost:2001
+```
+
 ![](attachments/Pasted%20image%2020260507204123.png)
 
 ### Remote Port Forwarding (`-R`)
-Permite que el servidor SSH redirija conexiones hacia el cliente local.
+
+Permite que el servidor SSH redirija conexiones hacia el cliente local. 
+
+>[!note]
+>Le digo al servidor ssh "expone este puerto en vos"
+
 > [!IMPORTANT]
 > **Sintaxis**: `ssh -R [puerto_remoto]:[host_local]:[puerto_local] [usuario]@[servidor_ssh]`
 > - **Caso de uso**: Exponer un servicio local (ej. base de datos) a un servidor remoto.
 
 ![](attachments/Pasted%20image%2020260507204143.png)
+
+ahora podemos acceder a la base de dato de postgres como si estuviese corriendo en pampero en el puerto 2001 haciendo:
+
+```sh
+ana@pampero:~$ psql –p 2001
+```
+
+
 ### Dynamic Port Forwarding (`-D`)
+
 Convierte al cliente SSH en un servidor **SOCKS proxy**.
+
 > [!TIP]
 > Útil para navegar por internet usando la IP del servidor remoto y saltar restricciones locales.
 > `ssh -D 9090 user@server`

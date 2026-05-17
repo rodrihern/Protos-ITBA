@@ -428,7 +428,7 @@ ip addr add <ip>/<bits_mascara> dev <interfaz>
 para que R funcione como router, osea que haga forwarding hay que tirar el comando
 
 ```sh
-systemctl net.ipv4.ip_forward=1
+sysctl net.ipv4.ip_forward=1
 ```
 
 para agregar cosas a la tabla de routeo
@@ -448,28 +448,30 @@ Ahora mismo el router
 
 ### En la maquina R
 
-Antes de hacer nada de esto hay que apagar el network manager, luego
+Antes de hacer nada de esto hay que apagar el network manager con `sudo systemctl stop NetworkManager.service`
+
+luego
 
 ```sh
 sudo apt install isc-dhcp-server
 ```
 
-luego en `/etc/dhcp/dhcp.conf`
+luego en `/etc/dhcp/dhcpd.conf`
 
 ```sh
 subnet <ip> netmask 255.255.255.0 {
 	range <ip> <ip>;
 	option domain-name-servers 1.1.1.1;
-	subnet-mask 255.255.255.0
-	option routers <ip>
-	option broadcast-address <ip>
+	option subnet-mask 255.255.255.0;
+	option routers <ip>;
+	option broadcast-address <ip>;
 	default-lease-time 20;
 	max-lease-time 600;
 	
-	host xx_impresora_xx {
+	host maquina_h {
 		hardware ethernet <mac>;
 		fixed-address <ip>;
-		option host-name "pablo";
+		option host-name "maquina-H";
 	}
 }
 ```
@@ -477,6 +479,17 @@ subnet <ip> netmask 255.255.255.0 {
 ahi configuramos un dipositivo con una ip fija, donde el nombre pablo es para que lo resuelva un mdns que busca dispositivos en la red local
 
 y en `/etc/defaults/isc-dchp-server` configurar las interfaces de la que mira al H, ej: enp0s8
+
+>[!important]
+>Tenemos que darnos una ip en esta interfaz
+
+para ello hacemos
+
+```sh
+# ponerle IP fija a la interfaz que mira a H
+sudo ip addr add 192.168.100.1/24 dev enp0s8
+sudo ip link set enp0s8 up # este no se si hace falta
+```
 
 ahora 
 
@@ -539,7 +552,7 @@ iptabls -t nat -A PREROUTING -p tcp --dport <portR> -i <interfaz_interna> -j DNA
 
 La tenemos conectada internamente a la R
 
-Le desconectamos el "cable virtual" hasta que terminemos de configurar el servidor dhcp en la maquina R, luego volvemos a conectar y si todo va bien, el R me dio una ip
+Le desconectamos el "cable virtual" hasta que terminemos de configurar el servidor dhcp en la maquina R, luego volvemos a conectar y si todo va bien, el R me dio una ip (o apagarla y volverla a prender)
 
 Para verlo piola, abrir primero wireshark y luego darle a connect
 
@@ -556,9 +569,14 @@ arp -n
 para poner una entrada a mano
 
 ```sh
-arp -s
+$ arp -s <ip> <mac> [-i <interfaz>] [temp]
 ```
 
+Para borrar una
+
+```sh
+sudo arp -d <ip>
+```
 
 ### arping
 
@@ -602,7 +620,7 @@ usage: ssh [-46AaCfGgKkMNnqsTtVvXxYy] [-B bind_interface] [-b bind_address]
 
 `ssh-keygen` es para la generacion de claves ssh
 
-```bash
+```sh
 ssh-keygen
 Generating public/private ed25519 key pair.
 Enter file in which to save the key (/home/bauti/.ssh/id_ed25519): 
