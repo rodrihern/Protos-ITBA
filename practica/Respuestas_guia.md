@@ -1280,5 +1280,174 @@ basicamente la idea es mandar paquetes arp con `arping` diciendo que vos sos el 
 
 ## SSH
 
+### E99
 
+![](attachments/Pasted%20image%2020260517154051.png)
+
+vemos que la clave publica de mi vm es:
+
+![](attachments/Pasted%20image%2020260517154938.png)
+
+y luego cuando me quiero conectar desde mi computadora me muestra:
+
+![](attachments/Pasted%20image%2020260517155008.png)
+
+(previamente cargando en `/etc/hosts` la ip de la vm como foo)
+
+Cambia en el cliente ssh, osea el que hace ssh foo. No cambia en el servidor (en este caso cambio en mi mac y no en la vm)
+
+Ahora cambio en el `/etc/hosts` foo para que sea pampero y me tira este mensaje
+
+```
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
+Someone could be eavesdropping on you right now (man-in-the-middle attack)!
+It is also possible that a host key has just been changed.
+The fingerprint for the ED25519 key sent by the remote host is
+SHA256:FtrcLhl7o1Kl/eaxq6qAJQmpm6xN82QYjmhOpdxtZeY.
+Please contact your system administrator.
+Add correct host key in /Users/rodri/.ssh/known_hosts to get rid of this message.
+Offending ECDSA key in /Users/rodri/.ssh/known_hosts:3
+Host key for foo has changed and you have requested strict checking.
+Host key verification failed.
+```
+
+lo que paso es simple, con el mismo nombre le esta dando otra credencial
+
+### E100
+
+![](attachments/Pasted%20image%2020260517160146.png)
+
+lo que hacemos es correr 
+
+```sh
+ssh-keygen -t rsa
+```
+
+Luego damos enter un par de veces y nos genera un par de claves publica privada
+
+- `~/.ssh/id_rsa` → clave **privada** (nunca la compartas)
+- `~/.ssh/id_rsa.pub` → clave **pública**
+
+y tambien nos da una imagen de la clave publica corte para que la podamos identificarla mas facil que leer todo el hash
+
+![](attachments/Pasted%20image%2020260517160507.png)
+
+Luego hay que copiarla en el servidor asi la proxima vez que nos conectemos ya no nos pida contraseña
+
+```sh
+ssh-copy-id usuario@foo
+```
+
+ahora cuando nos conectamos ya no nos pide nada
+
+### E101
+
+![](attachments/Pasted%20image%2020260517160845.png)
+
+#### Manera cavernicola con remote port forwarding
+
+primero me pongo a escuchar en el puerto 1234 en el cliente
+
+```sh
+nc -l 1234 > contrasenias.txt
+```
+
+luego abro un puerto remoto en pampero
+
+```sh
+ssh -R 9999:localhost:1234 rohernandez@pampero.itba.edu.ar
+```
+
+Y ahora desde pampero 
+
+```sh
+cat /etc/passwd > nc localhost 9999
+```
+
+#### Manera bien hecha con SCP
+
+simplemente desde el cliente hacemos
+
+```sh
+scp rohernandez@itba.edu.ar:/etc/passwd ./contrasenias.txt
+```
+
+### E102
+
+![](attachments/Pasted%20image%2020260517162920.png)
+
+Esto se hace con **Dynamic port forwarding**.
+
+Desde el cliente ssh corremos
+
+```sh
+ssh -D 9090 rohernandez@pampero.itba.edu.ar
+```
+
+luego hay que configurar el navegador para que use Proxy SOCKS. por ejemplo en firefox:
+
+```
+Settings → Network Settings → Manual proxy configuration
+    SOCKS Host: 127.0.0.1
+    Port: 9090
+    SOCKS v5 ✅
+```
+
+chrome por ejemplo no te deja hacerlo directamente sino que lo tenes que configurar de tu computadora, si entras a `chrome://settings` y vas a proxy hay una opcion que te abre para que lo configures en tu compu
+
+para chequear con que ip estamos navegando podemos ir a [whatismyip.com](https://whatismyip.com) y vemos que nos dice la ip de pampero
+
+![](attachments/Pasted%20image%2020260517195644.png)
+
+
+
+
+### E103
+
+
+![](attachments/Pasted%20image%2020260517162643.png)
+
+Esto ser resuelve con **Remote port forwarding**
+
+Lo hicimos con korman para que el me prenda y apague las luces
+
+Se hace con remote port forwarding, abro un puerto remoto en pampero y ahi expongo la ip de mis luces y el puerto 80 para que las pueda prender y apagar
+
+desde mi compu:
+
+```sh
+ssh -R 9090:luces:80 rohernandez@pampero.itba.edu.ar
+```
+
+>[!note]
+>En `/etc/hosts` tengo mapeado luces a la ip de mis luces 192.168.1.x
+
+luego korman en pampero corre
+
+```
+curl localhost:9090/\?m\=1\&o\=1
+```
+
+y con eso me prende y apaga las luces.
+
+Si yo quisiera que el pueda ver algo que esta corriendo en mi computadora, como el tp de paw que lo tengo en el 8080 hubiera hecho
+
+```sh
+ssh -R 9090:localhost:8080 rohernandez@pampero.itba.edu.ar
+```
+
+### E104
+
+![](attachments/Pasted%20image%2020260517170333.png)
+
+claro ahora habria que hacer **Local Port Forwarding**
+
+voy a acceder en el puerto 1234 de mi computadora a un servicio que este corriendo en pampero en el 8080
+
+```sh
+ssh -L 1234:localhost:8080 rohernandez@itba.edu.ar
+```
 

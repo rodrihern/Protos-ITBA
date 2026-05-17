@@ -165,9 +165,101 @@ b. La direccion ip de un destino esta en otra red
 
 DESPUES SIGO, TLT
 
+### Pregunta 11
+
+Teniendo en cuenta los casos del ejercicio anterior responder:
+
+![](attachments/Pasted%20image%2020260517172608.png)
+
+#### a.
+
+Puede el B agregar a su tabla arp una entrada con la ip 192.168.2.13 y la mac de eth0, asegurandose que en la tabla de routeo no tenga un gateway esa ip
+
+A al recibirlo, que hace depende de si tiene habilitado forwarding o no. Si no lo tiene lo descarta, porque no es la ip de esa interfaz. Si tiene forwarding habilitado va a ver que la ip destino es de su otra interfaz y lo procesa normalmente
+
+#### b. 
+
+
+1. El enunciado dice “el host B envía un paquete ARP request para el IP 192.168.2.13”, entonces la respuesta es “no es posible”. Si el enunciado fuera “B quiere enviar un paquete IP a 192.68.2.13, ¿bajo  qué circunstancias relacionaría esa IP con la MAC de eth0 de A en su tabla ARP?” la respuesta sería: si B tiene configurado en su tabla de ruteo que el Gateway para 192.168.2.13 es el IP 192.168.2.1
+2. Esto sería lo esperable
+3. Similar a i, si por ejemplo en la tabla de ruteo B tiene sólo la entrada de localhost y el Gateway
+
+#### c.
+
+Contestado en el punto anterior
+
+#### d.
+
+1. B puede agregar una entrada estática en la tabla ARP relacionando la IP 192.168.2.13 con la mac eth0 de A. Además debe asegurarse en su tabla de ruteo que para ese IP no tenga como Gateway al router.
+2. Debe asegurarse que en su tabla ARP no figure 192.168.2.13 relacionado con la eth0 de A, y en su tabla de ruteo tener una entrada para ese IP indicando que el Gateway es 192.168.2.10 (osea el router)  
+3. Puede ser por dos razones: en la tabla de ruteo para el IP 192.168.2.13 el Gateway es 192.168.2.10, o averiguando la MAC de 192.168.2.10 agregar una entrada estática en la tabla ARP relacionando esa MAC con 192.168.2.13
+4. No se puede
 
 
 
+### Pregunta 12
+
+![](attachments/Pasted%20image%2020260517174534.png)
+
+#### Primero, ¿qué es L/R?
+
+- **L** = largo de la trama en bits
+- **R** = tasa de transmisión
+- **L/R** = tiempo que tarda en **transmitir** la trama completa
+
+---
+
+#### El escenario:
+
+Dos nodos A y B empiezan a transmitir **al mismo tiempo**:
+
+```
+A ────────────────────────────── B
+  ───►                    ◄───
+```
+
+Va a haber colisión en algún punto del cable. El problema es **¿la detectan?**
+
+---
+
+#### ¿Cómo se detecta una colisión?
+
+CSMA/CD detecta colisiones porque mientras transmitís, **escuchás el cable**. Si lo que escuchás es distinto a lo que mandás, hubo colisión.
+
+Pero para detectarla necesitás que la señal del otro **te llegue mientras todavía estás transmitiendo**.
+
+---
+
+#### El problema cuando `d_prop < L/R`:
+
+```
+A empieza a transmitir ──► tarda d_prop en llegar a B
+Si d_prop < L/R significa que el primer bit de A 
+llega a B antes de que A termine de transmitir
+```
+
+Hasta acá bien. Pero la cátedra dice que igual **puede no detectarse**. ¿Por qué?
+
+Porque la señal de colisión también tarda `d_prop` en **volver** a A. Entonces A necesita seguir transmitiendo durante `2 × d_prop` para detectarla.
+
+---
+
+#### La condición real para detectar colisiones:
+
+```
+L/R > 2 × d_prop
+```
+
+Si la trama es tan corta que A termina de transmitir antes de que le vuelva la señal de colisión, **nunca se entera**.
+
+---
+
+#### Por eso Ethernet fija:
+
+- **Tamaño mínimo de trama** (64 bytes) → para que L/R sea suficientemente grande
+- **Longitud máxima de cable** → para que d_prop sea suficientemente pequeño
+
+Garantizando que `L/R > 2 × d_prop` siempre se cumple.
 
 
 
