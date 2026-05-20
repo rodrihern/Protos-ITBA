@@ -824,8 +824,8 @@ curl localhost:8080
     *{margin:0;padding:0}html,code{font:15px/22px arial,sans-serif}html{background:#fff;color:#222;padding:15px}body{margin:7% auto 0;max-width:390px;min-height:180px;padding:30px 0 15px}* > body{background:url(//www.google.com/images/errors/robot.png) 100% 5px no-repeat;padding-right:205px}p{margin:11px 0 22px;overflow:hidden}ins{color:#777;text-decoration:none}a img{border:0}@media screen and (max-width:772px){body{background:none;margin-top:0;max-width:none;padding-right:0}}#logo{background:url(//www.google.com/images/branding/googlelogo/1x/googlelogo_color_150x54dp.png) no-repeat;margin-left:-5px}@media only screen and (min-resolution:192dpi){#logo{background:url(//www.google.com/images/branding/googlelogo/2x/googlelogo_color_150x54dp.png) no-repeat 0% 0%/100% 100%;-moz-border-image:url(//www.google.com/images/branding/googlelogo/2x/googlelogo_color_150x54dp.png) 0}}@media only screen and (-webkit-min-device-pixel-ratio:2){#logo{background:url(//www.google.com/images/branding/googlelogo/2x/googlelogo_color_150x54dp.png) no-repeat;-webkit-background-size:100% 100%}}#logo{display:inline-block;height:54px;width:150px}
   </style>
   <a href=//www.google.com/><span id=logo aria-label=Google></span></a>
-  <p><b>404.</b> <ins>That’s an error.</ins>
-  <p>The requested URL <code>/</code> was not found on this server.  <ins>That’s all we know.</ins>
+  <p><b>404.</b> <ins>That's an error.</ins>
+  <p>The requested URL <code>/</code> was not found on this server.  <ins>That's all we know.</ins>
 ```
 
 ```bash
@@ -851,3 +851,72 @@ curl -x socks5h://localhost:8080 ifconfig.me
 >*   socks5h://: El cliente le envía el nombre ifconfig.me al proxy, y es el servidor proxy quien se encarga de resolver el DNS.
 >La versión con h es más privada (tu ISP no ve las consultas DNS) y te permite acceder a dominios que solo son visibles desde la red del proxy.
 
+
+## nmap
+
+```sh
+sudo apt install nmap
+```
+
+Sirve para escanear puertos, service detection, os detection, ips de la red.
+
+### Tipos de escaneo
+
+| Flag | Nombre | Descripción |
+|------|--------|-------------|
+| `-sS` | SYN scan (stealth) | Manda un SYN, si recibe SYN-ACK el puerto está abierto. **No completa el handshake**. Requiere `sudo`. |
+| `-sT` | TCP connect | Completa el handshake. No requiere `sudo` pero es más detectable. |
+| `-sU` | UDP scan | Escanea puertos UDP. Más lento. |
+| `-sn` | Ping scan | Solo descubre qué hosts están up, sin escanear puertos. |
+| `-sV` | Version detection | Detecta servicio y versión en cada puerto. |
+| `-O`  | OS detection | Adivina el OS por el comportamiento del stack TCP/IP. |
+| `-A`  | Aggressive | Activa `-sV`, `-O`, scripts y traceroute. |
+
+### Comandos útiles
+
+```sh
+# Hosts activos en la red
+sudo nmap -sn 192.168.0.0/24
+
+# Stealth scan de puertos comunes
+sudo nmap -sS --top-ports=20 192.168.0.0/24
+
+# Puertos específicos / rangos
+nmap -p 22,80,443 192.168.0.1
+nmap -p 1-1024 192.168.0.1
+nmap -p- 192.168.0.1              # todos los puertos
+
+# OS detection
+sudo nmap -O 192.168.0.1
+
+# Escaneo completo
+sudo nmap -A 192.168.0.1
+
+# Velocidad: -T<0-5> (0=paranoid, 5=insane, default=3)
+sudo nmap -T4 192.168.0.0/24
+```
+
+### Estados de un puerto
+
+- **open**: hay algo escuchando
+- **closed**: respondió con RST (no hay servicio)
+- **filtered**: sin respuesta (probablemente firewall)
+- **open|filtered**: indistinguible, típico de UDP
+
+### NSE (scripts)
+
+```sh
+nmap -sC 192.168.0.1                        # scripts por defecto
+nmap --script ssh-auth-methods 192.168.0.1  # script específico
+ls /usr/share/nmap/scripts/                 # ver todos los scripts
+```
+
+### Salida
+
+```sh
+nmap -oN salida.txt 192.168.0.0/24   # legible
+nmap -oX salida.xml 192.168.0.0/24   # XML
+nmap -oA salida 192.168.0.0/24       # todos los formatos
+```
+
+> [!TIP] Para el parcial: `-sS` es el más usado. Necesita `sudo`. Sin sudo, usar `-sT`.
