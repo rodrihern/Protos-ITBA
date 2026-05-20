@@ -1,3 +1,15 @@
+---
+title: Ejercicio Integrador
+tags:
+  - protos
+  - itba
+  - practica
+  - ssh
+  - networking
+  - http
+date: 2026-05-19
+author: Rodrigo Alejandro Hernandez
+---
 
 # Ejercicio Integrador
 
@@ -20,6 +32,22 @@ Objetivo: entrar a The Vault.
 
 ---
 ## Solucion
+
+Para conectarse hacemos
+
+```sh
+docker pull cloudflare/cloudflared
+
+ssh -o ProxyCommand="docker run --rm -i cloudflare/cloudflared access ssh --hostname %h" tunombre@protolab.thomasmiz.me
+```
+
+`tunombre` es la parte antes del @ en tu mail del itba y la contraseña es el legajo
+
+Para borrar la imagen despues de terminar:
+
+```sh
+docker image rm cloudflare/cloudflared
+```
 
 ### Inicio
 
