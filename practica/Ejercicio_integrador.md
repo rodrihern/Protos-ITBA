@@ -31,7 +31,7 @@ Uno de sus compañeros, que también cursó protos, le dice “es imposible, no 
 Objetivo: entrar a The Vault.
 
 ---
-## Solucion
+## Como conectarse
 
 Para conectarse hacemos
 
@@ -48,6 +48,9 @@ Para borrar la imagen despues de terminar:
 ```sh
 docker image rm cloudflare/cloudflared
 ```
+
+---
+## Solucion
 
 ### Inicio
 
