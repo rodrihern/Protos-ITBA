@@ -111,13 +111,13 @@ Entendido?
 Osea que a partir de ahora las respuestas las vamos a mandar de la forma
 
 ```sh
-curl 192.168.124.80/<url>/response -X POST -H "Content-Type: application/json" -d '{"rta": "<respuesta>"}'
+curl -X POST 192.168.124.80/<url>/response -H "Content-Type: application/json" -d '{"rta": "<respuesta>"}'
 ```
 
 Asi que para empezar mandamos
 
 ```sh
-curl 192.168.124.80/start/response -X POST -H "Tiki: Taka" -H "Content-Type: application/json" -d '{"rta": "entendido"}'
+curl -X POST 192.168.124.80/start/response -H "Tiki: Taka" -H "Content-Type: application/json" -d '{"rta": "entendido"}'
 ```
 
 y nos contestan
@@ -161,7 +161,7 @@ route -n
 Vemos que el Gateway es `10.16.1.254`, luego mandamos la respuesta
 
 ```sh
-curl 192.168.124.80/juialepan/response -X POST -H "Content-Type: application/json" -d '{"rta": "10.16.1.254"}'
+curl -X POST 192.168.124.80/juialepan/response -H "Content-Type: application/json" -d '{"rta": "10.16.1.254"}'
 ```
 
 y nos contestan
@@ -195,7 +195,7 @@ dig SOA google.com @192.168.124.53
 Y vemos que el serial es 74757169, luego mandamos nuestra respuesta
 
 ```sh
-curl 192.168.124.80/ketylanuchi/response -X POST -H "Content-Type: application/json" -d '{"rta": "74757169"}'
+curl -X POST 192.168.124.80/ketylanuchi/response -H "Content-Type: application/json" -d '{"rta": "74757169"}'
 ```
 
 y nos contestan
@@ -245,7 +245,7 @@ Hoy aprendimos a negociar contenido sobre HTTP
 Luego mandamos nuestra respuesta
 
 ```sh
-curl 192.168.124.80/urururuluru/response -X POST -H "Content-Type: application/json" -d '{"rta": "Hoy aprendimos a negociar contenido sobre HTTP"}'
+curl -X POST 192.168.124.80/urururuluru/response -H "Content-Type: application/json" -d '{"rta": "Hoy aprendimos a negociar contenido sobre HTTP"}'
 ```
 
 y nos contestan
@@ -279,7 +279,7 @@ Usted debe utilizar su nueva casilla de emails para pedir un mail secreto. En es
 Luego accedemos a [https://temp-mail.org/en/](https://temp-mail.org/en/), nos creamos un mail y tiramos el post al endpoint que nos dicen, con el mail que nos generamos
 
 ```sh
-curl 192.168.124.80/maketoken?email=usuario@dominio -X POST
+curl -X POST 192.168.124.80/maketoken?email=usuario@dominio
 ```
 
 Y nos llega el mail del cual obtenemos 2 cosas:
@@ -306,7 +306,7 @@ Saludos
 Luego mandamos nuestra respuesta
 
 ```sh
-curl 192.168.124.80/papopepoparapapapapiparapopepo/response -X POST -H "Content-Type: application/json" -d '{"rta": "bGVvPWxlbztydGE9c3RyaW5nX2VxdWFscw=="}'
+curl -X POST 192.168.124.80/papopepoparapapapapiparapopepo/response -H "Content-Type: application/json" -d '{"rta": "bGVvPWxlbztydGE9c3RyaW5nX2VxdWFscw=="}'
 ```
 
 y nos contestan
@@ -350,7 +350,7 @@ leo=leo;rta=string_equals
 Luego mandamos nuestra respuesta
 
 ```sh
-curl 192.168.124.80/dalequevamooo/response -X POST -H "Content-Type: application/json" -d '{"rta": "string_equals"}'
+curl -X POST 192.168.124.80/dalequevamooo/response -H "Content-Type: application/json" -d '{"rta": "string_equals"}'
 ```
 
 y nos contestan
