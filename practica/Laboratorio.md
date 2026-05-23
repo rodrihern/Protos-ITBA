@@ -862,15 +862,15 @@ Sirve para escanear puertos, service detection, os detection, ips de la red.
 
 ### Tipos de escaneo
 
-| Flag | Nombre | Descripción |
-|------|--------|-------------|
+| Flag  | Nombre             | Descripción                                                                                            |
+| ----- | ------------------ | ------------------------------------------------------------------------------------------------------ |
 | `-sS` | SYN scan (stealth) | Manda un SYN, si recibe SYN-ACK el puerto está abierto. **No completa el handshake**. Requiere `sudo`. |
-| `-sT` | TCP connect | Completa el handshake. No requiere `sudo` pero es más detectable. |
-| `-sU` | UDP scan | Escanea puertos UDP. Más lento. |
-| `-sn` | Ping scan | Solo descubre qué hosts están up, sin escanear puertos. |
-| `-sV` | Version detection | Detecta servicio y versión en cada puerto. |
-| `-O`  | OS detection | Adivina el OS por el comportamiento del stack TCP/IP. |
-| `-A`  | Aggressive | Activa `-sV`, `-O`, scripts y traceroute. |
+| `-sT` | TCP connect        | Completa el handshake. No requiere `sudo` pero es más detectable.                                      |
+| `-sU` | UDP scan           | Escanea puertos UDP. Más lento.                                                                        |
+| `-sn` | Ping scan          | Solo descubre qué hosts están up, sin escanear puertos.                                                |
+| `-sV` | Version detection  | Detecta servicio y versión en cada puerto.                                                             |
+| `-O`  | OS detection       | Adivina el OS por el comportamiento del stack TCP/IP.                                                  |
+| `-A`  | Aggressive         | Activa `-sV`, `-O`, scripts y traceroute.                                                              |
 
 ### Comandos útiles
 

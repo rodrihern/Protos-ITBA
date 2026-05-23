@@ -75,6 +75,7 @@ Permite que el servidor SSH redirija conexiones hacia el cliente local.
 > **Sintaxis**: `ssh -R [puerto_remoto]:[host_local]:[puerto_local] [usuario]@[servidor_ssh]`
 > - **Caso de uso**: Exponer un servicio local (ej. base de datos) a un servidor remoto.
 
+
 ![](attachments/Pasted%20image%2020260507204143.png)
 
 ahora podemos acceder a la base de dato de postgres como si estuviese corriendo en pampero en el puerto 2001 haciendo:
