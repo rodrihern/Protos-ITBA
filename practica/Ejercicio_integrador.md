@@ -38,7 +38,7 @@ Para conectarse hacemos
 ```sh
 docker pull cloudflare/cloudflared
 
-ssh -o ProxyCommand="docker run --rm -i cloudflare/cloudflared access ssh --hostname %h" tunombre@protolab.thomasmiz.me
+ssh -o ProxyCommand="docker run --rm -i cloudflare/cloudflared access ssh --hostname %h" rohernandez@protolab.thomasmiz.me
 ```
 
 `tunombre` es la parte antes del @ en tu mail del itba y la contraseña es el legajo
@@ -72,10 +72,10 @@ Ahora nos contestan los ping :)
 Vemos si hay un servidor web corriendo en 192.168.124.80 
 
 >[!note]
->tiene DNAT por lo que no hace falta que especifiquemos el puerto 8080, si lo especificamos tambien anda
+>tiene DNAT por lo que no hace falta que especifiquemos el puerto 8080. Si lo especificamos tambien anda
 
 ```sh
-curl 192.168.124.80 
+curl 192.168.124.80
 ```
 
 y nos contestan
@@ -279,7 +279,7 @@ Usted debe utilizar su nueva casilla de emails para pedir un mail secreto. En es
 Luego accedemos a [https://temp-mail.org/en/](https://temp-mail.org/en/), nos creamos un mail y tiramos el post al endpoint que nos dicen, con el mail que nos generamos
 
 ```sh
-curl -X POST 192.168.124.80/maketoken?email=usuario@dominio
+curl -X POST 192.168.124.80/maketoken?email=sidiyap206@nriza.com
 ```
 
 Y nos llega el mail del cual obtenemos 2 cosas:

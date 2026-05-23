@@ -244,18 +244,18 @@ El parámetro `level` indica a qué capa pertenece la opción:
 
 ### Opciones SOL_SOCKET
 
-| Opción | Descripción |
-|--------|-------------|
-| `SO_BROADCAST` | Habilita envío broadcast (0 ó 1) |
-| `SO_KEEPALIVE` | Envía keepalives para detectar conexiones caídas |
-| `SO_RCVBUF` | Tamaño en bytes del buffer de entrada |
-| `SO_SNDBUF` | Tamaño del buffer de salida |
-| `SO_RCVLOWAT` | Mínimo de bytes para procesar el input |
-| `SO_SNDLOWAT` | Mínimo de bytes para procesar el output |
-| `SO_RCVTIMEO` | Timeout máximo para operaciones de lectura |
-| `SO_LINGER` | Si = 0: envía RST al hacer `close()` → *"connection reset by peer"* |
-| `SO_REUSEADDR` | Al abortar el programa, reusar dirección y puerto |
-| `SO_REUSEPORT` | Permite múltiples sockets en el mismo puerto |
+| Opción         | Descripción                                                         |
+| -------------- | ------------------------------------------------------------------- |
+| `SO_BROADCAST` | Habilita envío broadcast (0 ó 1)                                    |
+| `SO_KEEPALIVE` | Envía keepalives para detectar conexiones caídas                    |
+| `SO_RCVBUF`    | Tamaño en bytes del buffer de entrada                               |
+| `SO_SNDBUF`    | Tamaño del buffer de salida                                         |
+| `SO_RCVLOWAT`  | Mínimo de bytes para procesar el input                              |
+| `SO_SNDLOWAT`  | Mínimo de bytes para procesar el output                             |
+| `SO_RCVTIMEO`  | Timeout máximo para operaciones de lectura                          |
+| `SO_LINGER`    | Si = 0: envía RST al hacer `close()` → *"connection reset by peer"* |
+| `SO_REUSEADDR` | Al abortar el programa, reusar dirección y puerto                   |
+| `SO_REUSEPORT` | Permite múltiples sockets en el mismo puerto                        |
 
 ### Opciones IPPROTO_TCP / IPPROTO_IP / IPPROTO_IPV6
 
@@ -381,4 +381,5 @@ setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(timeout));
 ```
 
 Si no llegan datos en ese tiempo, la operación retorna `-1` con `errno = EAGAIN` o `EWOULDBLOCK`.
+
 
