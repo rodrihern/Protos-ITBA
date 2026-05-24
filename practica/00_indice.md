@@ -16,20 +16,20 @@ Referencia de comandos y ejercicios para el parcial práctico.
 
 | # | Tema | Archivo | Temas clave |
 |---|---|---|---|
-| 01 | HTTP | [[01_http]] | curl, netcat, nginx, caché, códigos, headers |
-| 02 | DNS | [[02_dns]] | dig, bind9, registros, /etc/hosts |
-| 03 | Mail | [[03_mail]] | SMTP, POP3, MIME, base64, SPF/DKIM |
-| 04 | Transporte | [[04_transporte]] | TCP, UDP, nmap, traceroute, netcat |
-| 05 | Red / IP | [[05_red]] | subnetting, DHCP, NAT, iptables, routing |
-| 06 | Enlace / ARP | [[06_enlace]] | arp, arping, Ethernet, forwarding |
-| 07 | SSH | [[07_ssh]] | claves, SCP, tunnels -L/-R/-D |
-| 08 | Sockets (C) | [[08_sockets]] | Berkeley API, TCP/UDP server/client, select |
+| 01 | HTTP | [[cheat_01_http]] | curl, netcat, nginx, caché, códigos, headers |
+| 02 | DNS | [[cheat_02_dns]] | dig, bind9, registros, /etc/hosts |
+| 03 | Mail | [[cheat_03_mail]] | SMTP, POP3, MIME, base64, SPF/DKIM |
+| 04 | Transporte | [[cheat_04_transporte]] | TCP, UDP, nmap, traceroute, netcat |
+| 05 | Red / IP | [[cheat_05_red]] | subnetting, DHCP, NAT, iptables, routing |
+| 06 | Enlace / ARP | [[cheat_06_enlace]] | arp, arping, Ethernet, forwarding |
+| 07 | SSH | [[cheat_07_ssh]] | claves, SCP, tunnels -L/-R/-D |
+| 08 | Sockets (C) | [[cheat_08_sockets]] | Berkeley API, TCP/UDP server/client, select |
 
 ---
 
 ## Ejercicios de referencia
 
-- [[Respuestas_guia]] — ejercicios resueltos de la guía (E1 → E104)
+- [[guia_respuestas]] — ejercicios resueltos de la guía (E1 → E104)
 - [[Laboratorio]] — comandos y configuraciones del laboratorio
 - [[Ejercicio_integrador]] — ejercicio integrador completo (HTTP + DNS + SSH + nmap + base64)
 

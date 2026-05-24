@@ -42,7 +42,7 @@ dig pampero.it.itba.edu.ar +trace
 dig TXT itba.edu.ar
 ```
 
-→ Ver [[Respuestas_guia#E42|E42]], [[Respuestas_guia#E44|E44]], [[Respuestas_guia#E45|E45]], [[Respuestas_guia#E62|E62]]  
+→ Ver [[guia_respuestas#E42|E42]], [[guia_respuestas#E44|E44]], [[guia_respuestas#E45|E45]], [[guia_respuestas#E62|E62]]  
 → Ver [[Ejercicio_integrador#ketylanuchi]]
 
 ---
@@ -85,7 +85,7 @@ cat /etc/resolv.conf
 whois itba.edu.ar    # dueño, registrador, fechas, NS autoritativos
 ```
 
-→ Ver [[Respuestas_guia#E46|E46]]
+→ Ver [[guia_respuestas#E46|E46]]
 
 ---
 
@@ -167,7 +167,7 @@ forwarders {
 };
 ```
 
-→ Ver [[Respuestas_guia#E49|E49]], [[Respuestas_guia#E53|E53]]
+→ Ver [[guia_respuestas#E49|E49]], [[guia_respuestas#E53|E53]]
 
 ---
 
@@ -185,7 +185,7 @@ echo "192.168.1.10 foo.pdc.lab" >> /etc/hosts
 curl foo.pdc.lab
 ```
 
-→ Ver [[Respuestas_guia#E47|E47]]
+→ Ver [[guia_respuestas#E47|E47]]
 
 ---
 

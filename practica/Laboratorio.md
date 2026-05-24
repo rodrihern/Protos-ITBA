@@ -204,10 +204,16 @@ cat email.txt | nc -C localhost 25
 si mandamos varios, los mensajes se van a ir concatenando en el archivo
 
 
-Para cambiar no se que cosa, agregamos al principio de `/etc/postfix/main.cf`
+Para que cada mail quede en un archivo separado (más fácil de leer con dovecot), agregar al principio de `/etc/postfix/main.cf`
 
 ```sh
 home_mailbox=Maildir/
+```
+
+y reiniciar:
+
+```sh
+systemctl restart postfix
 ```
 
 ahora los mails llegan al directorio `~/Maildir`
@@ -220,6 +226,19 @@ ahora los mails llegan al directorio `~/Maildir`
 
 ```sh
 sudo apt install dovecot-pop3d
+```
+
+Si postfix está configurado con `home_mailbox=Maildir/`, dovecot también necesita saber que los mails están ahí. Por defecto busca en `/var/spool/mail/` y no encontraría nada. Editar `/etc/dovecot/conf.d/10-mail.conf` y cambiar la línea `mail_location`:
+
+```
+mail_driver = maildir
+mail_path = ~/Maildir
+```
+
+y reiniciar:
+
+```sh
+systemctl restart dovecot
 ```
 
 nos conectamos con 
@@ -920,3 +939,40 @@ nmap -oA salida 192.168.0.0/24       # todos los formatos
 ```
 
 > [!TIP] Para el parcial: `-sS` es el más usado. Necesita `sudo`. Sin sudo, usar `-sT`.
+
+---
+
+## Tablas de routeo con vpn
+
+Contexto de ejemplo: mi IP local es `192.168.3.2`, red local `192.168.3.0/24`, router `192.168.3.1`, VPN server en `24.232.1.1`, red interna de la VPN `10.3.0.0/24`, gateway VPN `10.3.0.1`.
+
+### Full tunnel — todo el tráfico sale por la VPN
+
+| Red           | Mascara | interfaz | Gateway       |
+| ------------- | ------- | -------- | ------------- |
+| 127.0.0.0     | /8      | lo       | -             |
+| 192.168.3.2   | /32     | lo       | -             |
+| 192.168.3.0   | /24     | eth0     | -             |
+| 0.0.0.0       | /0      | vpn0     | 10.3.0.1      |
+| 10.3.0.0      | /24     | vpn0     | -             |
+| 24.232.1.1    | /32     | eth0     | 192.168.3.1   |
+
+> [!important] La ruta /32 al servidor VPN
+> La entrada `24.232.1.1/32` via `eth0` es **obligatoria** en full tunnel. Sin ella, los paquetes que mantienen el túnel mismo intentarían salir por `vpn0` → loop infinito. Esa ruta más específica rompe el ciclo y manda el tráfico del túnel directamente por eth0.
+
+---
+
+### Split tunnel — internet sale normalmente, VPN solo para la red interna
+
+| Red           | Mascara | interfaz | Gateway       |
+| ------------- | ------- | -------- | ------------- |
+| 127.0.0.0     | /8      | lo       | -             |
+| 192.168.3.2   | /32     | lo       | -             |
+| 192.168.3.0   | /24     | eth0     | -             |
+| 0.0.0.0       | /0      | eth0     | 192.168.3.1   |
+| 10.3.0.0      | /24     | vpn0     | -             |
+
+> [!note] Diferencia clave
+> La ruta default (`0.0.0.0/0`) apunta a `eth0` con el router local como gateway: todo el tráfico de internet sale igual que sin VPN. Solo el tráfico hacia `10.3.0.0/24` (la red interna de la VPN) va por `vpn0`.
+> 
+> En este caso **no hace falta** la ruta `/32` al servidor VPN porque la ruta default ya va por `eth0`, entonces los paquetes que sostienen el túnel llegan al servidor sin problema.

@@ -54,7 +54,7 @@ chmod 600 ./clave_privada
 ssh -i ./clave_privada usuario@host
 ```
 
-→ Ver [[Respuestas_guia#E100|E100]], [[Laboratorio#Protocolo SSH]]
+→ Ver [[guia_respuestas#E100|E100]], [[Laboratorio#Protocolo SSH]]
 
 ---
 
@@ -83,7 +83,7 @@ scp usuario@host:/ruta/archivo ./local/
 scp -i ./clave usuario@host:/etc/passwd ./passwd_copia.txt
 ```
 
-→ Ver [[Respuestas_guia#E101|E101]]
+→ Ver [[guia_respuestas#E101|E101]]
 
 ---
 
@@ -109,7 +109,7 @@ ssh -L 8080:google.com:80 rohernandez@pampero.itba.edu.ar
 curl localhost:8080
 ```
 
-→ Ver [[Respuestas_guia#E104|E104]], [[Laboratorio#Tunel]]
+→ Ver [[guia_respuestas#E104|E104]], [[Laboratorio#Tunel]]
 
 ---
 
@@ -140,7 +140,7 @@ ssh -R 9999:localhost:1234 rohernandez@pampero.itba.edu.ar
 cat /etc/passwd | nc localhost 9999
 ```
 
-→ Ver [[Respuestas_guia#E101|E101]], [[Respuestas_guia#E103|E103]]
+→ Ver [[guia_respuestas#E101|E101]], [[guia_respuestas#E103|E103]]
 
 ---
 
@@ -165,7 +165,7 @@ curl -x socks5h://localhost:9090 ifconfig.me
 # Para el browser: configurar en Firefox/Chrome → proxy SOCKS 127.0.0.1:9090
 ```
 
-→ Ver [[Respuestas_guia#E102|E102]], [[Laboratorio#SSH]]
+→ Ver [[guia_respuestas#E102|E102]], [[Laboratorio#SSH]]
 
 ---
 
@@ -207,7 +207,7 @@ ssh-keygen -R <hostname>
 # o editar ~/.ssh/known_hosts manualmente
 ```
 
-→ Ver [[Respuestas_guia#E99|E99]]
+→ Ver [[guia_respuestas#E99|E99]]
 
 ---
 

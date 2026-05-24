@@ -570,7 +570,7 @@ ahora ya podemos hacerle `curl`
 
 ![](attachments/Pasted%20image%2020260324190929.png)
 
-para lograrlo cambiamos el archivo `/etc/nginx/sites-available` y le agregamos la funcion `proxy_pass` para que se de vuelta y llame al servidor que esta corriendo en el 8080
+para lograrlo cambiamos el archivo `/etc/nginx/sites-available/foo` y le agregamos la funcion `proxy_pass` para que se de vuelta y llame al servidor que esta corriendo en el 8080
 
 ```sh
 server {

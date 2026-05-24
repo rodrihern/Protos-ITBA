@@ -59,7 +59,7 @@ SGVsbG8gV29ybGQ=
 QUIT
 ```
 
-→ Ver [[Laboratorio#Servidor smtp]] y [[Respuestas_guia#E57|E57]]
+→ Ver [[Laboratorio#Servidor smtp]] y [[guia_respuestas#E57|E57]]
 
 ---
 
@@ -67,22 +67,39 @@ QUIT
 
 ```sh
 sudo apt install postfix
-# Elegir: "internet site" y dominio: "pdc.lab"
+```
 
-# Ver en qué puerto está escuchando
-netstat -tulpn
+Elegir `internet site` y luego el nombre del dominio, por ejemplo `pdc.lab`.
 
-# Conectarse al servidor local
+Verificar que está corriendo con `netstat -tulpn`. Conectarse con:
+
+```sh
 nc -C localhost 25
+```
 
-# Ver mails almacenados (si no está configurado Maildir)
-ls /var/spool/mail/
+Los mails quedan en `/var/spool/mail/<usuario>`. También se puede enviar desde un archivo:
 
-# Para usar Maildir (un archivo por mail)
-# Agregar al inicio de /etc/postfix/main.cf:
+```sh
+cat email.txt | nc -C localhost 25
+```
+
+Si mandamos varios, los mensajes se van concatenando en el mismo archivo.
+
+Para que cada mail quede en un archivo separado (necesario para que dovecot lo pueda leer), agregar al inicio de `/etc/postfix/main.cf`:
+
+```
 home_mailbox=Maildir/
+```
+
+y reiniciar:
+
+```sh
 systemctl restart postfix
 ```
+
+Ahora los mails llegan al directorio `~/Maildir`.
+
+→ Ver [[Laboratorio#Servidor smtp]] y [[guia_respuestas#E57|E57-E60]]
 
 ---
 
@@ -90,7 +107,23 @@ systemctl restart postfix
 
 ```sh
 sudo apt install dovecot-pop3d
+```
 
+Si postfix está configurado con `home_mailbox=Maildir/`, dovecot también necesita saber que los mails están ahí. Por defecto busca en `/var/spool/mail/` y no encontraría nada. Editar `/etc/dovecot/conf.d/10-mail.conf` y cambiar la línea `mail_location`:
+
+```
+mail_location = maildir:~/Maildir
+```
+
+y reiniciar:
+
+```sh
+systemctl restart dovecot
+```
+
+Conectarse con:
+
+```sh
 nc -C localhost pop3   # o nc -C localhost 110
 ```
 
@@ -114,6 +147,8 @@ AUTH → (USER + PASS) → TRANSACTION → (QUIT) → UPDATE
 ```
 
 Los DELE solo se aplican al hacer QUIT. Si hacés Ctrl+C, no se borra nada.
+
+→ Ver [[Laboratorio#Servidor para leer mails pop3]]
 
 ---
 
@@ -178,7 +213,7 @@ echo "UGVybyBxIGJ1ZW5v..." | base64 -d
 **Tamaño**: base64 convierte 3 bytes → 4 caracteres, por lo tanto el tamaño es `⌈original × 4/3⌉`.  
 Si tengo 9 MB y el límite es 10 MB: `9 × 4/3 = 12 MB` → **no entra**.
 
-→ Ver [[Respuestas_guia#E63|E63]], [[Respuestas_guia#E65|E65]], [[Ejercicio_integrador#papopepoparapapapapiparapopepo]]
+→ Ver [[guia_respuestas#E63|E63]], [[guia_respuestas#E65|E65]], [[Ejercicio_integrador#papopepoparapapapapiparapopepo]]
 
 ---
 
@@ -199,7 +234,7 @@ dig TXT itba.edu.ar
 dig MX itba.edu.ar
 ```
 
-→ Ver [[Respuestas_guia#E61|E61]], [[Respuestas_guia#E62|E62]]
+→ Ver [[guia_respuestas#E61|E61]], [[guia_respuestas#E62|E62]]
 
 ---
 

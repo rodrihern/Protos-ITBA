@@ -28,7 +28,7 @@ arp -s <ip> <mac> temp             # temporal (BSD/macOS)
 sudo arp -d <ip>
 ```
 
-→ Ver [[Respuestas_guia#E96|E96]]
+→ Ver [[guia_respuestas#E96|E96]]
 
 ---
 
@@ -73,7 +73,7 @@ sudo arping -I <interfaz> <ip>
 
 > Regla de oro: **Ethernet es local** (MACs cambian en cada salto). **IP es end-to-end** (IPs no cambian).
 
-→ Ver [[Respuestas_guia#E97|E97]]
+→ Ver [[guia_respuestas#E97|E97]]
 
 ---
 
@@ -93,7 +93,7 @@ sysctl net.ipv4.ip_forward=1
 iptables -t nat -A POSTROUTING -j MASQUERADE
 ```
 
-→ Ver [[Respuestas_guia#E98|E98]], [[Laboratorio#Enlace]]
+→ Ver [[guia_respuestas#E98|E98]], [[Laboratorio#Enlace]]
 
 ---
 
@@ -142,4 +142,4 @@ Si se agrega `arp -s <ip_buena> <mac_mala>`:
 
 Solo queda una: la tabla ARP asocia una IP con una única MAC. Si intentás agregar dos, la segunda pisa la primera.
 
-→ Ver [[Respuestas_guia#E96|E96]] puntos e, f, g, h, j
+→ Ver [[guia_respuestas#E96|E96]] puntos e, f, g, h, j

@@ -23,7 +23,8 @@ curl --compressed <url>             # pedir compresión gzip
 curl -0 / --http1.1 / --http2       # elegir versión HTTP
 curl -s <url>                       # silent (sin progreso, útil en scripts)
 curl -L <url>                       # seguir redirects
-curl --socks5 host:port <url>       # usar proxy SOCKS5
+curl -x socks5h://host:port <url>   # proxy SOCKS5, DNS lo resuelve el proxy (usar en parcial)
+curl -x socks5://host:port <url>   # proxy SOCKS5, DNS lo resuelve tu máquina
 curl -o archivo <url>               # guardar respuesta en archivo
 curl -r 0-999 <url>                 # Range request (reanudar descarga)
 curl -u user:pass <url>             # autenticación básica
@@ -32,6 +33,10 @@ curl -u user:pass <url>             # autenticación básica
 ### Combinaciones frecuentes en parcial
 
 ```sh
+# Proxy SOCKS5 con headers (típico de parcial)
+# socks5h: el proxy resuelve el DNS → usar cuando el hostname solo existe en la red del lab
+curl -x socks5h://proxy.host:1080 -H "Accept: text/plain" -H "Accept-Language: es" http://servidor:8080/ruta/
+
 # GET con header personalizado
 curl 192.168.1.1 -H "Tiki: Taka"
 
@@ -49,13 +54,18 @@ curl -i -H "If-Modified-Since: Thu, 13 Mar 2025 19:51:16 GMT" <url>
 curl -I <url>
 ```
 
-→ Ver aplicación en [[Ejercicio_integrador#Inicio]] y [[Respuestas_guia#E19|E19]], [[Respuestas_guia#E21|E21]]
+→ Ver aplicación en [[Ejercicio_integrador#Inicio]] y [[guia_respuestas#E19|E19]], [[guia_respuestas#E21|E21]]
 
 ---
 
 ## Netcat — HTTP manual
 
 Para enviar \r\n (CRLF) en la terminal: `ctrl+v` luego `Enter` → imprime `^M`, después `Enter` normal.
+
+> [!TIP]
+> **Pruebas con Netcat**
+> Al usar `netcat` para probar protocolos de texto, el flag `-C` es fundamental para enviar fines de línea tipo **CRLF** (\r\n), que es el estándar requerido por protocolos como SMTP y HTTP.
+> Para pruebas reales, se puede utilizar el servidor **pampero**.
 
 ```sh
 # Ponerse a escuchar en un puerto (simular servidor)
@@ -83,7 +93,7 @@ Content-Length: 20\r\n
 <h1>Hola Mundo</h1>
 ```
 
-→ Ver [[Respuestas_guia#E17|E17]], [[Respuestas_guia#E18|E18]], [[Respuestas_guia#E19|E19]]
+→ Ver [[guia_respuestas#E17|E17]], [[guia_respuestas#E18|E18]], [[guia_respuestas#E19|E19]]
 
 ---
 
@@ -145,7 +155,7 @@ location / {
 }
 ```
 
-→ Ver [[Respuestas_guia#E36|E36]], [[Respuestas_guia#E39|E39]]
+→ Ver [[guia_respuestas#E36|E36]], [[guia_respuestas#E39|E39]]
 
 ---
 
@@ -157,7 +167,7 @@ location / {
 | Last-Modified | `Last-Modified: <fecha>` | `If-Modified-Since: <fecha>` | `304 Not Modified` |
 | ETag | `ETag: "abc123"` | `If-None-Match: "abc123"` | `304 Not Modified` |
 
-→ Ver [[Respuestas_guia#E32|E32]], [[Respuestas_guia#E33|E33]], [[Respuestas_guia#E34|E34]]
+→ Ver [[guia_respuestas#E32|E32]], [[guia_respuestas#E33|E33]], [[guia_respuestas#E34|E34]]
 
 ---
 
@@ -179,7 +189,7 @@ location / {
 | 415 | Unsupported Media Type |
 | 503 | Service Unavailable |
 
-→ Ver [[Respuestas_guia#E29|E29]]
+→ Ver [[guia_respuestas#E29|E29]]
 
 ---
 
@@ -218,7 +228,7 @@ WWW-Authenticate: Basic realm="zona"
 | POST | ❌ | ❌ |
 | PATCH | ❌ | ❌ |
 
-→ Ver [[Respuestas_guia#E27|E27]]
+→ Ver [[guia_respuestas#E27|E27]]
 
 ---
 
@@ -235,4 +245,4 @@ server {
 }
 ```
 
-→ Ver [[Respuestas_guia#E48|E48]]
+→ Ver [[guia_respuestas#E48|E48]]

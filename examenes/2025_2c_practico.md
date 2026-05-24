@@ -1,5 +1,5 @@
 
-# Parcial 2025 2C parctico
+# Parcial 2025 2C Parctico
 
 ## Ejercicio 1
 
@@ -164,10 +164,35 @@ Para que los cambios "se propaguen de manera correcta y rapido" hay 2 cosas mas 
 
 ![](attachments/Pasted%20image%2020260523195731.png)
 
-
 Hay que usar nginx como **reverse proxy HTTPS**. La URL no debe cambiar en el browser, por lo que no se puede hacer un redirect (301/302) — hay que usar `proxy_pass` para que nginx sirva el contenido de `parcial.protos.foo` de forma transparente bajo `seguro.protos.foo`.
 
+> [!NOTE] Asunciones del entorno
+> - `parcial.protos.foo` ya está corriendo en alguna máquina del lab (la dan levantada).
+> - El router del parcial probablemente ya resuelve `parcial.protos.foo` por DNS. Si no lo resuelve, nos dan la IP y la agregamos a `/etc/hosts` nosotros.
+> - `seguro.protos.foo` lo creamos nosotros: es nuestro nginx. Hay que agregarlo a `/etc/hosts` apuntando a nuestra IP.
+
+### 0. /etc/hosts
+
+```sh
+# Ver nuestra IP en la red del parcial
+ip addr show
+
+# Agregar los dos nombres (reemplazar IPs según el lab)
+echo "192.168.x.y  seguro.protos.foo"  >> /etc/hosts   # nuestra máquina (nginx)
+echo "192.168.x.z  parcial.protos.foo" >> /etc/hosts   # solo si el DNS del router no lo resuelve
+```
+
+> [!WARNING] nginx falla al arrancar si no resuelve el upstream
+> Nginx intenta resolver `parcial.protos.foo` **en el momento de arrancar**. Si el nombre no está en DNS ni en `/etc/hosts`, el `nginx -t` falla con `host not found in upstream`. Por eso hay que asegurarse de que resuelva antes de iniciar el servicio.
+
 ### 1. Generar certificado TLS (self-signed)
+
+> [!INFO] Por qué necesitamos un certificado
+> HTTPS cifra la conexión con TLS. Para eso el servidor necesita dos archivos:
+> - **Clave privada** (`.key`): secreta, nunca sale del servidor. Se usa para descifrar y firmar.
+> - **Certificado** (`.crt`): contiene la clave pública y dice "este servidor es quien dice ser". Normalmente lo firma una CA reconocida (Let's Encrypt, etc.), pero en el parcial lo firmamos nosotros mismos (*self-signed*) porque no tenemos acceso a una CA real.
+>
+> El problema del self-signed es que los clientes (curl, browsers) no confían en CAs desconocidas y rechazan la conexión por defecto. Como la consigna pide que `curl` funcione sin `-k`, hay que agregar el certificado al trust store del sistema (paso 3).
 
 ```sh
 openssl req -x509 -newkey rsa:4096 \
@@ -176,6 +201,11 @@ openssl req -x509 -newkey rsa:4096 \
   -days 365 -nodes \
   -subj "/CN=seguro.protos.foo"
 ```
+
+- `-x509`: genera directamente un cert self-signed (sin pasar por una CA)
+- `-newkey rsa:4096`: genera una clave RSA de 4096 bits al mismo tiempo
+- `-nodes`: no cifrar la clave privada con passphrase (para que nginx la pueda leer sin input manual)
+- `-subj "/CN=..."`: el CN tiene que coincidir con el hostname que van a usar
 
 ### 2. Config nginx
 
@@ -202,19 +232,16 @@ nginx -t && systemctl reload nginx
 
 ### 3. Hacer el certificado confiable
 
-La consigna dice que `curl` no puede llevar opciones adicionales (como `-k`), así que el certificado tiene que estar en el trust store del sistema:
+La consigna dice que `curl` no puede llevar opciones adicionales (como `-k`), así que el certificado tiene que estar en el trust store del sistema. `update-ca-certificates` lee los `.crt` de `/usr/local/share/ca-certificates/` y los agrega a la lista de CAs confiables del sistema:
 
 ```sh
 cp /etc/ssl/certs/seguro.crt /usr/local/share/ca-certificates/seguro.crt
 update-ca-certificates
 ```
 
-### 4. DNS
-
-Agregar un registro A para `seguro.protos.foo` apuntando a la IP del servidor nginx.
-
 ### Verificación
 
 ```sh
 curl https://seguro.protos.foo
+# tiene que devolver el contenido de parcial.protos.foo sin error TLS y sin flags extra
 ```

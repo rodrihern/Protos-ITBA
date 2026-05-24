@@ -144,7 +144,7 @@ host maquina_h {
 }
 ```
 
-→ Ver [[Respuestas_guia#E88|E88]], [[Respuestas_guia#E91|E91]], [[Respuestas_guia#E92|E92]], [[Laboratorio#DHCP]]
+→ Ver [[guia_respuestas#E88|E88]], [[guia_respuestas#E91|E91]], [[guia_respuestas#E92|E92]], [[Laboratorio#DHCP]]
 
 ---
 
@@ -212,7 +212,7 @@ sudo systemctl restart frr
 sudo systemctl status frr
 ```
 
-→ Ver [[Respuestas_guia#E93|E93]], [[notas/7_Routing|Routing]]
+→ Ver [[guia_respuestas#E93|E93]], [[notas/7_Routing|Routing]]
 
 ---
 

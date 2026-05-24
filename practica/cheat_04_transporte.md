@@ -36,7 +36,7 @@ nc -C localhost 25
 nc -kl <puerto>
 ```
 
-→ Ver [[Respuestas_guia#E74|E74]]
+→ Ver [[guia_respuestas#E74|E74]]
 
 ---
 
@@ -74,7 +74,7 @@ sudo nmap -T4 <ip>               # más rápido (T0=paranoid, T5=insane, default
 | `filtered` | Sin respuesta (probable firewall) |
 | `open\|filtered` | No se puede distinguir (típico de UDP) |
 
-→ Ver [[Respuestas_guia#E77|E77]], [[Respuestas_guia#E78|E78]], [[Ejercicio_integrador#The Vaullt]]
+→ Ver [[guia_respuestas#E77|E77]], [[guia_respuestas#E78|E78]], [[Ejercicio_integrador#The Vaullt]]
 
 ---
 
@@ -152,7 +152,7 @@ tracepath <destino>             # alternativa más simple
 
 Funciona enviando paquetes con TTL=1, 2, 3... Los routers intermedios devuelven ICMP Time Exceeded cuando el TTL llega a 0.
 
-→ Ver [[Respuestas_guia#E79|E79]], [[Respuestas_guia#E80|E80]]
+→ Ver [[guia_respuestas#E79|E79]], [[guia_respuestas#E80|E80]]
 
 ---
 
@@ -166,7 +166,7 @@ Si un paquete supera el **MTU** (Maximum Transmission Unit, típicamente 1500 by
 
 Overhead de headers: UDP=8B, IPv4=20B, Ethernet=24B → payload disponible = MTU − 52
 
-→ Ver [[Respuestas_guia#E81|E81]], [[notas/6_Red#Pregunta 3|Pregunta Red 3]]
+→ Ver [[guia_respuestas#E81|E81]], [[notas/6_Red#Pregunta 3|Pregunta Red 3]]
 
 ---
 
@@ -181,7 +181,7 @@ Overhead de headers: UDP=8B, IPv4=20B, Ethernet=24B → payload disponible = MTU
 | DHCP | DISCOVER → OFFER → REQUEST → ACK |
 | ARP | Broadcast request → unicast reply |
 
-→ Ver [[Respuestas_guia#E73|E73]], [[Respuestas_guia#E75|E75]], [[Respuestas_guia#E76|E76]]
+→ Ver [[guia_respuestas#E73|E73]], [[guia_respuestas#E75|E75]], [[guia_respuestas#E76|E76]]
 
 ---
 
