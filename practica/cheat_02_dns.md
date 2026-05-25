@@ -113,7 +113,7 @@ zone "foo.pdc.lab" {
 $ORIGIN foo.pdc.lab.
 $TTL 1m
 
-@ IN SOA ns.foo.pdc.lab. rohernandez.itba.edu.ar. (
+@ IN SOA ns1.foo.pdc.lab. rohernandez.itba.edu.ar. (
             20260331   ; Serial (fecha o número, incrementar al modificar)
             7d         ; Refresh (cada cuánto el slave consulta al master)
             1d         ; Retry (si falla el refresh, reintentar cada tanto)
@@ -121,7 +121,7 @@ $TTL 1m
             1m         ; Negative TTL (caché de "no existe")
 )
 
-; Servidores DNS de la zona
+; Servidores DNS de la zona (NS es obligatorio — sin esto bind9 rechaza cargar la zona)
 @    1m    IN NS ns1
 @    2m    IN NS ns2
 ns1        IN A 1.2.3.5
@@ -147,14 +147,38 @@ w3      CNAME www
 ### Comandos de mantenimiento
 
 ```sh
-systemctl restart bind9
+# Validar ANTES de recargar (hacerlo siempre)
+named-checkconf                                              # verifica named.conf
+named-checkzone foo.pdc.lab /etc/bind/foo.pdc.lab.local     # verifica zone file
+
+systemctl reload bind9     # recargar sin bajar el servicio
+systemctl restart bind9    # reinicio completo
 systemctl status bind9
-tail -f /var/log/syslog    # ver errores en tiempo real
+tail -f /var/log/syslog | grep named    # ver errores en tiempo real
 
 # Verificar que funcionó
 dig SOA foo.pdc.lab @localhost
 dig A ns1.foo.pdc.lab @localhost
 ```
+
+### Diagnóstico de errores comunes
+
+| Síntoma | Causa probable |
+|---|---|
+| `SERVFAIL` + sin flag `aa` + `AUTHORITY: 0` | La zona no se cargó — sintaxis incorrecta en el zone file o path mal en named.conf.local |
+| `NXDOMAIN` con flag `aa` | La zona cargó bien pero el registro no existe |
+| `SERVFAIL` con flag `aa` | La zona cargó pero no puede resolver (ej: falta forwarder para internet) |
+| Cambios que no se reflejan | Se olvidó hacer `systemctl reload bind9` |
+
+**Errores frecuentes en zone files:**
+- **Faltan registros NS** — zona obligatoriamente necesita al menos un NS. Sin NS, bind9 rechaza cargar la zona → SERVFAIL + sin flag `aa` + AUTHORITY: 0
+- **NS apunta a un nombre sin A record** — el nombre del NS debe tener su propio A record en la zona
+- **Targets de MX sin A record** — si `mail20` aparece en un MX, necesita un `mail20 IN A ...` en la zona
+- **Falta el `.` al final de un FQDN** — `example.org` sin punto final se expande a `example.org.carlitos.com.ar.`; siempre poner punto al referenciar nombres externos
+- **SOA MNAME distinto a los NS records** — el primer campo del SOA debería coincidir con uno de los NS records
+- **Serial sin incrementar** después de un cambio (los slaves no propagan)
+
+> Siempre correr `named-checkzone` antes de recargar — si da error, bind9 ignora silenciosamente la zona y sigue con la anterior (o sin ella).
 
 ### Configurar forwarder (para que el servidor resuelva internet)
 
