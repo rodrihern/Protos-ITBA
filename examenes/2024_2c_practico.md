@@ -5,6 +5,21 @@
 
 ![](attachments/Pasted%20image%2020260524104040.png)
 
+### Solución
+
+Nginx como reverse proxy tiene que reenviar el header `X-Parcial-Protos` del cliente al backend. Por defecto nginx no pasa headers personalizados — hay que declararlos explícitamente con `proxy_set_header`.
+
+```nginx
+location / {
+    proxy_pass http://localhost:8080;
+    proxy_set_header X-ParcialProtos $http_x_parcial_protos;
+}
+```
+
+- `proxy_set_header <Header> <valor>`: define o reemplaza un header en el request que nginx envía al backend.
+- `$http_<nombre>`: variable nginx que contiene el valor del header recibido del cliente. El nombre del header se convierte a minúsculas y los guiones (`-`) se reemplazan por guiones bajos (`_`): `X-Parcial-Protos` → `$http_x_parcial_protos`.
+
+→ Ver [[cheat_01_http#proxy_set_header — reenvío de headers]]
 ## Ejercicio 2
 
 ![754](attachments/Pasted%20image%2020260524104232.png)

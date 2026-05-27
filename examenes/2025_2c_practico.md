@@ -60,7 +60,7 @@ o con el de la impresora
 
 ```sh
 sudo nmap --script broadcast-dhcp-discover \
-    --script-args "broadcast-dhcp-discover.mac=0B:0B:27:AE:C8:6A"
+    --script-args "broadcast-dhcp-discover.mac=0B:08:27:AE:C8:6A"
 ```
 
 

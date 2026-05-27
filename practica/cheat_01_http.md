@@ -147,15 +147,30 @@ curl -v http://localhost -H "host:foo"
 
 ### Reverse proxy
 
-En la `location /`, reemplazar `try_files` por:
+Reemplazar `try_files` por `proxy_pass` en `/etc/nginx/sites-available/xxx`. Nginx **no reenvía headers personalizados por defecto** — declararlos con `proxy_set_header`:
 
 ```nginx
-location / {
-    proxy_pass http://localhost:8080;
+server {
+    listen 80;
+    server_name _;
+
+    location / {
+        proxy_pass http://localhost:8080;
+        proxy_set_header Host $host;
+        proxy_set_header X-Custom-Header $http_x_custom_header;
+    }
 }
 ```
 
-→ Ver [[guia_respuestas#E36|E36]], [[guia_respuestas#E39|E39]]
+>[!important]
+>Las variables `$http_*` mapean los headers del cliente: todo a minúsculas y guiones → guiones bajos.
+
+| Header del cliente | Variable nginx |
+|---|---|
+| `X-Parcial-Protos` | `$http_x_parcial_protos` |
+| `Accept-Language` | `$http_accept_language` |
+
+→ Ver [[guia_respuestas#E36|E36]], [[guia_respuestas#E39|E39]], [[2024_2c_practico#Ejercicio 1]]
 
 ---
 

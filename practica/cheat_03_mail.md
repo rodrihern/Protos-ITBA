@@ -8,7 +8,7 @@ tags:
   - mime
   - guia
 ---
-
+MAI
 # Guía Práctica: Mail (SMTP, POP3, MIME, TLS)
 
 ---
@@ -261,5 +261,29 @@ Para enviar un mail a `usuario@dominio.com`, el MTA mira el registro **MX** de `
 dig MX dominio.com
 # Resultado: 10 mail.dominio.com.  ← conectarse al puerto 25 de esta IP
 ```
+
+### Ejemplo: mandar mail a itba.edu.ar
+
+```sh
+# 1. Descubrir el servidor de mail del dominio
+dig MX itba.edu.ar
+# Resultado: itba-edu-ar.mail.protection.outlook.com.  ← ese es el servidor
+
+# 2. Conectarse a ese servidor y mandar el mail
+nc -C itba-edu-ar.mail.protection.outlook.com 25
+```
+
+```
+EHLO localhost
+MAIL FROM: <rohernandez@itba.edu.ar>
+RCPT TO: <destinatario@itba.edu.ar>
+DATA
+...
+.
+QUIT
+```
+
+> [!NOTE]
+> El resultado de `dig MX` puede cambiar. Siempre correr el dig antes de conectarse — no hardcodear el hostname del MX.
 
 → Ver [[notas/4_mail-tls-ssl#Pregunta 4|Pregunta Mail 4]]
