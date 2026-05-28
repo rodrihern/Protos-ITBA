@@ -948,14 +948,14 @@ Contexto de ejemplo: mi IP local es `192.168.3.2`, red local `192.168.3.0/24`, r
 
 ### Full tunnel — todo el tráfico sale por la VPN
 
-| Red           | Mascara | interfaz | Gateway       |
-| ------------- | ------- | -------- | ------------- |
-| 127.0.0.0     | /8      | lo       | -             |
-| 192.168.3.2   | /32     | lo       | -             |
-| 192.168.3.0   | /24     | eth0     | -             |
-| 0.0.0.0       | /0      | vpn0     | 10.3.0.1      |
-| 10.3.0.0      | /24     | vpn0     | -             |
-| 24.232.1.1    | /32     | eth0     | 192.168.3.1   |
+| Red         | Mascara | interfaz | Gateway     |
+| ----------- | ------- | -------- | ----------- |
+| 127.0.0.0   | /8      | lo       | -           |
+| 192.168.3.2 | /32     | lo       | -           |
+| 192.168.3.0 | /24     | eth0     | -           |
+| 0.0.0.0     | /0      | vpn0     | 10.3.0.1    |
+| 10.3.0.0    | /24     | vpn0     | -           |
+| 24.232.1.1  | /32     | eth0     | 192.168.3.1 |
 
 > [!important] La ruta /32 al servidor VPN
 > La entrada `24.232.1.1/32` via `eth0` es **obligatoria** en full tunnel. Sin ella, los paquetes que mantienen el túnel mismo intentarían salir por `vpn0` → loop infinito. Esa ruta más específica rompe el ciclo y manda el tráfico del túnel directamente por eth0.
@@ -964,13 +964,13 @@ Contexto de ejemplo: mi IP local es `192.168.3.2`, red local `192.168.3.0/24`, r
 
 ### Split tunnel — internet sale normalmente, VPN solo para la red interna
 
-| Red           | Mascara | interfaz | Gateway       |
-| ------------- | ------- | -------- | ------------- |
-| 127.0.0.0     | /8      | lo       | -             |
-| 192.168.3.2   | /32     | lo       | -             |
-| 192.168.3.0   | /24     | eth0     | -             |
-| 0.0.0.0       | /0      | eth0     | 192.168.3.1   |
-| 10.3.0.0      | /24     | vpn0     | -             |
+| Red         | Mascara | interfaz | Gateway     |
+| ----------- | ------- | -------- | ----------- |
+| 127.0.0.0   | /8      | lo       | -           |
+| 192.168.3.2 | /32     | lo       | -           |
+| 192.168.3.0 | /24     | eth0     | -           |
+| 0.0.0.0     | /0      | eth0     | 192.168.3.1 |
+| 10.3.0.0    | /24     | vpn0     | -           |
 
 > [!note] Diferencia clave
 > La ruta default (`0.0.0.0/0`) apunta a `eth0` con el router local como gateway: todo el tráfico de internet sale igual que sin VPN. Solo el tráfico hacia `10.3.0.0/24` (la red interna de la VPN) va por `vpn0`.

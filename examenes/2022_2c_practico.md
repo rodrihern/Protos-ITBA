@@ -13,7 +13,7 @@ ssh -R 5522:localhost:8080 rohernandez@pampero.itba.edu.ar
 y en nuestra compu vamos a redirigir la salida de el puerto 8080 a el `archivo.log`
 
 ```sh
-nc -l localhost 8080 >> archivo.log
+nc -l localhost 8080 > archivo.log
 ```
 
 Ahora en pampero

@@ -37,6 +37,11 @@ curl -u user:pass <url>             # autenticación básica
 # socks5h: el proxy resuelve el DNS → usar cuando el hostname solo existe en la red del lab
 curl -x socks5h://proxy.host:1080 -H "Accept: text/plain" -H "Accept-Language: es" http://servidor:8080/ruta/
 
+# Proxy SOCKS5 + Basic Auth
+# -u usuario:password agrega Authorization: Basic <base64> automáticamente
+# equivalente a -H "Authorization: Basic dXN1YXJpbzpwYXNzd29yZA==" pero sin calcular el base64 a mano
+curl -x socks5h://proxy.host:1080 -u usuario:password -H "Accept: text/plain" http://servidor:8080/ruta/
+
 # GET con header personalizado
 curl 192.168.1.1 -H "Tiki: Taka"
 

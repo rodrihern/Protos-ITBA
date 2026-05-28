@@ -12,7 +12,7 @@ Nginx como reverse proxy tiene que reenviar el header `X-Parcial-Protos` del cli
 ```nginx
 location / {
     proxy_pass http://localhost:8080;
-    proxy_set_header X-ParcialProtos $http_x_parcial_protos;
+    proxy_set_header X-Parcial-Protos $http_x_parcial_protos;
 }
 ```
 
@@ -27,12 +27,13 @@ location / {
 La solucion era este comando
 
 ```sh
-curl -x socks5://proxy.sebikul.com:1080 -H "Accept: text/plain" -H "Accept-Language: es" http://ejercicio2.sebikul.com:8080/foo/
+curl -x socks5://proxy.sebikul.com:1080 -u usuario:password -H "Accept: text/plain" -H "Accept-Language: es" http://ejercicio2.sebikul.com:8080/foo/
 ```
 
 - `-x` le dice a curl que use un proxy. El esquema (`socks5://`, `socks5h://`, `http://`) define el tipo.
 - Esta solución usa `socks5://` (sin `h`): **tu máquina** resuelve el DNS de `ejercicio2.sebikul.com`. Funcionó acá porque el hostname resuelve públicamente.
-- Si el hostname solo existe en la red del lab, usar `socks5h://` (con `h`) para que el **proxy** resuelva el DNS. 
+- Si el hostname solo existe en la red del lab, usar `socks5h://` (con `h`) para que el **proxy** resuelva el DNS.
+- `-u usuario:password` (`--user`): Basic Auth. Curl encodea `usuario:password` en base64 y agrega el header `Authorization: Basic dXN1YXJpbzpwYXNzd29yZA==` automáticamente. Equivalente a `-H "Authorization: Basic dXN1YXJpbzpwYXNzd29yZA=="` pero más limpio.
 
 ## Ejercicio 3
 
