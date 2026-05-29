@@ -90,6 +90,8 @@ zone "foo.pdc.lab" {
 };
 ```
 
+
+
 #### Archivo de Zona (`/etc/bind/foo.pdc.lab.local`)
 ```bind
 $ORIGIN foo.pdc.lab.
