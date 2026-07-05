@@ -88,15 +88,14 @@ y ahora para mandar el mail ponemos
 ```
 EHLO localhost
 MAIL FROM: <rohernandez@itba.edu.ar>
-RCPT TO: <65522@mail.sebikul.com>
+RCPT TO: <rohernandez@itba.edu.ar>
 DATA
 MIME-Version: 1.0
 Date: Sun, 24 May 2026 11:24:55 -0300
 Message-ID: <CA+rx+vp022o93CKmjFfmkCibN=2qt6FaaGYNwAmuSVP93KGdNg@mail.gmail.com>
 Subject: =?UTF-8?B?wqFCdWVub3MgZMOtYXMh?=
-From: Rodrigo Alejandro Hernandez <rohernandez@itba.edu.ar>
-To: 65522 <65522@mail.sebikul.com>
-X-Parcial: 2024/2
+From: Alicia <alicia@tuvi.com>
+To: Alessio <alissini@mail.sebikul.com>
 Content-Type: multipart/alternative; boundary="000000000000a450ba06529106fd"
 
 --000000000000a450ba06529106fd

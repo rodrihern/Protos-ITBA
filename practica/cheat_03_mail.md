@@ -8,6 +8,7 @@ tags:
   - mime
   - guia
 ---
+
 MAI
 # Guía Práctica: Mail (SMTP, POP3, MIME, TLS)
 
@@ -44,16 +45,16 @@ RCPT TO: <rodri@pdc.lab>
 DATA
 MIME-Version: 1.0
 Date: Thu, 9 Apr 2026 21:44:07 -0300
-Subject: Asunto
-From: Rodrigo <rohernandez@itba.edu.ar>
-To: Rodrigo <rohernandez@itba.edu.ar>
+Subject: Gran mail
+From: Tomas Peloso <tomi@itba.edu.ar>
+To: Alicia <rohernandez@itba.edu.ar>
 Content-Type: multipart/alternative; boundary="limite123"
 
 --limite123
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: base64
 
-SGVsbG8gV29ybGQ=
+aG9sYSBtYW5vbGEK
 --limite123--
 .
 QUIT
@@ -185,10 +186,10 @@ Content-Transfer-Encoding: base64
 
 ### Content-Transfer-Encoding
 
-| Valor | Cuándo usarlo |
-|---|---|
-| `7bit` | Solo ASCII 7 bits, líneas cortas |
-| `base64` | Datos binarios (imágenes, adjuntos) |
+| Valor              | Cuándo usarlo                                            |
+| ------------------ | -------------------------------------------------------- |
+| `7bit`             | Solo ASCII 7 bits, líneas cortas                         |
+| `base64`           | Datos binarios (imágenes, adjuntos)                      |
 | `quoted-printable` | Texto mayormente ASCII con algunos caracteres especiales |
 
 ### Quoted-Printable
